@@ -11,6 +11,9 @@ public class Board {
         Board board = new Board();
         System.out.println("BOARD...");
         System.out.println(board);
+        board.moveTile(new RowCol(0,2), new RowCol(0,0));
+        board.moveTile(new RowCol(0,0), new RowCol(0,3));
+        System.out.println(board); 
     }
 
     public Board(){
@@ -18,7 +21,11 @@ public class Board {
     }
 
     public void moveTile(RowCol start, RowCol end) {
-        // TODO implement
+        int x = end.getX() - start.getX();
+        int y = end.getY() - start.getY();
+
+        shiftRow(0,x);
+        shiftCol(0,y);
     }
 
     public int[] getMatches() {
@@ -39,6 +46,46 @@ public class Board {
                s += "\n";
         } 
         return s;
+    }
+	
+    // Helpers
+
+    private void shiftRow(int row, int amnt) {
+        Tile temp;
+        for(int e = 0; e < Math.abs(amnt); e++){
+            if(amnt > 0){
+
+                temp = tiles[row][NUM_COLS-1]; 
+                for(int i = NUM_COLS-1; i > 0; i--) tiles[row][i] = tiles[row][i - 1]; 
+                tiles[row][0] = temp;
+
+            } else {
+
+                temp = tiles[row][0]; 
+                for(int i = 0; i < NUM_COLS-1; i++) tiles[row][i] = tiles[row][i + 1]; 
+                tiles[row][NUM_COLS-1] = temp;
+
+            }
+        }
+    }
+
+private void shiftCol(int col, int amnt) {
+        Tile temp;
+        for(int e = 0; e < Math.abs(amnt); e++){
+            if(amnt > 0){
+
+                temp = tiles[NUM_ROWS-1][col]; 
+                for(int i = NUM_ROWS-1; i > 0; i--) tiles[i][col] = tiles[i - 1][col]; 
+                tiles[0][col] = temp;
+
+            } else {
+
+                temp = tiles[0][col]; 
+                for(int i = 0; i < NUM_ROWS-1; i++) tiles[i][col] = tiles[i+1][col]; 
+                tiles[NUM_ROWS-1][col] = temp;
+
+            }
+        }
     }
 
     private void initTiles() {
