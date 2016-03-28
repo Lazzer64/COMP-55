@@ -20,23 +20,15 @@ public class Board {
         System.out.println(board);
 
         int[] matches = board.getMatches();
+
         while(matches[0] != 0 || matches[1] != 0 || matches[2] != 0) {
 
-            System.out.println("Red Matches: "+matches[0]);
-            System.out.println("Green Matches: "+matches[1]);
-            System.out.println("Blue Matches: "+matches[2]);
-            System.out.println("----------");
-
-            board.removeMatches();
-            System.out.println(board);
-
-            board.dropTiles();
-            System.out.println("Drop tiles");
+            System.out.println("Get Matches");
             System.out.println("----------");
             System.out.println(board);
 
             board.refillBoard();
-            System.out.println("Refilled Board");
+            System.out.println("Refill");
             System.out.println("----------");
             System.out.println(board);
 
@@ -81,6 +73,8 @@ public class Board {
             }
         }
 
+        removeMatches();
+        dropTiles();
         return numMatches;
     }
 
