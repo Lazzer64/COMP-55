@@ -75,13 +75,15 @@ public class Board {
 
     // Helpers
 
-    private RowCol[] findMatchInRow(int row) {
-        RowCol[] match = new RowCol[NUM_COLS];
-        for(int i = 0; i < NUM_COLS - 2; i++){
+    private RowCol[] findMatch(Tile[] tiles) {
+        int size = tiles.length;
+        RowCol[] match = new RowCol[size];
+        
+        for(int i = 0; i < size - 2; i++){
 
             int numMatch = 0; 
-            while((i+numMatch) < NUM_COLS && tiles[row][i].getType() == tiles[row][i+numMatch].getType()){
-                match[numMatch] = tiles[row][i+numMatch].getPosition();
+            while((i+numMatch) < size && tiles[i].getType() == tiles[i+numMatch].getType()){
+                match[numMatch] = tiles[i+numMatch].getPosition();
                 numMatch++;
             }
 
@@ -91,20 +93,14 @@ public class Board {
         return null;
     }
 
+    private RowCol[] findMatchInRow(int row) {
+        return findMatch(tiles[row]);
+    }
+
     private RowCol[] findMatchInCol(int col) {
-        RowCol[] match = new RowCol[NUM_ROWS];
-        for(int i = 0; i < NUM_ROWS - 2; i++){
-
-            int numMatch = 0; 
-            while((i+numMatch) < NUM_ROWS && tiles[i][col].getType() == tiles[i+numMatch][col].getType()){
-                match[numMatch] = tiles[i+numMatch][col].getPosition();
-                numMatch++;
-            }
-
-            if(numMatch >= 3) return match;
-
-        }
-        return null;
+        Tile[] match = new Tile[NUM_ROWS];
+        for(int i = 0; i < NUM_ROWS; i++) match[i] = tiles[i][col];
+        return findMatch(match);
     }
 
     private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
