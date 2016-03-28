@@ -9,6 +9,7 @@ public class Board {
 
     public static void main(String[] args) {
         Board board = new Board();
+
         System.out.println("BOARD...");
         System.out.println(board);
         board.moveTile(new RowCol(0,0), new RowCol(1,0));
@@ -17,6 +18,8 @@ public class Board {
         System.out.println("Red Matches: "+matches[0]);
         System.out.println("Green Matches: "+matches[1]);
         System.out.println("Blue Matches: "+matches[2]);
+        board.removeMatches();
+        System.out.println(board);
     }
 
     public Board(){
@@ -63,7 +66,8 @@ public class Board {
         String s = "";
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
-                s += tiles[row][col].getType().toString().charAt(0) + " ";
+                if(tiles[row][col] != null) s += tiles[row][col].getType().toString().charAt(0) + " ";
+                else s += "X ";
             }
             s += "\n";
         } 
@@ -71,6 +75,12 @@ public class Board {
     }
 
     // Helpers
+
+    private void removeMatches() {
+        for(RowCol[] r: findAllMatches())
+            if(r!=null) for(RowCol t: r) 
+                if(t!=null) tiles[t.getY()][t.getX()] = null;
+    }
 
     private RowCol[][] findAllMatches() {
         RowCol[][] matches = new RowCol[NUM_COLS+NUM_COLS][];
