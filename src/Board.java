@@ -10,20 +10,42 @@ public class Board {
     public static void main(String[] args) {
         Board board = new Board();
 
-        System.out.println("BOARD...");
+        System.out.println("Initial Board...");
+        System.out.println("----------");
         System.out.println(board);
+
         board.moveTile(new RowCol(0,0), new RowCol(1,0));
+        System.out.println("Move 0,0 to 1,0");
+        System.out.println("----------");
         System.out.println(board);
+
         int[] matches = board.getMatches();
-        System.out.println("Red Matches: "+matches[0]);
-        System.out.println("Green Matches: "+matches[1]);
-        System.out.println("Blue Matches: "+matches[2]);
-        board.removeMatches();
+        while(matches[0] != 0 || matches[1] != 0 || matches[2] != 0) {
+
+            System.out.println("Red Matches: "+matches[0]);
+            System.out.println("Green Matches: "+matches[1]);
+            System.out.println("Blue Matches: "+matches[2]);
+            System.out.println("----------");
+
+            board.removeMatches();
+            System.out.println(board);
+
+            board.dropTiles();
+            System.out.println("Drop tiles");
+            System.out.println("----------");
+            System.out.println(board);
+
+            board.refillBoard();
+            System.out.println("Refilled Board");
+            System.out.println("----------");
+            System.out.println(board);
+
+            matches = board.getMatches();
+        } 
+        System.out.println("Final Board");
+        System.out.println("----------");
         System.out.println(board);
-        board.dropTiles();
-        System.out.println(board);
-        board.refillBoard();
-        System.out.println(board);
+
     }
 
     public Board(){
