@@ -22,6 +22,8 @@ public class Board {
         System.out.println(board);
         board.dropTiles();
         System.out.println(board);
+        board.refillBoard();
+        System.out.println(board);
     }
 
     public Board(){
@@ -61,7 +63,12 @@ public class Board {
     }
 
     public void refillBoard() {
-        // TODO implement
+        for (int col = 0; col < NUM_COLS; col++) {
+            Tile[] fill = getRefillTiles(col);
+            for(int i = 0; i < fill.length; i++){
+                tiles[i][col] = fill[i];
+            }
+        }
     } 
 
     public String toString(){
@@ -77,6 +84,20 @@ public class Board {
     }
 
     // Helpers
+
+    private Tile[] getRefillTiles(int col) {
+        int numRefill = 0;
+        for(int i = 0; i < NUM_ROWS; i++){
+            if(tiles[i][col] == null) numRefill++;
+            else break;
+        }
+
+        Tile[] refill = new Tile[numRefill];
+
+        for(int i = 0; i < numRefill; i++) refill[i] = new Tile(new RowCol(col,i), randomType());
+
+        return refill;
+    }
 
     private void dropTiles() {
         for (int i = 0; i < NUM_ROWS; i++) {
