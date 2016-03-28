@@ -20,6 +20,8 @@ public class Board {
         System.out.println("Blue Matches: "+matches[2]);
         board.removeMatches();
         System.out.println(board);
+        board.dropTiles();
+        System.out.println(board);
     }
 
     public Board(){
@@ -75,6 +77,33 @@ public class Board {
     }
 
     // Helpers
+
+    private void dropTiles() {
+        for (int i = 0; i < NUM_ROWS; i++) {
+            dropTilesInCol(i);
+        }
+    }
+
+    private void dropTilesInCol(int col) {
+        for (int i = NUM_ROWS-1; i > 0; i--) {
+            Tile open = tiles[i][col];
+
+            if(open == null){
+
+                for(int e = i-1; e >= 0; e--){
+                    Tile fill = tiles[e][col];
+
+                    if(fill != null){
+                        tiles[e][col].getPosition().setY(i);
+                        placeTile(tiles[e][col]);
+                        tiles[e][col] = null;
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
 
     private void removeMatches() {
         for(RowCol[] r: findAllMatches())
