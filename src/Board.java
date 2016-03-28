@@ -34,10 +34,7 @@ public class Board {
     public int[] getMatches() {
 
         int[] numMatches = new int[] {0,0,0};
-        RowCol[][] matches = new RowCol[NUM_COLS+NUM_COLS][];
-
-        for (int row = 0; row < NUM_ROWS; row++) matches[row] = findMatchInRow(row);
-        for (int col = 0; col < NUM_COLS; col++) matches[NUM_ROWS+col] = findMatchInCol(col); 
+        RowCol[][] matches = findAllMatches();
         
         for(int i = 0; i < matches.length; i++){
             if(matches[i] != null){
@@ -75,7 +72,16 @@ public class Board {
 
     // Helpers
 
-    private RowCol[] findMatch(Tile[] tiles) {
+    private RowCol[][] findAllMatches() {
+        RowCol[][] matches = new RowCol[NUM_COLS+NUM_COLS][];
+
+        for (int row = 0; row < NUM_ROWS; row++) matches[row] = findMatchInRow(row);
+        for (int col = 0; col < NUM_COLS; col++) matches[NUM_ROWS+col] = findMatchInCol(col); 
+        return matches;
+    }
+
+
+    private RowCol[] findMatchIn(Tile[] tiles) {
         int size = tiles.length;
         RowCol[] match = new RowCol[size];
         
@@ -94,13 +100,13 @@ public class Board {
     }
 
     private RowCol[] findMatchInRow(int row) {
-        return findMatch(tiles[row]);
+        return findMatchIn(tiles[row]);
     }
 
     private RowCol[] findMatchInCol(int col) {
         Tile[] match = new Tile[NUM_ROWS];
         for(int i = 0; i < NUM_ROWS; i++) match[i] = tiles[i][col];
-        return findMatch(match);
+        return findMatchIn(match);
     }
 
     private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
