@@ -11,6 +11,8 @@ public class Board {
         Board board = new Board();
         System.out.println("BOARD...");
         System.out.println(board);
+        board.moveTile(new RowCol(0,0), new RowCol(1,0));
+        System.out.println(board);
         int[] matches = board.getMatches();
         System.out.println("Red Matches: "+matches[0]);
         System.out.println("Green Matches: "+matches[1]);
@@ -105,42 +107,45 @@ public class Board {
         return null;
     }
 
-    private void shiftRow(int row, int amnt) {
+    private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
         Tile temp;
-        for(int e = 0; e < Math.abs(amnt); e++){
-            if(amnt > 0){
+        int size = shifts.length;
+        Tile[] shifted = new Tile[size];
 
-                temp = tiles[row][NUM_COLS-1]; 
-                for(int i = NUM_COLS-1; i > 0; i--) tiles[row][i] = tiles[row][i - 1]; 
-                tiles[row][0] = temp;
+        for(int i = 0; i < size; i++) {
+            int newX = shifts[i].getPosition().getX();
+            int newY = shifts[i].getPosition().getY();
 
-            } else {
+            if(isCol) newY = (i + amnt)%size;
+            else newX = (i + amnt)%size;
 
-                temp = tiles[row][0]; 
-                for(int i = 0; i < NUM_COLS-1; i++) tiles[row][i] = tiles[row][i + 1]; 
-                tiles[row][NUM_COLS-1] = temp;
+            if(newY < 0) newY = size + newY;
+            if(newX < 0) newX = size + newX;
 
-            }
+            RowCol newPos = new RowCol(newX,newY);
+            shifts[i].setPosition(newPos);
         }
+
+        for(int i = 0; i < size; i++){
+            if(isCol) shifted[shifts[i].getPosition().getY()] = shifts[i];
+            else shifted[shifts[i].getPosition().getX()] = shifts[i];
+        }
+
+        return shifted;
+    }
+
+    private void shiftRow(int row, int amnt) {
+        tiles[row] = shift(tiles[row], false, amnt);
     }
 
     private void shiftCol(int col, int amnt) {
-        Tile temp;
-        for(int e = 0; e < Math.abs(amnt); e++){
-            if(amnt > 0){
+        Tile[] shifts = new Tile[NUM_COLS];
 
-                temp = tiles[NUM_ROWS-1][col]; 
-                for(int i = NUM_ROWS-1; i > 0; i--) tiles[i][col] = tiles[i - 1][col]; 
-                tiles[0][col] = temp;
+        for(int i = 0; i < NUM_ROWS; i++) shifts[i] = tiles[i][col];
 
-            } else {
+        shifts = shift(shifts, true, amnt);
 
-                temp = tiles[0][col]; 
-                for(int i = 0; i < NUM_ROWS-1; i++) tiles[i][col] = tiles[i+1][col]; 
-                tiles[NUM_ROWS-1][col] = temp;
-
-            }
-        }
+        for(int i = 0; i < NUM_ROWS; i++) tiles[i][col] = shifts[i];
     }
 
     private void initTiles() {
