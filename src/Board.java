@@ -147,7 +147,7 @@ public class Board {
     private void initTiles() {
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
-                tiles[row][col] = new Tile(new RowCol(row,col), randomType());
+                tiles[row][col] = new Tile(new RowCol(col,row), randomType());
             }
         }
     }
@@ -163,7 +163,7 @@ public class Board {
     }
 
     private Tile tileAt(RowCol pos){
-        return tiles[pos.getX()][pos.getY()];
+        return tiles[pos.getY()][pos.getX()];
     }
 
 }
