@@ -147,7 +147,7 @@ public class Board {
     private void initTiles() {
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
-                tiles[row][col] = new Tile(new RowCol(col,row), randomType());
+                placeTile(new Tile(new RowCol(col,row), randomType()));
             }
         }
     }
@@ -164,6 +164,10 @@ public class Board {
 
     private Tile tileAt(RowCol pos){
         return tiles[pos.getY()][pos.getX()];
+    }
+
+    private void placeTile(Tile tile){
+        tiles[tile.getPosition().getY()][tile.getPosition().getX()] = tile;
     }
 
 }
