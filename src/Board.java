@@ -23,7 +23,7 @@ public class Board {
 
         while(matches[0] != 0 || matches[1] != 0 || matches[2] != 0) {
 
-            System.out.println("Get Matches");
+            System.out.println("Get Matches - R:"+matches[0]+" G:"+matches[1]+" B:"+matches[2]);
             System.out.println("----------");
             System.out.println(board);
 
