@@ -1,7 +1,7 @@
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent; 
 
-public class ScoreScreen implements GraphicsPane {
+public class ScoreScreen extends GraphicsPane {
 
      public void showContents() {
          // TODO implement
