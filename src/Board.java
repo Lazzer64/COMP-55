@@ -52,8 +52,8 @@ public class Board {
         int x = end.getX() - start.getX();
         int y = end.getY() - start.getY();
 
-        shiftRow(0,x);
-        shiftCol(0,y);
+        if(y == 0) shiftRow(start.getY(),x);
+        else shiftCol(start.getX(),y);
     }
 
     public int[] getMatches() {
