@@ -1,7 +1,7 @@
 public class Main extends GraphicsApplication{
 
-    public static void main(String[] args) {
-        // TODO implement
+    public void run(){
+        switchToScreen(new Game(this));
     }
     
 }

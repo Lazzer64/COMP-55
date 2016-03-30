@@ -44,6 +44,10 @@ public class Board {
         initTiles();
     }
 
+    public Tile[][] getTiles(){
+        return tiles;
+    }
+
     public void moveTile(RowCol start, RowCol end) {
         int x = end.getX() - start.getX();
         int y = end.getY() - start.getY();
