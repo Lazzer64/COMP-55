@@ -1,3 +1,4 @@
+import java.awt.event.MouseEvent;
 import java.awt.Color;
 import acm.graphics.*;
 import java.util.ArrayList;
@@ -14,6 +15,20 @@ public class Game extends GraphicsPane{
     Unit player, enemy;
     Board board;
     ArrayList<GObject> display;   
+    RowCol start, end;
+
+	public void mousePressed(MouseEvent e) {
+        start = getTileAt(e.getX(),e.getY()).getPosition();
+    }
+	public void mouseDragged(MouseEvent e) {
+        end = getTileAt(e.getX(),e.getY()).getPosition();
+        board.moveTile(start,end);
+        start = getTileAt(e.getX(),e.getY()).getPosition();
+        hideContents();
+        showContents();
+    }
+	public void mouseReleased(MouseEvent e) {
+    }
 
     public Game(Main program){
         this.program = program;
@@ -79,6 +94,13 @@ public class Game extends GraphicsPane{
     }
     
     // Helpers
+    private Tile getTileAt(int x, int y){
+        int row = (int)((y-BOARD_Y)/TILE_SIZE);
+        int col = (int)((x-BOARD_X)/TILE_SIZE);
+        System.out.println(board.getTiles()[row][col].getType());
+        return board.getTiles()[row][col];
+    }
+
     private void displayGrid(){
         for (int y = 0; y < Board.NUM_ROWS+1; y++) {
             int yPos = BOARD_Y + (TILE_SIZE)*y;
