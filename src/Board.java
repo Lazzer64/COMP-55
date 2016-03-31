@@ -1,5 +1,3 @@
-import java.util.Random;
-
 public class Board {
 
     public static final int NUM_ROWS = 5;
@@ -114,7 +112,7 @@ public class Board {
 
         Tile[] refill = new Tile[numRefill];
 
-        for(int i = 0; i < numRefill; i++) refill[i] = new Tile(new RowCol(col,i), randomType());
+        for(int i = 0; i < numRefill; i++) refill[i] = new Tile(new RowCol(col,i), TileType.randomType());
 
         return refill;
     }
@@ -190,7 +188,6 @@ public class Board {
     }
 
     private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
-        Tile temp;
         int size = shifts.length;
         Tile[] shifted = new Tile[size];
 
@@ -233,19 +230,9 @@ public class Board {
     private void initTiles() {
         for (int row = 0; row < NUM_ROWS; row++) {
             for (int col = 0; col < NUM_COLS; col++) {
-                placeTile(new Tile(new RowCol(col,row), randomType()));
+                placeTile(new Tile(new RowCol(col,row), TileType.randomType()));
             }
         }
-    }
-
-    private TileType randomType() {
-
-        Random r = new Random();
-        int roll = r.nextInt(3);
-
-        if(roll == 0) return TileType.RED;
-        if(roll == 1) return TileType.BLUE;
-        return TileType.GREEN;
     }
 
     private Tile tileAt(RowCol pos){

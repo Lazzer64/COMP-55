@@ -25,7 +25,3 @@ public class Tile {
 	}
 
 }
-
-enum TileType {
-    RED, BLUE, GREEN;
-}

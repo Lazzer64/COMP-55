@@ -99,7 +99,6 @@ public class Game extends GraphicsPane{
     private Tile getTileAt(int x, int y){
         int row = (int)((y-BOARD_Y)/TILE_SIZE);
         int col = (int)((x-BOARD_X)/TILE_SIZE);
-        System.out.println(board.getTiles()[row][col].getType());
         return board.getTiles()[row][col];
     }
 
@@ -135,22 +134,9 @@ public class Game extends GraphicsPane{
         int x = BOARD_X + tile.getPosition().getX()*TILE_SIZE;
         int y = BOARD_Y + tile.getPosition().getY()*TILE_SIZE;
         GRect t = new GRect(x, y, TILE_SIZE, TILE_SIZE);
-        t.setColor(getColor(tile));
+        t.setColor(TileType.getColor(tile.getType()));
         t.setFilled(true);
 		display.add(t);
-    }
-
-    private Color getColor(Tile t){
-        switch(t.getType()){
-            case RED:
-                return Color.RED;
-            case BLUE:
-                return Color.BLUE;
-            case GREEN:
-                return Color.GREEN;
-            default:
-                return Color.BLACK;
-        }
     }
     
 }
