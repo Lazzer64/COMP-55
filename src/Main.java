@@ -5,7 +5,5 @@ public class Main extends GraphicsApplication{
 		addKeyListeners();
 		addMouseListeners();
     }
-    
-    
+        
 }
-//Hello - Michael
