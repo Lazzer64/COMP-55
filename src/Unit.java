@@ -1,5 +1,5 @@
 import java.io.File;
-//markys territory
+//mark's territory
 public abstract class Unit {
 
 	private int hp;
