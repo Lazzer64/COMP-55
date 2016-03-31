@@ -1,5 +1,5 @@
 import java.io.File;
-//markys territory
+//mark's territory
 public class Enemy extends Unit{
 
     public Enemy(int hp, int maxHp, int attack, int defense, File image) { 
