@@ -1,3 +1,4 @@
+import java.util.EnumMap;
 public class Board {
 
     public static final int NUM_ROWS = 5;
@@ -17,13 +18,18 @@ public class Board {
         System.out.println("----------");
         System.out.println(board);
 
-        int[] matches = board.getMatches();
+        EnumMap<TileType,Integer> matches = board.getMatches();
 
-        while(matches[0] != 0 || matches[1] != 0 || matches[2] != 0) {
+        while(!matches.isEmpty()) {
 
-            System.out.println("Get Matches - R:"+matches[0]+" G:"+matches[1]+" B:"+matches[2]);
+            System.out.println("Get Matches - R:"+matches.get(TileType.RED)+" G:"+matches.get(TileType.GREEN)+" B:"+matches.get(TileType.BLUE));
             System.out.println("----------");
             System.out.println(board);
+
+            board.dropTiles();
+            System.out.println("Drop TIles");
+            System.out.println("----------");
+            System.out.println(board); 
 
             board.refillBoard();
             System.out.println("Refill");
@@ -54,30 +60,27 @@ public class Board {
         else shiftCol(start.getX(),y);
     }
 
-    public int[] getMatches() {
+    public EnumMap<TileType,Integer> getMatches() {
 
-        int[] numMatches = new int[] {0,0,0};
+        EnumMap<TileType,Integer> numMatches = new EnumMap<TileType,Integer>(TileType.class);
         RowCol[][] matches = findAllMatches();
         
         for(int i = 0; i < matches.length; i++){
             if(matches[i] != null){
-                switch(tileAt(matches[i][0]).getType()){
-                    case RED:
-                        numMatches[0]++;
-                        break;
-                    case GREEN:
-                        numMatches[1]++;
-                        break;
-                    case BLUE:
-                        numMatches[2]++;
-                        break;
-                }
+                TileType type = tileAt(matches[i][0]).getType();
+                if(numMatches.containsKey(type)) numMatches.put(type,numMatches.get(type)+1);
+                else numMatches.put(type,1);
             }
         }
 
         removeMatches();
-        dropTiles();
         return numMatches;
+    }
+
+    public void dropTiles() {
+        for (int i = 0; i < NUM_ROWS; i++) {
+            dropTilesInCol(i);
+        }
     }
 
     public void refillBoard() {
@@ -115,12 +118,6 @@ public class Board {
         for(int i = 0; i < numRefill; i++) refill[i] = new Tile(new RowCol(col,i), TileType.randomType());
 
         return refill;
-    }
-
-    private void dropTiles() {
-        for (int i = 0; i < NUM_ROWS; i++) {
-            dropTilesInCol(i);
-        }
     }
 
     private void dropTilesInCol(int col) {
