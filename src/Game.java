@@ -7,6 +7,9 @@ import java.util.ArrayList;
 
 public class Game extends GraphicsPane{
 
+    public static final int NUM_ROWS = 5;
+    public static final int NUM_COLS = 5;
+
     public static final int TILE_SIZE = 40; 
     public static final int BOARD_X = 0;
     public static final int BOARD_Y = 0;
@@ -36,7 +39,7 @@ public class Game extends GraphicsPane{
         this.program = program;
         this.score = 0;
         this.display = new ArrayList<GObject>();
-        board = new Board();
+        board = new Board(NUM_ROWS,NUM_COLS);
     }
 
     public void showContents(){
@@ -103,18 +106,18 @@ public class Game extends GraphicsPane{
     }
 
     private void displayGrid(){
-        for (int y = 0; y < Board.NUM_ROWS+1; y++) {
+        for (int y = 0; y < NUM_ROWS+1; y++) {
             int yPos = BOARD_Y + (TILE_SIZE)*y;
             int xStart = BOARD_X;
-            int xEnd = BOARD_X + TILE_SIZE*Board.NUM_COLS;
+            int xEnd = BOARD_X + TILE_SIZE*NUM_COLS;
             GLine line = new GLine(xStart, yPos, xEnd, yPos);
             line.setColor(LINE_COLOR);
             display.add(line);
         }
-        for (int x = 0; x < Board.NUM_COLS+1; x++) {
+        for (int x = 0; x < NUM_COLS+1; x++) {
             int xPos = BOARD_X + (TILE_SIZE)*x;
             int yStart = BOARD_Y;
-            int yEnd = BOARD_Y + TILE_SIZE*Board.NUM_ROWS;
+            int yEnd = BOARD_Y + TILE_SIZE*NUM_ROWS;
             GLine line = new GLine(xPos, yStart, xPos, yEnd);
             line.setColor(LINE_COLOR);
             display.add(line);
@@ -123,8 +126,8 @@ public class Game extends GraphicsPane{
 
     private void displayTiles(){
         Tile[][] tiles = board.getTiles();
-        for (int y = 0; y < Board.NUM_ROWS; y++) {
-            for (int x = 0; x < Board.NUM_COLS; x++) {
+        for (int y = 0; y < NUM_ROWS; y++) {
+            for (int x = 0; x < NUM_COLS; x++) {
                 displayTile(tiles[y][x]);
             }
         }

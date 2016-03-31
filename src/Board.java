@@ -1,13 +1,13 @@
 import java.util.EnumMap;
 public class Board {
 
-    public static final int NUM_ROWS = 5;
-    public static final int NUM_COLS = 5;
+    int num_rows;
+    int num_cols;
 
-    Tile[][] tiles = new Tile[NUM_ROWS][NUM_COLS];
+    Tile[][] tiles;
 
     public static void main(String[] args) {
-        Board board = new Board();
+        Board board = new Board(5, 5);
 
         System.out.println("Initial Board...");
         System.out.println("----------");
@@ -44,7 +44,10 @@ public class Board {
 
     }
 
-    public Board(){
+    public Board(int num_rows, int num_cols){
+        this.num_rows = num_rows;
+        this.num_cols = num_cols;
+        tiles = new Tile[num_rows][num_cols];
         initTiles();
     }
 
@@ -78,13 +81,13 @@ public class Board {
     }
 
     public void dropTiles() {
-        for (int i = 0; i < NUM_ROWS; i++) {
+        for (int i = 0; i < num_rows; i++) {
             dropTilesInCol(i);
         }
     }
 
     public void refillBoard() {
-        for (int col = 0; col < NUM_COLS; col++) {
+        for (int col = 0; col < num_cols; col++) {
             Tile[] fill = getRefillTiles(col);
             for(int i = 0; i < fill.length; i++){
                 tiles[i][col] = fill[i];
@@ -94,8 +97,8 @@ public class Board {
 
     public String toString(){
         String s = "";
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = 0; row < num_rows; row++) {
+            for (int col = 0; col < num_cols; col++) {
                 if(tiles[row][col] != null) s += tiles[row][col].getType().toString().charAt(0) + " ";
                 else s += "X ";
             }
@@ -108,7 +111,7 @@ public class Board {
 
     private Tile[] getRefillTiles(int col) {
         int numRefill = 0;
-        for(int i = 0; i < NUM_ROWS; i++){
+        for(int i = 0; i < num_rows; i++){
             if(tiles[i][col] == null) numRefill++;
             else break;
         }
@@ -121,7 +124,7 @@ public class Board {
     }
 
     private void dropTilesInCol(int col) {
-        for (int i = NUM_ROWS-1; i > 0; i--) {
+        for (int i = num_rows-1; i > 0; i--) {
             Tile open = tiles[i][col];
 
             if(open == null){
@@ -148,10 +151,10 @@ public class Board {
     }
 
     private RowCol[][] findAllMatches() {
-        RowCol[][] matches = new RowCol[NUM_COLS+NUM_COLS][];
+        RowCol[][] matches = new RowCol[num_cols+num_cols][];
 
-        for (int row = 0; row < NUM_ROWS; row++) matches[row] = findMatchInRow(row);
-        for (int col = 0; col < NUM_COLS; col++) matches[NUM_ROWS+col] = findMatchInCol(col); 
+        for (int row = 0; row < num_rows; row++) matches[row] = findMatchInRow(row);
+        for (int col = 0; col < num_cols; col++) matches[num_rows+col] = findMatchInCol(col); 
         return matches;
     }
 
@@ -179,8 +182,8 @@ public class Board {
     }
 
     private RowCol[] findMatchInCol(int col) {
-        Tile[] match = new Tile[NUM_ROWS];
-        for(int i = 0; i < NUM_ROWS; i++) match[i] = tiles[i][col];
+        Tile[] match = new Tile[num_rows];
+        for(int i = 0; i < num_rows; i++) match[i] = tiles[i][col];
         return findMatchIn(match);
     }
 
@@ -215,18 +218,18 @@ public class Board {
     }
 
     private void shiftCol(int col, int amnt) {
-        Tile[] shifts = new Tile[NUM_COLS];
+        Tile[] shifts = new Tile[num_cols];
 
-        for(int i = 0; i < NUM_ROWS; i++) shifts[i] = tiles[i][col];
+        for(int i = 0; i < num_rows; i++) shifts[i] = tiles[i][col];
 
         shifts = shift(shifts, true, amnt);
 
-        for(int i = 0; i < NUM_ROWS; i++) tiles[i][col] = shifts[i];
+        for(int i = 0; i < num_rows; i++) tiles[i][col] = shifts[i];
     }
 
     private void initTiles() {
-        for (int row = 0; row < NUM_ROWS; row++) {
-            for (int col = 0; col < NUM_COLS; col++) {
+        for (int row = 0; row < num_rows; row++) {
+            for (int col = 0; col < num_cols; col++) {
                 placeTile(new Tile(new RowCol(col,row), TileType.randomType()));
             }
         }
