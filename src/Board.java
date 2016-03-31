@@ -16,9 +16,6 @@ public class Board {
     public static void main(String[] args) {
         Board board = new Board(5, 6);
 
-        board.tiles[4] = new Tile[]{R(0,4), R(1,4), R(2,4), B(3,4), B(4,4), B(5,4)};
-        System.out.println(board.findMatchInRow(4));
-
         System.out.println("Initial Board...");
         System.out.println("----------");
         System.out.println(board);
@@ -88,7 +85,6 @@ public class Board {
 
     public void dropTiles() {
         for (int i = 0; i < num_cols; i++) {
-            System.out.println(i);
             dropTilesInCol(i);
         }
     }
@@ -161,15 +157,16 @@ public class Board {
         List<Match> matches = new ArrayList<Match>();
 
         for (int row = 0; row < num_rows; row++) 
-            if(findMatchInRow(row) != null) matches.add(findMatchInRow(row));
+            if(!findMatchesInRow(row).isEmpty()) for(Match m: findMatchesInRow(row)) matches.add(m);
         for (int col = 0; col < num_cols; col++) 
-            if(findMatchInCol(col) != null) matches.add(findMatchInCol(col));
+            if(!findMatchesInCol(col).isEmpty()) for(Match m: findMatchesInCol(col)) matches.add(m);
         return matches;
     }
 
 
-    private Match findMatchIn(Tile[] tiles) {
+    private List<Match> findMatchesIn(Tile[] tiles) {
         int size = tiles.length;
+        List<Match> matches = new LinkedList<Match>();
         
         for(int i = 0; i < size; i++){
             List<Tile> match = new LinkedList<Tile>();
@@ -182,21 +179,22 @@ public class Board {
 
             if(match.size() >= 3){
                 Tile[] m = new Tile[match.size()]; match.toArray(m);
-                return new Match(m);
-            }
+                matches.add(new Match(m));
+                i+=match.size()-1;
+            } 
 
         }
-        return null;
+        return matches;
     }
 
-    private Match findMatchInRow(int row) {
-        return findMatchIn(tiles[row]);
+    private List<Match> findMatchesInRow(int row) {
+        return findMatchesIn(tiles[row]);
     }
 
-    private Match findMatchInCol(int col) {
+    private List<Match> findMatchesInCol(int col) {
         Tile[] match = new Tile[num_rows];
         for(int i = 0; i < num_rows; i++) match[i] = tiles[i][col];
-        return findMatchIn(match);
+        return findMatchesIn(match);
     }
 
     private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
