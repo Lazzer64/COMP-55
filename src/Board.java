@@ -1,4 +1,7 @@
-import java.util.EnumMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.LinkedList;
+import java.util.Queue;
 public class Board {
 
     int num_rows;
@@ -6,8 +9,15 @@ public class Board {
 
     Tile[][] tiles;
 
+    static private Tile R(int x, int y) {return new Tile(new RowCol(x,y),TileType.RED);}
+    static private Tile G(int x, int y) {return new Tile(new RowCol(x,y),TileType.GREEN);}
+    static private Tile B(int x, int y) {return new Tile(new RowCol(x,y),TileType.BLUE);}
+
     public static void main(String[] args) {
-        Board board = new Board(5, 5);
+        Board board = new Board(5, 6);
+
+        board.tiles[4] = new Tile[]{R(0,4), R(1,4), R(2,4), B(3,4), B(4,4), B(5,4)};
+        System.out.println(board.findMatchInRow(4));
 
         System.out.println("Initial Board...");
         System.out.println("----------");
@@ -18,16 +28,20 @@ public class Board {
         System.out.println("----------");
         System.out.println(board);
 
-        EnumMap<TileType,Integer> matches = board.getMatches();
+        Queue<Match> matches = board.getMatches();
 
         while(!matches.isEmpty()) {
 
-            System.out.println("Get Matches - R:"+matches.get(TileType.RED)+" G:"+matches.get(TileType.GREEN)+" B:"+matches.get(TileType.BLUE));
+            for (Match m: matches) {
+                System.out.print(m.getType()+":");
+                for(RowCol r: m.getPositions()) System.out.print("("+r.getX()+","+r.getY()+") ");
+                System.out.println();
+            }
             System.out.println("----------");
             System.out.println(board);
 
             board.dropTiles();
-            System.out.println("Drop TIles");
+            System.out.println("Drop Tiles");
             System.out.println("----------");
             System.out.println(board); 
 
@@ -63,25 +77,18 @@ public class Board {
         else shiftCol(start.getX(),y);
     }
 
-    public EnumMap<TileType,Integer> getMatches() {
+    public Queue<Match> getMatches() {
 
-        EnumMap<TileType,Integer> numMatches = new EnumMap<TileType,Integer>(TileType.class);
-        RowCol[][] matches = findAllMatches();
-        
-        for(int i = 0; i < matches.length; i++){
-            if(matches[i] != null){
-                TileType type = tileAt(matches[i][0]).getType();
-                if(numMatches.containsKey(type)) numMatches.put(type,numMatches.get(type)+1);
-                else numMatches.put(type,1);
-            }
-        }
+        Queue<Match> matchQ = new LinkedList<Match>();
+        for (Match m: findAllMatches()) matchQ.add(m);
 
         removeMatches();
-        return numMatches;
+        return matchQ;
     }
 
     public void dropTiles() {
-        for (int i = 0; i < num_rows; i++) {
+        for (int i = 0; i < num_cols; i++) {
+            System.out.println(i);
             dropTilesInCol(i);
         }
     }
@@ -145,43 +152,48 @@ public class Board {
 
 
     private void removeMatches() {
-        for(RowCol[] r: findAllMatches())
-            if(r!=null) for(RowCol t: r) 
-                if(t!=null) tiles[t.getY()][t.getX()] = null;
+        for(Match m: findAllMatches())
+            for(RowCol t: m.getPositions()) 
+                tiles[t.getY()][t.getX()] = null;
     }
 
-    private RowCol[][] findAllMatches() {
-        RowCol[][] matches = new RowCol[num_cols+num_cols][];
+    private List<Match> findAllMatches() {
+        List<Match> matches = new ArrayList<Match>();
 
-        for (int row = 0; row < num_rows; row++) matches[row] = findMatchInRow(row);
-        for (int col = 0; col < num_cols; col++) matches[num_rows+col] = findMatchInCol(col); 
+        for (int row = 0; row < num_rows; row++) 
+            if(findMatchInRow(row) != null) matches.add(findMatchInRow(row));
+        for (int col = 0; col < num_cols; col++) 
+            if(findMatchInCol(col) != null) matches.add(findMatchInCol(col));
         return matches;
     }
 
 
-    private RowCol[] findMatchIn(Tile[] tiles) {
+    private Match findMatchIn(Tile[] tiles) {
         int size = tiles.length;
-        RowCol[] match = new RowCol[size];
         
-        for(int i = 0; i < size - 2; i++){
+        for(int i = 0; i < size; i++){
+            List<Tile> match = new LinkedList<Tile>();
+            TileType type = tiles[i].getType();
 
-            int numMatch = 0; 
-            while((i+numMatch) < size && tiles[i].getType() == tiles[i+numMatch].getType()){
-                match[numMatch] = tiles[i+numMatch].getPosition();
-                numMatch++;
+            for(int e = i; e < size; e++){
+                if(tiles[e] != null && tiles[e].getType() == type) match.add(tiles[e]);
+                else e = size;
             }
 
-            if(numMatch >= 3) return match;
+            if(match.size() >= 3){
+                Tile[] m = new Tile[match.size()]; match.toArray(m);
+                return new Match(m);
+            }
 
         }
         return null;
     }
 
-    private RowCol[] findMatchInRow(int row) {
+    private Match findMatchInRow(int row) {
         return findMatchIn(tiles[row]);
     }
 
-    private RowCol[] findMatchInCol(int col) {
+    private Match findMatchInCol(int col) {
         Tile[] match = new Tile[num_rows];
         for(int i = 0; i < num_rows; i++) match[i] = tiles[i][col];
         return findMatchIn(match);
