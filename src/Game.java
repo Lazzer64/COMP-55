@@ -12,7 +12,7 @@ public class Game extends GraphicsPane{
 
     public static final int NUM_ROWS = 5;
     public static final int NUM_COLS = 5;
-    public static final int TILE_MOVE_DELAY = 250; // In milliseconds
+    public static final int TILE_MOVE_DELAY = 150; // In milliseconds
     public static final int TILE_SIZE = 40; 
     public static final int BOARD_X = 0;
     public static final int BOARD_Y = 0;
@@ -36,18 +36,33 @@ public class Game extends GraphicsPane{
         updateTiles();
     }
     public void mouseReleased(MouseEvent e) {
-        makeMatches();
+        boardStep();
     }
+
+    private void boardStep() {
+        Queue<Match> matches = board.getMatches();
+        new Timer().schedule(
+                new TimerTask(){
+                    public void run(){
+                        if(board.step(matches)){
+                            boardStep();
+                            updateTiles();
+                        }
+                    }
+                }
+        ,TILE_MOVE_DELAY);
+    }
+
 
     public Game(Main program){
         this.program = program;
         this.score = 0;
         this.boardObjects = new ArrayList<GObject>();
         board = new Board(NUM_ROWS,NUM_COLS);
+        displayBoard();
     }
 
     public void showContents(){
-        displayBoard();
         for(GObject o: boardObjects){
             program.add(o);
         }
@@ -108,37 +123,6 @@ public class Game extends GraphicsPane{
     private void matchEffect(List<Match> matches) {
         // TODO implement
         for(Match m: matches) System.out.println(m.getType()+" size: "+m.size());
-    }
-
-    private List<Match> makeMatches() {
-        
-        Queue<Match> matches = board.getMatches();
-        List<Match> totalMatches = new ArrayList<Match>(matches);
-        updateTiles();
-
-        new Timer().schedule(new TimerTask(){ // after TILE_MOVE_DELAY milliseconds drops tiles and repaints 
-
-            public void run(){
-
-                board.dropTiles();
-                updateTiles();
-
-                new Timer().schedule(new TimerTask(){ // after TILE_MOVE_DELAY milliseconds refills tiles and repaints 
-                    public void run(){
-
-                        board.refillBoard();
-                        updateTiles();
-
-                        if(!matches.isEmpty()) { // If there are still matches on the board, repeat
-                            totalMatches.addAll(makeMatches());
-                        }
-
-                    }}, TILE_MOVE_DELAY);
-
-            }}, TILE_MOVE_DELAY);
-
-        matchEffect(totalMatches);
-        return totalMatches;
     }
 
     private void displayBoardBack(){

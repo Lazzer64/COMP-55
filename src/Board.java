@@ -20,37 +20,11 @@ public class Board {
         System.out.println("----------");
         System.out.println(board);
 
-        board.moveTile(new RowCol(0,0), new RowCol(1,0));
-        System.out.println("Move 0,0 to 1,0");
-        System.out.println("----------");
-        System.out.println(board);
+        Queue<Match> m = board.getMatches();
 
-        Queue<Match> matches = board.getMatches();
-
-        while(!matches.isEmpty()) {
-
-            for (Match m: matches) {
-                System.out.print(m.getType()+":");
-                for(RowCol r: m.getPositions()) System.out.print("("+r.getX()+","+r.getY()+") ");
-                System.out.println();
-            }
-            System.out.println("----------");
+        while(board.step(m)){
             System.out.println(board);
-
-            board.dropTiles();
-            System.out.println("Drop Tiles");
-            System.out.println("----------");
-            System.out.println(board); 
-
-            board.refillBoard();
-            System.out.println("Refill");
-            System.out.println("----------");
-            System.out.println(board);
-
-            matches = board.getMatches();
-        } 
-        System.out.println("Final Board");
-        System.out.println("----------");
+        }
         System.out.println(board);
 
     }
@@ -60,6 +34,24 @@ public class Board {
         this.num_cols = num_cols;
         tiles = new Tile[num_rows][num_cols];
         initTiles();
+    }
+
+    // Return true if a change to the board was made
+    public boolean step(Queue<Match> matches){
+        if(!matches.isEmpty()){
+            removeMatch(matches.poll());
+            return true;
+        }
+        boolean d = false;
+        for(int i = num_rows-2; i >= 0; i--){
+            if(dropRow(i)) d = true;
+        }
+        if(d) return true;
+        if(topRowEmpty()){
+            refillRow();
+            return true;
+        }
+        return false;
     }
 
     public Tile[][] getTiles(){
@@ -79,11 +71,10 @@ public class Board {
         Queue<Match> matchQ = new LinkedList<Match>();
         for (Match m: findAllMatches()) matchQ.add(m);
 
-        removeMatches();
         return matchQ;
     }
 
-    public void dropTiles() {
+    public void dropAllTiles() {
         for (int i = 0; i < num_cols; i++) {
             dropTilesInCol(i);
         }
@@ -126,6 +117,49 @@ public class Board {
         return refill;
     }
 
+    private void removeMatch(Match match){
+        for(RowCol o: match.getPositions()){
+            tiles[o.getY()][o.getX()] = null;
+        } 
+    }
+
+    private boolean refillRow() {
+        boolean filled = false;
+        for (int i = 0; i < num_cols; i++) {
+            if(tiles[0][i] == null){
+                placeTile(new Tile(new RowCol(i,0), TileType.randomType()));
+                filled = true;
+            }
+        }
+        return filled;
+    }
+
+    // Returns true if a tile was dropped
+    private boolean dropRow(int row){
+        boolean changed = false;
+        for (int i = 0; i < num_cols; i++) {
+
+            if(tiles[row][i] != null && tiles[row+1][i] == null) {
+
+                tiles[row][i].setPosition(new RowCol(i,row+1));
+
+                placeTile(tiles[row][i]);
+                tiles[row][i] = null;
+
+                changed = true;
+            }
+        }
+        return changed;
+    }
+
+    private boolean topRowEmpty(){
+        for(int i = 0; i < num_cols; i++){
+            if(tiles[0][i] == null) return true;
+        }
+        return false;
+    }
+
+
     private void dropTilesInCol(int col) {
         for (int i = num_rows-1; i > 0; i--) {
             Tile open = tiles[i][col];
@@ -167,21 +201,23 @@ public class Board {
     private List<Match> findMatchesIn(Tile[] tiles) {
         int size = tiles.length;
         List<Match> matches = new LinkedList<Match>();
-        
+
         for(int i = 0; i < size; i++){
             List<Tile> match = new LinkedList<Tile>();
-            TileType type = tiles[i].getType();
+            if(tiles[i] != null){
+                TileType type = tiles[i].getType();
 
-            for(int e = i; e < size; e++){
-                if(tiles[e] != null && tiles[e].getType() == type) match.add(tiles[e]);
-                else e = size;
+                for(int e = i; e < size; e++){
+                    if(tiles[e] != null && tiles[e].getType() == type) match.add(tiles[e]);
+                    else e = size;
+                }
+
+                if(match.size() >= 3){
+                    Tile[] m = new Tile[match.size()]; match.toArray(m);
+                    matches.add(new Match(m));
+                    i+=match.size()-1;
+                } 
             }
-
-            if(match.size() >= 3){
-                Tile[] m = new Tile[match.size()]; match.toArray(m);
-                matches.add(new Match(m));
-                i+=match.size()-1;
-            } 
 
         }
         return matches;
