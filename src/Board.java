@@ -38,16 +38,16 @@ public class Board {
 
     // Return true if a change to the board was made
     public boolean step(Queue<Match> matches){
-        if(!matches.isEmpty()){
-            removeMatch(matches.poll());
-            return true;
-        }
         boolean d = false;
         for(int i = num_rows-2; i >= 0; i--){
             if(dropRow(i)) d = true;
         }
         if(d) return true;
-        if(topRowEmpty()){
+        if(!matches.isEmpty()){
+            removeMatch(matches.poll());
+            return true;
+        }
+        if(!isFilled()){
             refillRow();
             return true;
         }
@@ -102,6 +102,15 @@ public class Board {
     }
 
     // Helpers
+
+    private boolean isFilled() {
+        for (int row = 0; row < num_rows; row++) {
+            for (int col = 0; col < num_cols; col++) {
+                if(tiles[row][col] == null) return false;
+            }
+        }
+        return true;
+    }
 
     private Tile[] getRefillTiles(int col) {
         int numRefill = 0;
