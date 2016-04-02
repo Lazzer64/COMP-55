@@ -251,7 +251,6 @@ public class Board {
         for(int i = 0; i < size; i++) {
             int newX = shifts[i].getPosition().getX();
             int newY = shifts[i].getPosition().getY();
-            System.out.println(size);
 
             if(isCol) newY = (i + amnt)%size;
             else newX = (i + amnt)%size;
