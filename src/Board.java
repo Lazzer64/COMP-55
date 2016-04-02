@@ -243,12 +243,15 @@ public class Board {
     }
 
     private Tile[] shift(Tile[] shifts, boolean isCol, int amnt) {
-        int size = shifts.length;
+        int size = num_cols;
+        if(isCol) size = num_rows;
+        
         Tile[] shifted = new Tile[size];
 
         for(int i = 0; i < size; i++) {
             int newX = shifts[i].getPosition().getX();
             int newY = shifts[i].getPosition().getY();
+            System.out.println(size);
 
             if(isCol) newY = (i + amnt)%size;
             else newX = (i + amnt)%size;
