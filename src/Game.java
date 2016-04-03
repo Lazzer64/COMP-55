@@ -20,12 +20,13 @@ public class Game extends GraphicsPane{
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
 
     Main program;
-    int score;
     Unit player, enemy;
-    Board board;
-    ArrayList<GObject> boardObjects;   
     RowCol start, end;
-    boolean canMove;
+
+    int score = 0;
+    Board board = new Board(NUM_ROWS, NUM_COLS);
+    ArrayList<GObject> boardObjects = new ArrayList<GObject>();
+    boolean canMove = true;
 
     public void mousePressed(MouseEvent e) {
         if(isInBoard(e.getX(), e.getY()) && canMove){ 
@@ -62,10 +63,6 @@ public class Game extends GraphicsPane{
 
     public Game(Main program){
         this.program = program;
-        this.score = 0;
-        this.boardObjects = new ArrayList<GObject>();
-        canMove = true;
-        board = new Board(NUM_ROWS,NUM_COLS);
         displayBoard();
     }
 

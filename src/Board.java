@@ -8,7 +8,7 @@ public class Board {
     int num_cols;
 
     Tile[][] tiles;
-    Queue<Match> matches;
+    Queue<Match> matches = new LinkedList<Match>();
 
     static private Tile R(int x, int y) {return new Tile(new RowCol(x,y),TileType.RED);}
     static private Tile G(int x, int y) {return new Tile(new RowCol(x,y),TileType.GREEN);}
@@ -31,7 +31,6 @@ public class Board {
     public Board(int num_rows, int num_cols){
         this.num_rows = num_rows;
         this.num_cols = num_cols;
-        this.matches = new LinkedList<Match>();
         tiles = new Tile[num_rows][num_cols];
         initTiles();
     }
