@@ -8,6 +8,7 @@ public class Board {
     int num_cols;
 
     Tile[][] tiles;
+    Queue<Match> matches;
 
     static private Tile R(int x, int y) {return new Tile(new RowCol(x,y),TileType.RED);}
     static private Tile G(int x, int y) {return new Tile(new RowCol(x,y),TileType.GREEN);}
@@ -20,9 +21,7 @@ public class Board {
         System.out.println("----------");
         System.out.println(board);
 
-        Queue<Match> m = board.getMatches();
-
-        while(board.step(m)){
+        while(board.step()){
             System.out.println(board);
         }
         System.out.println(board);
@@ -32,12 +31,13 @@ public class Board {
     public Board(int num_rows, int num_cols){
         this.num_rows = num_rows;
         this.num_cols = num_cols;
+        this.matches = new LinkedList<Match>();
         tiles = new Tile[num_rows][num_cols];
         initTiles();
     }
 
     // Return true if a change to the board was made
-    public boolean step(Queue<Match> matches){
+    public boolean step(){
         if(!matches.isEmpty()){
             removeMatch(matches.poll());
             return true;
@@ -51,7 +51,11 @@ public class Board {
             return true;
         }
         if(d) return true;
-        return false;
+        return !makeMatches().isEmpty(); 
+    }
+
+    public Queue<Match> getMatches(){
+        return matches;
     }
 
     public Tile[][] getTiles(){
@@ -66,11 +70,12 @@ public class Board {
         else shiftCol(start.getX(),y);
     }
 
-    public Queue<Match> getMatches() {
+    public Queue<Match> makeMatches() {
 
         Queue<Match> matchQ = new LinkedList<Match>();
         for (Match m: findAllMatches()) matchQ.add(m);
 
+        matches = matchQ;
         return matchQ;
     }
 

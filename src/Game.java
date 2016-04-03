@@ -41,23 +41,19 @@ public class Game extends GraphicsPane{
         }
     }
     public void mouseReleased(MouseEvent e) {
-        Queue<Match> matches = board.getMatches();
-        if(canMove) boardStep(matches);
+        if(canMove) boardStep();
     }
 
-    private void boardStep(Queue<Match> matches) {
+    private void boardStep() {
         new Timer().schedule(
                 new TimerTask(){
                     public void run(){
-                        if(board.step(matches)){
-                            boardStep(matches);
+                        if(board.step()){
+                            if(!board.getMatches().isEmpty()) matchEffect(board.getMatches().peek());
+                            boardStep();
                             updateTiles();
                             canMove = false;
-                        } else {
-                            Queue<Match> m = board.getMatches();
-                            if(!m.isEmpty()) boardStep(m);
-                            else canMove = true;
-                        }
+                        } else canMove = true;
                     }
                 }
         ,TILE_MOVE_DELAY);
@@ -135,9 +131,9 @@ public class Game extends GraphicsPane{
         return (x >= BOARD_X && x >= 0 && y >= BOARD_Y && y >= 0);
     }
 
-    private void matchEffect(List<Match> matches) {
+    private void matchEffect(Match m) {
         // TODO implement
-        for(Match m: matches) System.out.println(m.getType()+" size: "+m.size());
+        System.out.println(m.getType()+" size: "+m.size());
     }
 
     private void displayBoardBack(){
