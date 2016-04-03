@@ -25,18 +25,23 @@ public class Game extends GraphicsPane{
     Board board;
     ArrayList<GObject> boardObjects;   
     RowCol start, end;
+    boolean canMove;
 
     public void mousePressed(MouseEvent e) {
-        start = getTileAt(e.getX(),e.getY()).getPosition();
+        if(isInBoard(e.getX(), e.getY()) && canMove){ 
+            start = getTileAt(e.getX(),e.getY()).getPosition();
+        }
     }
     public void mouseDragged(MouseEvent e) {
-        end = getTileAt(e.getX(),e.getY()).getPosition();
-        board.moveTile(start,end);
-        start = getTileAt(e.getX(),e.getY()).getPosition();
-        updateTiles();
+        if(isInBoard(e.getX(), e.getY()) && canMove){ 
+            end = getTileAt(e.getX(),e.getY()).getPosition();
+            board.moveTile(start,end);
+            start = getTileAt(e.getX(),e.getY()).getPosition();
+            updateTiles();
+        }
     }
     public void mouseReleased(MouseEvent e) {
-        boardStep();
+        if(canMove) boardStep();
     }
 
     private void boardStep() {
@@ -47,7 +52,8 @@ public class Game extends GraphicsPane{
                         if(board.step(matches)){
                             boardStep();
                             updateTiles();
-                        }
+                            canMove = false;
+                        } else canMove = true;
                     }
                 }
         ,TILE_MOVE_DELAY);
@@ -58,6 +64,7 @@ public class Game extends GraphicsPane{
         this.program = program;
         this.score = 0;
         this.boardObjects = new ArrayList<GObject>();
+        canMove = true;
         board = new Board(NUM_ROWS,NUM_COLS);
         displayBoard();
     }
@@ -119,6 +126,10 @@ public class Game extends GraphicsPane{
     }
     
     // Helpers 
+
+    private boolean isInBoard(int x, int y){
+        return (x >= BOARD_X && x >= 0 && y >= BOARD_Y && y >= 0);
+    }
 
     private void matchEffect(List<Match> matches) {
         // TODO implement
