@@ -41,19 +41,23 @@ public class Game extends GraphicsPane{
         }
     }
     public void mouseReleased(MouseEvent e) {
-        if(canMove) boardStep();
+        Queue<Match> matches = board.getMatches();
+        if(canMove) boardStep(matches);
     }
 
-    private void boardStep() {
-        Queue<Match> matches = board.getMatches();
+    private void boardStep(Queue<Match> matches) {
         new Timer().schedule(
                 new TimerTask(){
                     public void run(){
                         if(board.step(matches)){
-                            boardStep();
+                            boardStep(matches);
                             updateTiles();
                             canMove = false;
-                        } else canMove = true;
+                        } else {
+                            Queue<Match> m = board.getMatches();
+                            if(!m.isEmpty()) boardStep(m);
+                            else canMove = true;
+                        }
                     }
                 }
         ,TILE_MOVE_DELAY);

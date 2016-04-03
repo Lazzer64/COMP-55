@@ -38,19 +38,19 @@ public class Board {
 
     // Return true if a change to the board was made
     public boolean step(Queue<Match> matches){
-        boolean d = false;
-        for(int i = num_rows-2; i >= 0; i--){
-            if(dropRow(i)) d = true;
-        }
-        if(d) return true;
         if(!matches.isEmpty()){
             removeMatch(matches.poll());
             return true;
         }
-        if(!isFilled()){
+        boolean d = false;
+        for(int i = num_rows-2; i >= 0; i--){
+            if(dropRow(i)) d = true;
+        }
+        if(topRowEmpty()){
             refillRow();
             return true;
         }
+        if(d) return true;
         return false;
     }
 
