@@ -4,6 +4,7 @@ import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.event.MouseEvent;
 import java.awt.Color;
+import java.awt.Font;
 import acm.graphics.*;
 import java.util.ArrayList;
 
@@ -15,9 +16,12 @@ public class Game extends GraphicsPane{
     public static final int TILE_SIZE = Main.WINDOW_WIDTH/NUM_COLS; 
     public static final int BOARD_X = 0;
     public static final int BOARD_Y = Main.WINDOW_HEIGHT - NUM_ROWS * TILE_SIZE;
+    public static final int SCORE_X = 0;
+    public static final int SCORE_Y = 20; 
     public static final int HP_BAR_HEIGHT = 25;
     public static final Color LINE_COLOR = Color.WHITE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
+    public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
 
     Main program;
     Unit player, enemy;
@@ -25,6 +29,7 @@ public class Game extends GraphicsPane{
 
     int score = 0;
     Board board = new Board(NUM_ROWS, NUM_COLS);
+    ArrayList<GObject> uiObjects = new ArrayList<GObject>();
     ArrayList<GObject> combatObjects = new ArrayList<GObject>();
     ArrayList<GObject> boardObjects = new ArrayList<GObject>();
     boolean canMove = true;
@@ -66,11 +71,13 @@ public class Game extends GraphicsPane{
         this.program = program;
         displayBoard();
         displayCombatField();
+        displayScore();
     }
 
     public void showContents(){
         displayObjects(boardObjects);
         displayObjects(combatObjects);
+        displayObjects(uiObjects);
     }
 
     public void hideContents(){
@@ -137,7 +144,12 @@ public class Game extends GraphicsPane{
     }
     
     public void displayScore() {
-        // TODO implement
+        GLabel scoreLabel = new GLabel("");
+        scoreLabel.setColor(Color.BLACK);
+        scoreLabel.setLabel("Score: "+score);
+        scoreLabel.setLocation(SCORE_X, SCORE_Y);
+        scoreLabel.setFont(SCORE_FONT);
+        uiObjects.add(scoreLabel);
     }
     
     // Helpers 
