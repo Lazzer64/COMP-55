@@ -1,6 +1,5 @@
 //Alex and Tom's Territory
-import java.util.List;
-import java.util.Queue;
+import java.util.Collection;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.event.MouseEvent;
@@ -16,6 +15,7 @@ public class Game extends GraphicsPane{
     public static final int TILE_SIZE = Main.WINDOW_WIDTH/NUM_COLS; 
     public static final int BOARD_X = 0;
     public static final int BOARD_Y = Main.WINDOW_HEIGHT - NUM_ROWS * TILE_SIZE;
+    public static final int HP_BAR_HEIGHT = 25;
     public static final Color LINE_COLOR = Color.WHITE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
 
@@ -25,6 +25,7 @@ public class Game extends GraphicsPane{
 
     int score = 0;
     Board board = new Board(NUM_ROWS, NUM_COLS);
+    ArrayList<GObject> combatObjects = new ArrayList<GObject>();
     ArrayList<GObject> boardObjects = new ArrayList<GObject>();
     boolean canMove = true;
 
@@ -64,18 +65,16 @@ public class Game extends GraphicsPane{
     public Game(Main program){
         this.program = program;
         displayBoard();
+        displayCombatField();
     }
 
     public void showContents(){
-        for(GObject o: boardObjects){
-            program.add(o);
-        }
+        displayObjects(boardObjects);
+        displayObjects(combatObjects);
     }
 
     public void hideContents(){
-        for(GObject o: boardObjects){
-            program.remove(o);
-        }
+        hideObjects(boardObjects);
     }
 
     public boolean checkWinFight() {
@@ -105,7 +104,9 @@ public class Game extends GraphicsPane{
     }
     
     public void displayCombatField() {
-        // TODO implement
+        int x = 50, y = 50;
+        displayUnit(x,y,player);
+        displayUnit(Main.WINDOW_WIDTH - x - 75,y,enemy);
     }
     
     public void displayBoard() {
@@ -115,7 +116,24 @@ public class Game extends GraphicsPane{
     }
 
     public void displayUnit(int x, int y, Unit unit) {
-        // TODO implement
+
+        int width = 75, height = 150; // TODO change rectangle to display unit's image
+        int unitHp = 7;// TODO replace with unit.getHp() when implemented;
+        int unitMaxHp = 10;// TODO replace with unit.getMaxHp() when implemented;
+
+        GRect u = new GRect(x,y,width,height);
+
+        GRect hpMax = new GRect(x, y+height, width, HP_BAR_HEIGHT);
+        hpMax.setFilled(true);
+        hpMax.setColor(Color.RED);
+
+        GRect hp = new GRect(x, y+height, width*(1.0*unitHp/unitMaxHp), HP_BAR_HEIGHT);
+        hp.setFilled(true);
+        hp.setColor(Color.GREEN);
+
+        combatObjects.add(u);
+        combatObjects.add(hpMax);
+        combatObjects.add(hp);
     }
     
     public void displayScore() {
@@ -123,6 +141,14 @@ public class Game extends GraphicsPane{
     }
     
     // Helpers 
+
+    private void displayObjects(Collection<GObject> objects) {
+        for(GObject o: objects) program.add(o);
+    }
+
+    private void hideObjects(Collection<GObject> objects) {
+        for(GObject o: objects) program.remove(o);
+    }
 
     private boolean isInBoard(int x, int y){
         return (x >= BOARD_X && x >= 0 && y >= BOARD_Y && y >= 0);
