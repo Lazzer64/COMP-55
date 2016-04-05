@@ -50,10 +50,13 @@ public class Game extends GraphicsPane{
 
         if(isInBoard(e.getX(), e.getY())) end = getTileAt(e.getX(),e.getY()).getPosition(); 
 
-        if(!start.equals(end)){
+        int xAdj = Math.abs(end.getX() - moveList.peek().getX());
+        int yAdj = Math.abs(end.getY() - moveList.peek().getY());
+        boolean adjacent = xAdj <= 1 && yAdj <= 1 && xAdj != yAdj;
+
+        if(adjacent){
             if(moveList.size() > 1 && end.equals(moveList.elementAt(moveList.size()-2))){
-                moveList.pop();
-                board.moveTile(start,end);
+                board.moveTile(moveList.pop(),moveList.peek());
             }
             else if(moveList.size() <= NUM_ALLOWED_MOVES && canMove){ 
                 board.moveTile(start,end);
@@ -65,8 +68,9 @@ public class Game extends GraphicsPane{
         updateTiles();
     }
     public void mouseReleased(MouseEvent e) {
-        if(canMove) boardStep();
+        if(canMove && moveList.size() > 1) boardStep();
         moveList = new Stack<RowCol>();
+        updateTiles();
     }
 
     private void boardStep() {
@@ -197,7 +201,7 @@ public class Game extends GraphicsPane{
             if(i==0) text = "X";
             GLabel l = new GLabel(text);
             l.setFont(TILE_PATH_FONT);
-            l.setColor(Color.WHITE);
+            l.setColor(LINE_COLOR);
             l.setLocation(BOARD_X + x.getX() * TILE_SIZE + TILE_SIZE/2, BOARD_Y + x.getY() * TILE_SIZE + TILE_SIZE/2);
             boardObjects.add(l);
             i++;
