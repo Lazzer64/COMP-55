@@ -9,7 +9,7 @@ import acm.util.*;
 
 
 public class Animation extends GObject{
-
+	private int x,y;
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
@@ -29,8 +29,8 @@ public class Animation extends GObject{
             addFrame(frames[i], frameDelay);
         }
 
+        x = y = 0;
         this.frameCount = 0;
-        this.frameDelay = frameDelay;
         this.currentFrame = 0;
         this.animationDirection = 1;
         this.totalFrames = this.frames.size();
@@ -38,10 +38,6 @@ public class Animation extends GObject{
     }
 
     public void start() {
-        if (!stopped) {
-            return;
-        }
-
         if (frames.size() == 0) {
             return;
         }
@@ -73,11 +69,6 @@ public class Animation extends GObject{
     }
 
     private void addFrame(BufferedImage frame, int duration) {
-        /*if (duration <= 0) {
-            System.err.println("Invalid duration: " + duration);
-            throw new RuntimeException("Invalid duration: " + duration);
-        }*/
-
         frames.add(new Frame(frame, duration));
         currentFrame = 0;
     }
@@ -85,7 +76,7 @@ public class Animation extends GObject{
     public BufferedImage getSprite() {
         return frames.get(currentFrame).getFrame();
     }
-
+    
     public void update() {
             frameCount++;
 
@@ -114,7 +105,7 @@ public class Animation extends GObject{
 	@Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(getSprite(),0,0,null);
+		g.drawImage(getSprite(),x,y,null);
 	}
 
 }
