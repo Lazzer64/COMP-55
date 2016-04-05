@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class HighscoreList {
 
     File scoreList;
+    //array list
     private ArrayList<Score> highScoreList;
     Score[] scores;
     private int numScores;
@@ -26,7 +27,7 @@ public class HighscoreList {
     	return numScores;
     }
     
-    /** Adds score object onto the highScoreList
+    /** Writes score object onto the highScoreList
      * @param scoreObj
      */
     public void addScore(Score scoreObj)
@@ -57,13 +58,48 @@ public class HighscoreList {
     }
     
     
-    public void writeScore(Score score) {
-        
+    
+    public void writeScores()
+    {
+    	
+    	
+    	
+    	
     }
+    
+   
     
     public Score[] readScores() {
-        // TODO implement
-        return null;
+        Score temp;
+        int min;
+        
+        for(int i = 0; i < highScoreList.size(); i++)
+        {
+        	min = i;
+        	
+        	for (int j = i+1; j < highScoreList.size(); j++)
+        	{
+        		if (highScoreList.get(j).compare(highScoreList.get(min)) > 0)
+        		{
+        			min = j;
+        		}
+        		
+        	}
+        	temp = highScoreList.get(min);
+        	highScoreList.set(min, highScoreList.get(i));
+        	highScoreList.set(i, temp);
+        	
+        	scores = new Score[highScoreList.size()];
+        }
+        
+        for(int i = 0; i < highScoreList.size(); i++)
+        {
+        	scores[i] = highScoreList.get(i);
+        }
+        	
+        return scores;
+        }
+    	
     }
     
-}
+
