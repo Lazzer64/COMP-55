@@ -1,4 +1,5 @@
 //Alex and Tom's Territory
+import java.util.Stack;
 import java.util.Collection;
 import java.util.TimerTask;
 import java.util.Timer;
@@ -19,6 +20,7 @@ public class Game extends GraphicsPane{
     public static final int SCORE_X = 0;
     public static final int SCORE_Y = 20; 
     public static final int HP_BAR_HEIGHT = 25;
+    public static final int NUM_ALLOWED_MOVES = 3;
     public static final Color LINE_COLOR = Color.WHITE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
@@ -34,21 +36,35 @@ public class Game extends GraphicsPane{
     ArrayList<GObject> boardObjects = new ArrayList<GObject>();
     boolean canMove = true;
 
+    Stack<RowCol> moveList = new Stack<RowCol>();
+
     public void mousePressed(MouseEvent e) {
         if(isInBoard(e.getX(), e.getY()) && canMove){ 
             start = getTileAt(e.getX(),e.getY()).getPosition();
+            moveList.push(start);
         }
     }
     public void mouseDragged(MouseEvent e) {
-        if(isInBoard(e.getX(), e.getY()) && canMove){ 
-            end = getTileAt(e.getX(),e.getY()).getPosition();
-            board.moveTile(start,end);
-            start = getTileAt(e.getX(),e.getY()).getPosition();
-            updateTiles();
+
+        if(isInBoard(e.getX(), e.getY())) end = getTileAt(e.getX(),e.getY()).getPosition(); 
+
+        if(!start.equals(end)){
+            if(moveList.size() > 1 && end.equals(moveList.elementAt(moveList.size()-2))){
+                moveList.pop();
+                board.moveTile(start,end);
+            }
+            else if(moveList.size() <= NUM_ALLOWED_MOVES && canMove){ 
+                board.moveTile(start,end);
+                moveList.push(end);
+            }
         }
+
+        start = end;
+        updateTiles();
     }
     public void mouseReleased(MouseEvent e) {
         if(canMove) boardStep();
+        moveList = new Stack<RowCol>();
     }
 
     private void boardStep() {
@@ -186,6 +202,7 @@ public class Game extends GraphicsPane{
     }
 
     private Tile getTileAt(int x, int y){
+        if(!isInBoard(x,y)) return null;
         int row = (int)((y-BOARD_Y)/TILE_SIZE);
         int col = (int)((x-BOARD_X)/TILE_SIZE);
         return board.getTiles()[row][col];

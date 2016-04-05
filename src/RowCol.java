@@ -8,6 +8,10 @@ public class RowCol {
 		this.y = y;
     }
 
+    public boolean equals(RowCol x){
+        return getX() == x.getX() && getY() == x.getY();
+    }
+
 	public void setX(int x) {
     	this.x = x;
 	}
