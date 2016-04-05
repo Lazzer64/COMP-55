@@ -11,7 +11,7 @@ import java.util.ArrayList;
 
 public class Game extends GraphicsPane{
 
-    public static final int NUM_ROWS = 5;
+    public static final int NUM_ROWS = 6;
     public static final int NUM_COLS = 6;
     public static final int TILE_MOVE_DELAY = 150; // In milliseconds
     public static final int TILE_SIZE = Main.WINDOW_WIDTH/NUM_COLS; 
