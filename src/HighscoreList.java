@@ -4,9 +4,8 @@ import java.io.File;
 import java.util.ArrayList;
 /**
  	* Creates list, keeps track of top 10 scores in games
- 	* 
+ 	* Writes/reads into file, descending order
  	*/
-
 
 public class HighscoreList {
 
@@ -57,19 +56,12 @@ public class HighscoreList {
     	 		    	
     }
     
+      
     
-    
-    public void writeScores()
-    {
-    	
-    	
-    	
-    	
-    }
-    
-   
-    
-    public Score[] readScores() {
+    /** Sorts scores
+     * @return
+     */
+    public Score[] sortScores() {
         Score temp;
         int min;
         
@@ -100,6 +92,24 @@ public class HighscoreList {
         return scores;
         }
     	
-    }
     
+
+	public void readScores(){
+		
+		
+		
+	}
+	
+	/**
+	 * 
+	 */
+	public void writeScores()
+	{
+		
+		
+		
+		
+	}
+	
+
 
