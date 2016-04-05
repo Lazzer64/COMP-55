@@ -2,6 +2,11 @@
 //Beginning 4/1/16
 import java.io.File;
 import java.util.ArrayList;
+/**
+ 	* Creates list, keeps track of top 10 scores in games
+ 	* 
+ 	*/
+
 
 public class HighscoreList {
 
@@ -21,6 +26,9 @@ public class HighscoreList {
     	return numScores;
     }
     
+    /** Adds score object onto the highScoreList
+     * @param scoreObj
+     */
     public void addScore(Score scoreObj)
     {
     	numScores = 0;
