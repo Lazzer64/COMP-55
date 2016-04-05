@@ -10,7 +10,30 @@ public class Score {
 
     static Score parseScore(String input) {
         // TODO implement
-        return null;
+    	return null;
+    }
+    
+    
+    /**Compares the scores in the list
+     * @param score1
+     * @param score2
+     * @return
+     */
+    public int compare(Score scoreIn){
+    	int s1 = this.getScore();
+    	int s2 = scoreIn.getScore();
+    	
+    	if(s1 > s2){
+    		return -1;
+    	}
+    	
+    	else if (s1 < s2){
+    		return +1;
+    		}
+    	else {
+    		return 0;
+    	}
+     	
     }
     
     // Getters and Setters 
