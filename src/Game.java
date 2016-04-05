@@ -20,10 +20,11 @@ public class Game extends GraphicsPane{
     public static final int SCORE_X = 0;
     public static final int SCORE_Y = 20; 
     public static final int HP_BAR_HEIGHT = 25;
-    public static final int NUM_ALLOWED_MOVES = 3;
+    public static final int NUM_ALLOWED_MOVES = 5;
     public static final Color LINE_COLOR = Color.WHITE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
+    public static final Font TILE_PATH_FONT = new Font("Consolas",Font.BOLD, 20);
 
     Main program;
     Unit player, enemy;
@@ -43,6 +44,7 @@ public class Game extends GraphicsPane{
             start = getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
         }
+        updateTiles();
     }
     public void mouseDragged(MouseEvent e) {
 
@@ -136,6 +138,7 @@ public class Game extends GraphicsPane{
         displayBoardBack();
         displayTiles();
         displayGrid();
+        displayTilePath();
     }
 
     public void displayUnit(int x, int y, Unit unit) {
@@ -185,6 +188,20 @@ public class Game extends GraphicsPane{
     private void matchEffect(Match m) {
         // TODO implement
         System.out.println(m.getType()+" size: "+m.size());
+    }
+
+    private void displayTilePath() {
+        int i = 0;
+        for(RowCol x: moveList) {
+            String text = i+"";
+            if(i==0) text = "X";
+            GLabel l = new GLabel(text);
+            l.setFont(TILE_PATH_FONT);
+            l.setColor(Color.WHITE);
+            l.setLocation(BOARD_X + x.getX() * TILE_SIZE + TILE_SIZE/2, BOARD_Y + x.getY() * TILE_SIZE + TILE_SIZE/2);
+            boardObjects.add(l);
+            i++;
+        }
     }
 
     private void displayBoardBack(){
