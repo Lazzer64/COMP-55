@@ -19,9 +19,9 @@ public class Score {
      * @param score2
      * @return
      */
-    public int compare(Score score1, Score score2){
-    	int s1 = score1.getScore();
-    	int s2 = score2.getScore();
+    public int compare(Score scoreIn){
+    	int s1 = this.getScore();
+    	int s2 = scoreIn.getScore();
     	
     	if(s1 > s2){
     		return -1;

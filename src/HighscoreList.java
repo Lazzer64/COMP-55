@@ -6,26 +6,48 @@ import java.util.ArrayList;
 public class HighscoreList {
 
     File scoreList;
+    private ArrayList<Score> highScoreList;
     Score[] scores;
-    private int numberScores;
+    private int numScores;
+    private int numScores2;
 
-    /*public HighscoreList()
+    public HighscoreList()
     {
-    	scoreList = new ArrayList<Score>();
+    	highScoreList = new ArrayList<Score>();
     }
     
     public int getnumScores()
     {
-    	return numberScores;
+    	return numScores;
     }
     
     public void addScore(Score scoreObj)
     {
-    	numberScore
+    	numScores = 0;
+    	numScores2 = 0;
     	
-    	
+    	 Score temp;
+    	 
+    	 if (highScoreList.size() < 10)
+    	 {
+    	 	highScoreList.add(scoreObj);
+    	 }
+    	 
+    	 else
+    	 {
+    	 	for (int i = 0; i < 10; i++)
+    	 	{
+    	 		if(highScoreList.get(i).compare(scoreObj) == -1)
+    	 		{
+    	 			temp = highScoreList.get(i);
+    	 			highScoreList.set(highScoreList.indexOf(temp), scoreObj);
+    	 			scoreObj = temp;
+    	 		}
+    	 	}
+    	 }
+    	 		    	
     }
-    */
+    
     
     public void writeScore(Score score) {
         
