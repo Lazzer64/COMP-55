@@ -10,6 +10,7 @@ public class Board {
     Tile[][] tiles;
     Queue<Match> matches = new LinkedList<Match>();
 
+    // Functions helpful for testing
     static private Tile R(int x, int y) {return new Tile(new RowCol(x,y),TileType.RED);}
     static private Tile G(int x, int y) {return new Tile(new RowCol(x,y),TileType.GREEN);}
     static private Tile B(int x, int y) {return new Tile(new RowCol(x,y),TileType.BLUE);}
@@ -28,6 +29,10 @@ public class Board {
 
     }
 
+    /**Constructor
+     * @param num_rows Number of rows the board will have
+     * @param num_cols Number of columns the board will have
+     */
     public Board(int num_rows, int num_cols){
         this.num_rows = num_rows;
         this.num_cols = num_cols;
@@ -35,7 +40,12 @@ public class Board {
         initTiles();
     }
 
-    // Return true if a change to the board was made
+    /** Makes incremental changes to the board state in the order:
+     * <li>Remove a match if one exists
+     * <li>Move any tiles that need to be moved down and add a row of tiles
+     * <li>Check for new matches once all tiles have settled
+     * @return Returns true if a change was made to the board.
+     */
     public boolean step(){
         if(!matches.isEmpty()){
             removeMatch(matches.poll());
@@ -61,6 +71,10 @@ public class Board {
         return tiles;
     }
 
+    /**Move a tile at a RowCol and those in its row or column from start to end
+     * @param start Position of Tile to be moved
+     * @param end Position the Tile should be moved to
+     */
     public void moveTile(RowCol start, RowCol end) {
         int x = end.getX() - start.getX();
         int y = end.getY() - start.getY();
@@ -69,6 +83,9 @@ public class Board {
         else shiftCol(start.getX(),y);
     }
 
+    /**Finds all matches that are currently within the board but does not remove them
+     * @return Returns a Queue of Matches in the order in which they were found
+     */
     public Queue<Match> makeMatches() {
 
         Queue<Match> matchQ = new LinkedList<Match>();
@@ -78,12 +95,14 @@ public class Board {
         return matchQ;
     }
 
+    /**Moves all Tiles on the board down if there is an empty space below it*/
     public void dropAllTiles() {
         for (int i = 0; i < num_cols; i++) {
             dropTilesInCol(i);
         }
     }
 
+    /**Refills the board with new randomly generated Tiles.*/
     public void refillBoard() {
         for (int col = 0; col < num_cols; col++) {
             Tile[] fill = getRefillTiles(col);

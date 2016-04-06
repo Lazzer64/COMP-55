@@ -70,6 +70,7 @@ public class Game extends GraphicsPane{
         update();
     }
 
+    /**Repeatedly calls step on board with a delay in order to create a animated look*/
     private void boardStep() {
         new Timer().schedule(
                 new TimerTask(){
@@ -97,16 +98,23 @@ public class Game extends GraphicsPane{
         combatDisplay.hideContents();
     }
 
+    /**Checks to see if the enemy has been defeated
+     * @return Returns true if the enemy is defeated
+     */
     public boolean checkWinFight() {
         // TODO implement
         return false;
     }
 
+    /**Checks to see if the player has been defeated
+     * @return Returns true if the player is defeated
+     */
     public boolean checkLoseGame() {
         // TODO implement
         return false;
     }
 
+    /**Sets up the next fight*/
     public void nextFight() {
         // TODO implement
     }
@@ -119,6 +127,7 @@ public class Game extends GraphicsPane{
         // TODO implement
     }
     
+    /**Refreshes all the displays that may need updating*/
     public void update() {
         boardDisplay.displayBoard(board, BOARD_X, BOARD_Y);
         uiDisplay.displayTilePath(moveList, BOARD_X, BOARD_Y);
@@ -132,6 +141,9 @@ public class Game extends GraphicsPane{
         return (x >= BOARD_X && x >= 0 && y >= BOARD_Y && y >= 0);
     }
 
+    /**Creates an effect on the board based on what match was made
+     * @param m The match that was made
+     */
     private void matchEffect(Match m) {
         // TODO implement
         System.out.println(m.getType()+" size: "+m.size());
