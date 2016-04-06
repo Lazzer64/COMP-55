@@ -89,7 +89,15 @@ public class Board {
     public Queue<Match> makeMatches() {
 
         Queue<Match> matchQ = new LinkedList<Match>();
-        for (Match m: findAllMatches()) matchQ.add(m);
+        for (Match m: findAllMatches()){
+            for(Match x: matchQ){
+                if(m.overlaps(x)){
+                   m = m.merge(x);
+                   matchQ.remove(x);
+                }
+            }
+            matchQ.add(m);
+        }
 
         matches = matchQ;
         return matchQ;
