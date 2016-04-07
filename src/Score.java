@@ -15,7 +15,7 @@ public class Score {
     }
     
     
-    /**Compares the scores in the list
+    /**Compares the scores in the list for sorting
      * @param score1
      * @param score2
      * @return

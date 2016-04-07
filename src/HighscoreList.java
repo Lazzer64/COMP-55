@@ -33,12 +33,20 @@ public class HighscoreList {
     	return numScores;
     }*/
     
+    /**Get the scores of the highScoreList by loading file, sorting them
+     * then returning the sorted list
+     * @return
+     */
     public ArrayList<Score> getScores(){
     	loadScoreFile();
     	//sortScores()
     	return highScoreList;
     }
     
+    
+    /**Sorts the scores by calling the sort function
+     * 
+     */
     public void sort(){
     	//Score comparator = new Score();
     	//Collections.sort(scores,comparator);
@@ -77,7 +85,7 @@ public class HighscoreList {
     
       
     
-    /** Sorts scores
+    /** Sorts scores of the highScoreList
      * @return
      */
     public Score[] sortScores() {
