@@ -17,8 +17,14 @@ public abstract class Unit {
     }
 
 
-    public void attack(Unit target){
+    public void attack(Unit target, int size){
         // TODO implement
+ 
+     target.hp = target.hp-(size-target.defense);
+    }
+    public void attack(Unit target){
+    
+    	target.hp = target.hp-(attack-target.defense);
     }
     
     // Getters and Setters
