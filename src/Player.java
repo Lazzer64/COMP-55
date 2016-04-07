@@ -2,8 +2,9 @@ import java.io.File;
 //mark's territory
 public class Player extends Unit{
 
-    public Player(int hp, int maxHp, int attack, int defense, File image) { 
-        super(hp, maxHp, attack, defense, image);
+    public Player( File image) { 
+        super(HP, HP, 0, DEFENSE, image);
     }
-    
+    private static final int HP = 200;
+    private static final int DEFENSE = 3;
 }
