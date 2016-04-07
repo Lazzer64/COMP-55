@@ -2,6 +2,7 @@
 //Beginning 4/1/16
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 /**
  	* Creates list, keeps track of top 10 scores in games
  	* Writes/reads into file, descending order
@@ -9,23 +10,41 @@ import java.util.ArrayList;
 
 public class HighscoreList {
 
-    File scoreList;
-    //array list
+    //Array list
     private ArrayList<Score> highScoreList;
+    //Name of file for highscores
+    private static final String HsFile = "scores.txt";
+    
     Score[] scores;
     private int numScores;
     private int numScores2;
 
+    
+    /**Generates the default constructor for an empty array list
+     * 
+     */
     public HighscoreList()
     {
     	highScoreList = new ArrayList<Score>();
     }
     
-    public int getnumScores()
+   /* public int getnumScores()
     {
     	return numScores;
+    }*/
+    
+    public ArrayList<Score> getScores(){
+    	loadScoreFile();
+    	//sortScores()
+    	return highScoreList;
     }
     
+    public void sort(){
+    	//Score comparator = new Score();
+    	//Collections.sort(scores,comparator);
+    	
+    
+    }
     /** Writes score object onto the highScoreList
      * @param scoreObj
      */
@@ -93,23 +112,18 @@ public class HighscoreList {
         }
     	
     
+    public void writeScores()
+	{
+    
+	}
 
-	public void readScores(){
+	public void loadScoreFile(){
 		
 		
 		
 	}
 	
-	/**
-	 * 
-	 */
-	public void writeScores()
-	{
-		
-		
-		
-		
-	}
+	
 }
 	
 
