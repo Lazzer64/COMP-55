@@ -15,9 +15,12 @@ public class Game extends GraphicsPane{
     public static final int SCORE_X = 0;
     public static final int SCORE_Y = 20; 
     public static final int NUM_ALLOWED_MOVES = 5;
+    public static final int ENEMY_DAMAGE = 10;
+    public static final int PLAYER_DAMAGE_MULT = 5;
 
     Main program;
-    Unit player, enemy;
+    Player player;
+    Enemy enemy;
     RowCol start, end;
     BoardDisplay boardDisplay;
     UiDisplay uiDisplay;
@@ -33,6 +36,8 @@ public class Game extends GraphicsPane{
         this.boardDisplay = new BoardDisplay(program);
         this.uiDisplay = new UiDisplay(program);
         this.combatDisplay = new CombatDisplay(program);
+        this.player = new Player(null);
+        this.enemy = new Enemy(null);
         update();
     }
 
@@ -64,6 +69,7 @@ public class Game extends GraphicsPane{
         start = end;
         update();
     }
+
     public void mouseReleased(MouseEvent e) {
         if(canMove && moveList.size() > 1) boardStep();
         moveList = new Stack<RowCol>();
@@ -75,11 +81,26 @@ public class Game extends GraphicsPane{
                 new TimerTask(){
                     public void run(){
                         if(board.step()){
+
                             if(!board.getMatches().isEmpty()) matchEffect(board.getMatches().peek());
-                            boardStep();
-                            update();
+
+                            boardStep(); 
                             canMove = false;
-                        } else canMove = true;
+                            update();
+
+                        } else {
+
+                            if(!checkWinFight()) {
+                                enemy.attack(player, ENEMY_DAMAGE);
+                                if(checkLoseGame()) {
+                                    // TODO change to actual game over
+                                    System.out.println("GAME OVER");
+                                }
+                            } else nextFight();
+
+                            canMove = true;
+                            update();
+                        }
                     }
                 }
         ,TILE_MOVE_DELAY);
@@ -98,17 +119,17 @@ public class Game extends GraphicsPane{
     }
 
     public boolean checkWinFight() {
-        // TODO implement
-        return false;
+        return enemy.getHp() <= 0;
     }
 
     public boolean checkLoseGame() {
-        // TODO implement
-        return false;
+        return player.getHp() <= 0;
     }
 
     public void nextFight() {
-        // TODO implement
+        // TODO change to actual generation
+        System.out.println("NEXT FIGHT!");
+        enemy = new Enemy(null);
     }
 
     public void playerTurn() {
@@ -133,7 +154,7 @@ public class Game extends GraphicsPane{
     }
 
     private void matchEffect(Match m) {
-        // TODO implement
+        player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
         System.out.println(m.getType()+" size: "+m.size());
         score += m.size();
     }
