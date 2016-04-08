@@ -2,7 +2,7 @@ import java.io.File;
 //mark's territory
 public class Boss extends Enemy{
 
-    public Boss( File image) { 
+    public Boss(String image) { 
         super(HP, DEFENSE, image);
         generateAttack(MINATTACK, MAXATTACK);
     }
