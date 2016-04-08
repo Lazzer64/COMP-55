@@ -12,9 +12,9 @@ public class Main2 extends GraphicsProgram {
 	public static final int BREAK_MS = 300;
 	
 	// Images for each animation
-	private BufferedImage[] walkingLeft = {Sprite.getSprite(0, 1), Sprite.getSprite(2, 1)}; // Gets the upper left images of my sprite sheet
-	private BufferedImage[] walkingRight = {Sprite.getSprite(0, 2), Sprite.getSprite(2, 2)};
-	private BufferedImage[] standing = {Sprite.getSprite(1, 0)};
+	private BufferedImage[] walkingLeft = {SpriteSheet.getSprite(0, 1), SpriteSheet.getSprite(2, 1)}; // Gets the upper left images of my sprite sheet
+	private BufferedImage[] walkingRight = {SpriteSheet.getSprite(0, 2), SpriteSheet.getSprite(2, 2)};
+	private BufferedImage[] standing = {SpriteSheet.getSprite(1, 0)};
 
 	// These are animation states
 	private Animation walkLeft = new Animation(walkingLeft, 0);

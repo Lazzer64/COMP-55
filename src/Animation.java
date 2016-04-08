@@ -53,21 +53,6 @@ public class Animation extends GObject{
         stopped = true;
     }
 
-    public void restart() {
-        if (frames.size() == 0) {
-            return;
-        }
-
-        stopped = false;
-        currentFrame = 0;
-    }
-
-    public void reset() {
-        this.stopped = true;
-        this.frameCount = 0;
-        this.currentFrame = 0;
-    }
-
     private void addFrame(BufferedImage frame, int duration) {
         frames.add(new Frame(frame, duration));
         currentFrame = 0;
