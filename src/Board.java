@@ -28,11 +28,19 @@ public class Board {
 
     }
 
+
     public Board(int num_rows, int num_cols){
+        this(num_rows,num_cols,true);
+    }
+
+    public Board(int num_rows, int num_cols, boolean removeMatches){
         this.num_rows = num_rows;
         this.num_cols = num_cols;
         tiles = new Tile[num_rows][num_cols];
         initTiles();
+        if(removeMatches){
+            while(step());           
+        }
     }
 
     // Return true if a change to the board was made

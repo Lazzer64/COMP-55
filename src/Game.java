@@ -50,29 +50,31 @@ public class Game extends GraphicsPane{
     }
     public void mouseDragged(MouseEvent e) {
 
-        if(isInBoard(e.getX(), e.getY())) end = getTileAt(e.getX(),e.getY()).getPosition(); 
+        if(isInBoard(e.getX(), e.getY()) && start != null) {
+            end = getTileAt(e.getX(),e.getY()).getPosition(); 
+            int xAdj = Math.abs(end.getX() - moveList.peek().getX());
+            int yAdj = Math.abs(end.getY() - moveList.peek().getY());
+            boolean adjacent = xAdj <= 1 && yAdj <= 1 && xAdj != yAdj;
 
-        int xAdj = Math.abs(end.getX() - moveList.peek().getX());
-        int yAdj = Math.abs(end.getY() - moveList.peek().getY());
-        boolean adjacent = xAdj <= 1 && yAdj <= 1 && xAdj != yAdj;
+            if(adjacent){
+                if(moveList.size() > 1 && end.equals(moveList.elementAt(moveList.size()-2))){
+                    board.moveTile(moveList.pop(),moveList.peek());
+                }
+                else if(moveList.size() <= NUM_ALLOWED_MOVES && canMove){ 
+                    board.moveTile(start,end);
+                    moveList.push(end);
+                }
+            }
 
-        if(adjacent){
-            if(moveList.size() > 1 && end.equals(moveList.elementAt(moveList.size()-2))){
-                board.moveTile(moveList.pop(),moveList.peek());
-            }
-            else if(moveList.size() <= NUM_ALLOWED_MOVES && canMove){ 
-                board.moveTile(start,end);
-                moveList.push(end);
-            }
+            start = end;
+            update();
         }
-
-        start = end;
-        update();
     }
 
     public void mouseReleased(MouseEvent e) {
         if(canMove && moveList.size() > 1) boardStep();
         moveList = new Stack<RowCol>();
+        start = null;
         update();
     }
 
@@ -150,7 +152,7 @@ public class Game extends GraphicsPane{
     // Helpers 
 
     private boolean isInBoard(int x, int y){
-        return (x >= BOARD_X && x >= 0 && y >= BOARD_Y && y >= 0);
+        return (x > BOARD_X && x < BOARD_X+TILE_SIZE*NUM_COLS && y > BOARD_Y && y < BOARD_Y+TILE_SIZE*NUM_ROWS);
     }
 
     private void matchEffect(Match m) {
