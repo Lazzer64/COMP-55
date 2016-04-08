@@ -9,7 +9,6 @@ import acm.util.*;
 
 
 public class Animation extends GObject{
-	private int x,y;
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
@@ -29,7 +28,6 @@ public class Animation extends GObject{
             addFrame(frames[i], frameDelay);
         }
 
-        x = y = 0;
         this.frameCount = 0;
         this.currentFrame = 0;
         this.animationDirection = 1;
@@ -90,7 +88,7 @@ public class Animation extends GObject{
 	@Override
 	public void paint(Graphics g) {
 		// TODO Auto-generated method stub
-		g.drawImage(getSprite(),x,y,null);
+		g.drawImage(getSprite(),(int)getX(),(int)getY(),null);
 	}
 
 }
