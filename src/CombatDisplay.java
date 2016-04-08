@@ -1,11 +1,18 @@
+import java.awt.image.BufferedImage;
 import java.awt.Color;
 import acm.graphics.*;
 
 public class CombatDisplay extends Display{
 
+    public static final double PLAYER_X = 100;
+    public static final double PLAYER_Y = 125;
+    public static final double ENEMY_X = 250;
+    public static final double ENEMY_Y = PLAYER_Y;
+
     public static final Color HP_BAR_FILLED_COLOR = Color.GREEN;
     public static final Color HP_BAR_EMPTY_COLOR = Color.RED;
-    public static final int HP_BAR_HEIGHT = 25;
+    public static final int HP_BAR_BUFFER = 5;
+    public static final int HP_BAR_HEIGHT = 10;
 
     public CombatDisplay(GraphicsApplication program){
         super(program);
@@ -13,25 +20,35 @@ public class CombatDisplay extends Display{
     
     public void displayCombatField(Unit player, Unit enemy) {
         clean();
-        int x = 50, y = 50;
-        displayUnit(x,y,player);
-        displayUnit(Main.WINDOW_WIDTH - x - 75,y,enemy);
+        displayUnit(PLAYER_X, PLAYER_Y, player);
+        displayUnit(ENEMY_X, ENEMY_Y, enemy);
         showContents();
     }
     
-    public void displayUnit(int x, int y, Unit unit) {
+    //FIXME replace with a real implementation
+    public static final BufferedImage[] TEST_FRAMES = new BufferedImage[] {
+        new SpriteSheet("SpriteSheets/AnimationSpritesheet.png", 32, 32).getSprite(0,0)
+    };
 
-        int width = 75, height = 150; // TODO change rectangle to display unit's image
+    public void displayUnit(double x, double y, Unit unit) {
+
+        //TODO change to get actual animation when implemented
+        GObject u = new Animation(TEST_FRAMES,2);
+        u.setLocation(x,y);
+
+        double width = u.getWidth(), height = u.getHeight();
+
         int unitHp = unit.getHp();
         int unitMaxHp = unit.getMaxHp();
+        double percentHp = 1.0*unitHp/unitMaxHp;
 
-        GRect u = new GRect(x,y,width,height);
+        double hpY = y + height + HP_BAR_BUFFER;
 
-        GRect hpMax = new GRect(x, y+height, width, HP_BAR_HEIGHT);
+        GRect hpMax = new GRect(x, hpY, width, HP_BAR_HEIGHT);
         hpMax.setFilled(true);
         hpMax.setColor(HP_BAR_EMPTY_COLOR);
 
-        GRect hp = new GRect(x, y+height, width*(1.0*unitHp/unitMaxHp), HP_BAR_HEIGHT);
+        GRect hp = new GRect(x, hpY, width*percentHp, HP_BAR_HEIGHT);
         hp.setFilled(true);
         hp.setColor(HP_BAR_FILLED_COLOR);
 
