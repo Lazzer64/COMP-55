@@ -1,4 +1,3 @@
-import java.io.File;
 //mark's territory
 public abstract class Unit {
 
@@ -6,14 +5,14 @@ public abstract class Unit {
 	private int maxHp;
 	private int attack;
 	private int defense;
-	private File image;
+	private String name;
 
-    public Unit(int hp, int maxHp, int attack, int defense, File image) { 
+    public Unit(int hp, int maxHp, int attack, int defense, String name) { 
 		this.hp = hp;
 		this.maxHp = maxHp;
 		this.attack = attack;
 		this.defense = defense;
-		this.image = image;
+		this.name = name;
     }
 
 
@@ -60,12 +59,12 @@ public abstract class Unit {
 		return defense;
 	}
 
-	public void setImage(File image) {
-    	this.image = image;
+	public void setName(String name) {
+    	this.name = name;
 	}
 
-	public File getImage() {    
-		return image;
+	public String getName() {    
+		return name;
 	}
 
 }

@@ -1,13 +1,12 @@
-import java.io.File;
 import java.util.Random;
 //mark's territory
 
 public class Enemy extends Unit{
-    public Enemy(int hp, int defense,  File image ){
-    	super(hp, hp, 0, defense, image);
+    public Enemy(int hp, int defense, String name){
+    	super(hp, hp, 0, defense, name);
     }
-    public Enemy( File image) { 
-        super(HP, HP, 0, DEFENSE, image);
+    public Enemy(String name) { 
+        super(HP, HP, 0, DEFENSE, name);
         rng = new Random(System.currentTimeMillis());
         generateAttack(MINATTACK, MAXATTACK);    }
     private Random rng;
