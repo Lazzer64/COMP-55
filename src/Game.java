@@ -18,28 +18,41 @@ public class Game extends GraphicsPane{
     public static final int NUM_ALLOWED_MOVES = 5;
     public static final int ENEMY_DAMAGE = 10;
     public static final int PLAYER_DAMAGE_MULT = 5;
+    public static final int COMBAT_Y = 100;
+    public static final int COMBAT_X = 100;
 
     Main program;
     Player player;
     Enemy enemy;
     RowCol start, end;
     BoardDisplay boardDisplay;
-    UiDisplay uiDisplay;
+    TilePathDisplay moveListDisplay;
     CombatDisplay combatDisplay;
+    ScoreDisplay scoreDisplay;
 
-    int score = 0;
+    Score score;
     Board board = new Board(NUM_ROWS, NUM_COLS);
     boolean canMove = true;
     Stack<RowCol> moveList = new Stack<RowCol>();
 
     public Game(Main program){
         this.program = program;
+        this.score = new Score(0,"");
         this.player = new Player(null);
         this.enemy = new Enemy(null);
-        this.boardDisplay = new BoardDisplay(program);
-        this.uiDisplay = new UiDisplay(program);
+
+        this.boardDisplay = new BoardDisplay(program, board);
+        boardDisplay.setLocation(BOARD_X, BOARD_Y);
+
+        this.moveListDisplay = new TilePathDisplay(program, moveList);
+        moveListDisplay.setLocation(BOARD_X, BOARD_Y);
+
         this.combatDisplay = new CombatDisplay(program, player, enemy);
-        combatDisplay.setLocation(100,100);
+        combatDisplay.setLocation(COMBAT_X,COMBAT_Y);
+
+        this.scoreDisplay = new ScoreDisplay(program, score);
+        scoreDisplay.setLocation(SCORE_X, SCORE_Y);
+
         update();
     }
 
@@ -73,7 +86,7 @@ public class Game extends GraphicsPane{
 
     public void mouseReleased(MouseEvent e) {
         if(canMove && moveList.size() > 1) boardStep();
-        moveList = new Stack<RowCol>();
+        moveList.clear();
         start = null;
     }
 
@@ -107,13 +120,13 @@ public class Game extends GraphicsPane{
 
     public void showContents(){
         boardDisplay.showContents();
-        uiDisplay.showContents();
+        moveListDisplay.showContents();
         combatDisplay.showContents();
     }
 
     public void hideContents(){
         boardDisplay.hideContents();
-        uiDisplay.hideContents();
+        moveListDisplay.hideContents();
         combatDisplay.hideContents();
     }
 
@@ -145,10 +158,10 @@ public class Game extends GraphicsPane{
             public void run(){
                 update();
             }} ,REFRESH_RATE);
-        boardDisplay.displayBoard(board, BOARD_X, BOARD_Y);
-        uiDisplay.displayTilePath(moveList, BOARD_X, BOARD_Y);
-        uiDisplay.displayScore(score, SCORE_X, SCORE_Y);
+        boardDisplay.update();
+        moveListDisplay.update();
         combatDisplay.update();
+        scoreDisplay.update();
     }
     
     // Helpers 
@@ -160,7 +173,7 @@ public class Game extends GraphicsPane{
     private void matchEffect(Match m) {
         player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
         System.out.println(m.getType()+" size: "+m.size());
-        score += m.size();
+        score.setScore(score.getScore() + m.size());
     }
 
     private Tile getTileAt(int x, int y){

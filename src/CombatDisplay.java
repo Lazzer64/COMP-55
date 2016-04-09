@@ -27,11 +27,8 @@ public class CombatDisplay extends Display{
     }
 
     public void repaint(){
-        clean();
-        for(Animation a: animations) addObject(a);
         drawHP(player, -HP_BAR_WIDTH/4, 32 + HP_BAR_BUFFER);
         drawHP(enemy, DISTANCE-HP_BAR_WIDTH/4, 32 + HP_BAR_BUFFER);
-        showContents();
     }
 
     public void drawHP(Unit unit, double x, double y){

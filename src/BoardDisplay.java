@@ -7,18 +7,22 @@ public class BoardDisplay extends Display{
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Color LINE_COLOR = Color.WHITE;
 
-    BoardDisplay(GraphicsApplication program){
+    Board board;
+
+    BoardDisplay(GraphicsApplication program, Board board){
         super(program);
+        this.board = board;
+        displayBoard();
     }
 
-    public void displayBoard(Board board, int boardX, int boardY){
+    public void repaint(){
+        displayBoard();
+    }
+
+    public void displayBoard(){
         int rows = board.getTiles().length;
         int cols = board.getTiles()[0].length;
-        hideContents();
-        clean();
         init(board, rows, cols);
-        for(GObject o: objects) o.move(boardX, boardY);
-        showContents();
     }
 
     private void init(Board board, int rows, int cols){
@@ -32,7 +36,7 @@ public class BoardDisplay extends Display{
         GRect background = new GRect(0, 0, TILE_SIZE*cols, TILE_SIZE*rows);
         background.setColor(EMPTY_TILE_COLOR);
         background.setFilled(true);
-        objects.add(background);
+        addObject(background);
     }
 
     private void displayGrid(int rows, int cols){
@@ -42,14 +46,15 @@ public class BoardDisplay extends Display{
             int xEnd = TILE_SIZE*cols;
             GLine line = new GLine(xStart, yPos, xEnd, yPos);
             line.setColor(LINE_COLOR);
-            objects.add(line);
+            addObject(line);
         }
+        showContents();
         for (int x = 0; x < cols+1; x++) {
             int xPos = TILE_SIZE*x;
             int yEnd = TILE_SIZE * rows;
             GLine line = new GLine(xPos, 0, xPos, yEnd);
             line.setColor(LINE_COLOR);
-            objects.add(line);
+            addObject(line);
         }
     }
 
@@ -70,7 +75,7 @@ public class BoardDisplay extends Display{
         GRect t = new GRect(x, y, TILE_SIZE, TILE_SIZE);
         t.setColor(TileType.getColor(tile.getType()));
         t.setFilled(true);
-		objects.add(t);
+		addObject(t);
     }
 
 }

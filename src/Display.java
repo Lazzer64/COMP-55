@@ -27,8 +27,13 @@ public abstract class Display implements Displayable{
     }
 
     public void update(){
-        for(Animation a: animations) a.update();
+        clean();
+        for(Animation a: animations) {
+            a.update();
+            addObject(a);
+        }
         repaint();
+        showContents();
     }
 
     public void setLocation(double x, double y) {
