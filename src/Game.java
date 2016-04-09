@@ -8,6 +8,7 @@ public class Game extends GraphicsPane{
 
     public static final int NUM_ROWS = 5;
     public static final int NUM_COLS = 6;
+    public static final int REFRESH_RATE = 20; // In milliseconds
     public static final int TILE_MOVE_DELAY = 150; // In milliseconds
     public static final int TILE_SIZE = Main.WINDOW_WIDTH/NUM_COLS; 
     public static final int BOARD_X = 0;
@@ -33,11 +34,12 @@ public class Game extends GraphicsPane{
 
     public Game(Main program){
         this.program = program;
-        this.boardDisplay = new BoardDisplay(program);
-        this.uiDisplay = new UiDisplay(program);
-        this.combatDisplay = new CombatDisplay(program);
         this.player = new Player(null);
         this.enemy = new Enemy(null);
+        this.boardDisplay = new BoardDisplay(program);
+        this.uiDisplay = new UiDisplay(program);
+        this.combatDisplay = new CombatDisplay(program, player, enemy);
+        combatDisplay.setLocation(100,100);
         update();
     }
 
@@ -46,7 +48,6 @@ public class Game extends GraphicsPane{
             start = getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
         }
-        update();
     }
     public void mouseDragged(MouseEvent e) {
 
@@ -67,7 +68,6 @@ public class Game extends GraphicsPane{
             }
 
             start = end;
-            update();
         }
     }
 
@@ -75,7 +75,6 @@ public class Game extends GraphicsPane{
         if(canMove && moveList.size() > 1) boardStep();
         moveList = new Stack<RowCol>();
         start = null;
-        update();
     }
 
     private void boardStep() {
@@ -88,7 +87,6 @@ public class Game extends GraphicsPane{
 
                             boardStep(); 
                             canMove = false;
-                            update();
 
                         } else {
 
@@ -101,7 +99,6 @@ public class Game extends GraphicsPane{
                             } else nextFight();
 
                             canMove = true;
-                            update();
                         }
                     }
                 }
@@ -132,6 +129,7 @@ public class Game extends GraphicsPane{
         // TODO change to actual generation
         System.out.println("NEXT FIGHT!");
         enemy = new Enemy(null);
+        combatDisplay.updateEnemy(enemy);
     }
 
     public void playerTurn() {
@@ -143,10 +141,14 @@ public class Game extends GraphicsPane{
     }
     
     public void update() {
+        new Timer().schedule(new TimerTask(){
+            public void run(){
+                update();
+            }} ,REFRESH_RATE);
         boardDisplay.displayBoard(board, BOARD_X, BOARD_Y);
         uiDisplay.displayTilePath(moveList, BOARD_X, BOARD_Y);
         uiDisplay.displayScore(score, SCORE_X, SCORE_Y);
-        combatDisplay.displayCombatField(player, enemy);
+        combatDisplay.update();
     }
     
     // Helpers 
