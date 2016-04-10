@@ -13,6 +13,8 @@ public class Main extends GraphicsApplication{
     ArrayList<Display> displays = new ArrayList<Display>();
 
     public void run(){
+    	
+	    
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
         GraphicsPane p = new Game(this);
         switchToScreen(p);
@@ -20,7 +22,8 @@ public class Main extends GraphicsApplication{
 		addMouseListeners();
         update();
         
-        //Testing the add score function in CONSOLE
+   	 //Testing the add score function in CONSOLE
+        //Sorts Scores in order!
         HighscoreList hm = new HighscoreList();
 	    hm.addScore("Tom", 55);
 	    hm.addScore("Alex", 128);
@@ -28,6 +31,7 @@ public class Main extends GraphicsApplication{
 	    hm.addScore("Michael",45);
 	    hm.addScore("Osvaldo",0);
 	    System.out.print(hm.printScores());
+      
 
     }
 
