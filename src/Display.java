@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 import acm.graphics.*;
-public abstract class Display implements Displayable{
+public abstract class Display {
 
     GraphicsApplication program;
     ArrayList<GObject> objects;
@@ -9,8 +9,7 @@ public abstract class Display implements Displayable{
     double x_adj = 0, y_adj = 0;
     boolean moved = true;
 
-    Display(GraphicsApplication program){
-        this.program = program;
+    Display(){
         this.objects = new ArrayList<GObject>();
         this.animations = new ArrayList<Animation>();
     }
@@ -27,42 +26,16 @@ public abstract class Display implements Displayable{
         addObject(x);
     }
 
-    public void update(){
-        clean();
-        for(Animation a: animations) {
-            a.update();
-            addObject(a);
-        }
-        repaint();
-        if(!moved) {
-            for(GObject o: objects) o.move(x_adj,y_adj);
-            moved = true;
-        }
-    }
+    public abstract void update();
 
     public ArrayList<GObject> getObjects(){
         return objects;
     }
 
     public void setLocation(double x, double y) {
+        for(GObject o: objects) o.move(x-x_adj,y-y_adj);
         x_adj = x;
         y_adj = y;
-        moved = false;
     }
 
-    public void repaint(){ }
-
-    public void showContents(){
-        for(GObject o: objects) program.add(o);
-    }
-    
-    public void hideContents(){
-        for(GObject o: objects) program.remove(o);
-    }
-
-    public void clean(){
-        hideContents();
-        objects.clear();
-    }
-    
 }

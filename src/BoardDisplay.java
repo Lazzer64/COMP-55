@@ -8,15 +8,36 @@ public class BoardDisplay extends Display{
     public static final Color LINE_COLOR = Color.WHITE;
 
     Board board;
+    GRect[][] tiles;
+    int rows, cols;
 
-    BoardDisplay(GraphicsApplication program, Board board){
-        super(program);
+    BoardDisplay(Board board){
+        super();
         this.board = board;
-        displayBoard();
+        rows = board.getTiles().length;
+        cols = board.getTiles()[0].length;
+        tiles = new GRect[rows][cols];
+
+        initBack();
+        initTiles();
+        initGrid();
     }
 
-    public void repaint(){
-        displayBoard();
+    public void update(){
+        updateTiles();
+    }
+
+    public void updateTiles() {
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+
+                Color color;
+                if(board.getTiles()[y][x] == null) color = EMPTY_TILE_COLOR;
+                else color = TileType.getColor(board.getTiles()[y][x].getType());
+
+                tiles[y][x].setColor(color);
+            }
+        }
     }
 
     public void displayBoard(){
@@ -26,20 +47,17 @@ public class BoardDisplay extends Display{
     }
 
     private void init(Board board, int rows, int cols){
-        displayBoardBack(rows, cols);
-        displayTiles(board.getTiles());
-        displayGrid(rows, cols);
+        initTiles();
     }
 
-
-    private void displayBoardBack(int rows, int cols){
+    private void initBack(){
         GRect background = new GRect(0, 0, TILE_SIZE*cols, TILE_SIZE*rows);
         background.setColor(EMPTY_TILE_COLOR);
         background.setFilled(true);
         addObject(background);
     }
 
-    private void displayGrid(int rows, int cols){
+    private void initGrid(){
         for (int y = 0; y < rows+1; y++) {
             int yPos =TILE_SIZE * y;
             int xStart = 0;
@@ -58,24 +76,16 @@ public class BoardDisplay extends Display{
         }
     }
 
-    private void displayTiles(Tile[][] tiles){
-        int num_rows = tiles.length;
-        int num_cols = tiles[0].length;
-        for (int y = 0; y < num_rows; y++) {
-            for (int x = 0; x < num_cols; x++) {
-                displayTile(tiles[y][x]);
+    private void initTiles(){
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                GRect t = new GRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
+                t.setColor(EMPTY_TILE_COLOR);
+                t.setFilled(true);
+                tiles[y][x] = t;
+                addObject(tiles[y][x]);
             }
         }
-    }
-
-    private void displayTile(Tile tile){
-        if(tile == null) return;
-        int x = tile.getPosition().getX()*TILE_SIZE;
-        int y = tile.getPosition().getY()*TILE_SIZE;
-        GRect t = new GRect(x, y, TILE_SIZE, TILE_SIZE);
-        t.setColor(TileType.getColor(tile.getType()));
-        t.setFilled(true);
-		addObject(t);
     }
 
 }

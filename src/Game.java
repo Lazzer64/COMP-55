@@ -42,8 +42,11 @@ public class Game extends GraphicsPane{
         this.player = new Player("player");
         this.enemy = new Enemy("player");
 
+        this.boardDisplay = new BoardDisplay(board); 
+        this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
 
 
+        update();
     }
 
     public void mousePressed(MouseEvent e) {
@@ -79,6 +82,7 @@ public class Game extends GraphicsPane{
     public void update() {
         new Timer().scheduleAtFixedRate(new TimerTask(){
             public void run(){
+                boardDisplay.update();
             }
         } ,0, 20);
     }
@@ -119,9 +123,11 @@ public class Game extends GraphicsPane{
     }
 
     public void showContents(){
+        for(GObject o : boardDisplay.getObjects()) program.add(o);
     }
 
     public void hideContents(){
+        for(GObject o : boardDisplay.getObjects()) program.remove(o);
     }
 
     public boolean checkWinFight() {
