@@ -32,14 +32,14 @@ public class Main extends GraphicsApplication{
     }
 
     public void update() {
-        new Timer().schedule(new TimerTask(){
+        new Timer().scheduleAtFixedRate(new TimerTask(){
             public void run(){
-                update();
-        }} ,REFRESH_RATE);
-        for(Display d: displays) {
-            d.update();
-            d.showContents();
-        }
+                for(Display d: displays) {
+                    d.update();
+                    d.showContents();
+                }
+            }
+        } ,0, REFRESH_RATE);
     }
 }
 //Hello
