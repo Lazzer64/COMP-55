@@ -23,8 +23,7 @@ public class HighscoreList {
    
     //Score Objects in Array
     private Score[] scores;
-    //private int numScores;
-    //private int numScores2;
+ 
 
     
     
@@ -58,10 +57,16 @@ public class HighscoreList {
     	
     }
     
+    public void addScore(String name, int score) {
+        readScoreFile();
+        highScoreList.add(new Score(score, name));
+        writeScoreFile();
+    }
+    
     /**Sorts the scores by calling the sort function
      * 
      */
-    public Score[] sortScores()
+    /*public Score[] sortScores()
     {
     	Score temp;
     	int min;
@@ -98,16 +103,14 @@ public class HighscoreList {
     	
     	return scores;
     
-    }
+    }*/
     
     /** Writes score object onto the highScoreList
      * @param scoreObj
      */
-    public void addScore(Score scoreObj)
+   /* public void addScore(Score scoreObj)
     {
-    	//numScores = 0;
-    	//numScores2 = 0;
-    	
+ 
     	 Score temp;
     	 
     	 if (highScoreList.size() < 10)
@@ -128,14 +131,39 @@ public class HighscoreList {
     	 	}
     	 }
     	 		    	
-    }
+    }*/
       
     
     
-    public void writeScores()
+    public void writeScoreFile()
 	{
-    	
-    
+    	try 
+    	{
+    		output = new ObjectOutputStream(new FileOutputStream(highScoreFile));
+    	    output.writeObject(scores);
+    	} 
+    	catch (FileNotFoundException e) 
+    	{
+    	        System.out.println("[Write] File Not Found: " + e.getMessage() + ",the program will try and make a new file");
+    	} 
+    	catch (IOException e) 
+    	{
+    	 System.out.println("[Write] IO ERROR" + e.getMessage());
+    	} 
+    	finally 
+    	{
+    		try 
+    		{
+    			if (output != null) {
+    	                output.flush();
+    	                output.close();
+    			}
+    		} 
+    		catch (IOException e) 
+    		{
+    	            System.out.println("[Write] ERROR: " + e.getMessage());
+    	    }
+    	    }
 	}
 
 	/**Load scores form file, check if can be read
@@ -151,15 +179,15 @@ public class HighscoreList {
 		   } 
 		  catch (FileNotFoundException e) 
 		  {
-		        System.out.println("FNF Error: " + e.getMessage());
+		        System.out.println("[Read] File not found: " + e.getMessage());
 		  } 
 		  catch (IOException e) 
 		  {
-		        System.out.println("IO Error: " + e.getMessage());
+		        System.out.println("[Read] IO Error: " + e.getMessage());
 		   } 
 		  catch (ClassNotFoundException e) 
 		  {
-		        System.out.println("Class Not Found Error:" + e.getMessage());
+		        System.out.println("[Read] Class Not Found:" + e.getMessage());
 		    } 
 		  finally 
 		  {
@@ -169,15 +197,14 @@ public class HighscoreList {
 		                output.close();
 		            }
 		        } catch (IOException e) {
-		            System.out.println("Error IO: " + e.getMessage());
+		            System.out.println("[Read] IO Error: " + e.getMessage());
 		        }
 		    }
 		}
 			
-		
-		
 }
-	
+
+
 
 	
 
