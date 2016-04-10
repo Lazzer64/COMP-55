@@ -52,10 +52,10 @@ public class CombatDisplay extends Display{
 
     //FIXME replace with a real implementation
     public static final BufferedImage[] TEST_FRAMES = new BufferedImage[] {
-        new SpriteSheet("SpriteSheets/AnimationSpritesheet.png", 32, 32).getSprite(0,0),
-        new SpriteSheet("SpriteSheets/AnimationSpritesheet.png", 32, 32).getSprite(1,0),
-        new SpriteSheet("SpriteSheets/AnimationSpritesheet.png", 32, 32).getSprite(2,0),
-        new SpriteSheet("SpriteSheets/AnimationSpritesheet.png", 32, 32).getSprite(1,0)
+        new SpriteSheet("AnimationSpritesheet", 32, 32).getSprite(0,0),
+        new SpriteSheet("AnimationSpritesheet", 32, 32).getSprite(1,0),
+        new SpriteSheet("AnimationSpritesheet", 32, 32).getSprite(2,0),
+        new SpriteSheet("AnimationSpritesheet", 32, 32).getSprite(1,0)
     };
 
     public void displayUnit(double x, double y, Unit unit) {

@@ -32,14 +32,12 @@ public class Animation extends GObject{
         this.currentFrame = 0;
         this.animationDirection = 1;
         this.totalFrames = this.frames.size();
-
     }
 
     public void start() {
         if (frames.size() == 0) {
             return;
         }
-
         stopped = false;
     }
 
@@ -73,8 +71,6 @@ public class Animation extends GObject{
                 	currentFrame += animationDirection;
                 }
             }
-
-
     }
 
 	@Override

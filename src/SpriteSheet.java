@@ -11,7 +11,7 @@ public class SpriteSheet {
     private int TILE_HEIGHT;
     
     public SpriteSheet(String fileName, int tileWidth, int tileHeight) {
-    	spriteSheet = loadSpriteSheet("AnimationSpriteSheet");
+    	spriteSheet = loadSpriteSheet(fileName);
     	TILE_WIDTH = tileWidth;
     	TILE_HEIGHT = tileHeight;
     }
