@@ -17,7 +17,7 @@ public class HighscoreList {
     //Score Objects in Array List
     private ArrayList<Score> highScoreList;
     //Name of file for highscores
-    private static final String highScoreFile = "scores.txt";
+    private static final String highScoreFile = "resource/scores.txt";
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
    
