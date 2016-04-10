@@ -17,7 +17,7 @@ public class HighscoreList {
     //Score Objects in Array List
     private ArrayList<Score> highScoreList;
     //Name of file for highscores
-    private static final String highScoreFile = "resource/scores.txt";
+    private static final String highScoreFile = "HighScores/scores.txt";
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
    
@@ -201,6 +201,35 @@ public class HighscoreList {
 		        }
 		    }
 		}
+	
+	public String printScores() {
+		String displayScore = "";
+		//displays Top 10 best scores
+		int displayTop10 = 10;
+		
+		ArrayList<Score> highScoreList;
+		highScoreList = getScores();
+		
+		//i starts at beginning
+		//j is the size of the list
+		int i = 0;
+		int j = highScoreList.size();
+		
+		if (j > displayTop10)
+		{
+			j = displayTop10;
+		}
+		
+		while (i < j)
+		{
+			displayScore += (i + 1) + ".\t" + highScoreList.get(i).getName() + "\t\t" + highScoreList.get(i).getScore() + "\n";
+		    i++;
+		}
+		
+		return displayScore;
+		
+		
+	}
 			
 }
 
