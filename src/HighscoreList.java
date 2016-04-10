@@ -17,13 +17,10 @@ public class HighscoreList {
     //Score Objects in Array List
     private ArrayList<Score> highScoreList;
     //Name of file for highscores
-    private static final String highScoreFile = "HighScores/scores.txt";
+    private static final String highScoreFile = "HighScores/scores.dat";
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
-   
-    //Score Objects in Array
-    private Score[] scores;
- 
+  
 
     
     
@@ -35,10 +32,6 @@ public class HighscoreList {
     	highScoreList = new ArrayList<Score>();
     }
     
-   /* public int getnumScores()
-    {
-    	return numScores;
-    }*/
     
     /**Get the scores of the highScoreList by loading file, sorting them
      * then returning the sorted list
@@ -54,93 +47,22 @@ public class HighscoreList {
     {
     	ScoreComparator comparator = new ScoreComparator();
     	Collections.sort(highScoreList, comparator);
-    	
     }
     
     public void addScore(String name, int score) {
         readScoreFile();
-        highScoreList.add(new Score(score, name));
+        highScoreList.add(new Score(name, score));
         writeScoreFile();
     }
     
-    /**Sorts the scores by calling the sort function
-     * 
-     */
-    /*public Score[] sortScores()
-    {
-    	Score temp;
-    	int min;
-    	
-    	for(int i = 0; i < highScoreList.size(); i++)
-    	{
-    		min = i;
-    		
-    		for(int j = i+1; j < highScoreList.size(); j++)
-    		{
-    			if (highScoreList.get(j).compare(highScoreList.get(min)) > 0)
-    			{
-    				min = j;
-    			}
-    				
-    		}
-    			temp = highScoreList.get(min);
-    			
-    			//sets the value of the min to index i
-    			highScoreList.set(min, highScoreList.get(i));
-    			//value of index i becomes temp
-    			highScoreList.set(i, temp);
-    			highScoreList.set(i, temp);
-    		
-    		}
-    		
-    	//Scores array uses the highScoreList file size
-    	scores = new Score[highScoreList.size()];
-    	for (int i = 0; i < highScoreList.size(); i++)
-    	{
-    		//sets the score array to the highScoreList
-    		scores[i] = highScoreList.get(i);
-    	}
-    	
-    	return scores;
-    
-    }*/
-    
-    /** Writes score object onto the highScoreList
-     * @param scoreObj
-     */
-   /* public void addScore(Score scoreObj)
-    {
- 
-    	 Score temp;
-    	 
-    	 if (highScoreList.size() < 10)
-    	 {
-    	 	highScoreList.add(scoreObj);
-    	 }
-    	 
-    	 else
-    	 {
-    	 	for (int i = 0; i < 10; i++)
-    	 	{
-    	 		if(highScoreList.get(i).compare(scoreObj) == -1)
-    	 		{
-    	 			temp = highScoreList.get(i);
-    	 			highScoreList.set(highScoreList.indexOf(temp), scoreObj);
-    	 			scoreObj = temp;
-    	 		}
-    	 	}
-    	 }
-    	 		    	
-    }*/
-      
-    
+   
     
     public void writeScoreFile()
 	{
     	try 
     	{
     		output = new ObjectOutputStream(new FileOutputStream(highScoreFile));
-    	    output.writeObject(scores);
+    	    output.writeObject(highScoreList);
     	} 
     	catch (FileNotFoundException e) 
     	{
@@ -170,6 +92,7 @@ public class HighscoreList {
 	 * @param file
 	 * @returns a string parameter file
 	 */
+	@SuppressWarnings("unchecked")
 	public void readScoreFile()
 	{
 		  try 
