@@ -1,16 +1,8 @@
-import java.util.ArrayList;
-import java.util.TimerTask;
-
-import acm.graphics.GObject;
-
-import java.util.Timer;
 public class Main extends GraphicsApplication{
 
     public static final int WINDOW_WIDTH = 400;
     public static final int WINDOW_HEIGHT = 600;
     public static final int REFRESH_RATE = 20; // In milliseconds
-
-    ArrayList<Display> displays = new ArrayList<Display>();
 
     public void run(){
     	
@@ -20,7 +12,6 @@ public class Main extends GraphicsApplication{
         switchToScreen(p);
 		addKeyListeners();
 		addMouseListeners();
-        update();
         
    	 //Testing the add score function in CONSOLE
         //Sorts Scores in order!
@@ -34,28 +25,6 @@ public class Main extends GraphicsApplication{
       
 
     }
-
-    public void addDisplay(Display d, int x, int y) {
-        displays.add(d);
-        d.setLocation(x,y);
-    }
-
-    public void removeDisplay(Display d) {
-        for(GObject o: d.getObjects()) remove(o);
-        displays.remove(d);
-    }
-
-    public void update() {
-        new Timer().scheduleAtFixedRate(new TimerTask(){
-            public void run(){
-                for(Display d: displays) {
-                    d.update();
-                    d.showContents();
-                }
-            }
-        } ,0, REFRESH_RATE);
-    }
-    
 }
 	
 

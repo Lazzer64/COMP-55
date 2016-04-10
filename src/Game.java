@@ -3,6 +3,8 @@ import java.util.Stack;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import acm.graphics.*;
 
 public class Game extends GraphicsPane{
 
@@ -18,7 +20,7 @@ public class Game extends GraphicsPane{
     public static final int ENEMY_DAMAGE = 10;
     public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 100;
-    public static final int COMBAT_X = 100;
+    public static final int COMBAT_X = 3*Main.WINDOW_WIDTH/8;
 
     Main program;
     Player player;
@@ -36,16 +38,23 @@ public class Game extends GraphicsPane{
 
     public Game(Main program){
         this.program = program;
-        this.score = new Score("", 0);
-        this.player = new Player(null);
-        this.enemy = new Enemy(null);
+        this.score = new Score("",0);
+        this.player = new Player("player");
+        this.enemy = new Enemy("player");
 
-        this.boardDisplay = new BoardDisplay(program, board); 
-        this.moveListDisplay = new TilePathDisplay(program, moveList); 
-        this.combatDisplay = new CombatDisplay(program, player, enemy); 
-        this.scoreDisplay = new ScoreDisplay(program, score);
+        this.boardDisplay = new BoardDisplay(board); 
+        this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
 
+        this.combatDisplay = new CombatDisplay(player, enemy);
+        this.combatDisplay.setLocation(COMBAT_X, COMBAT_Y);
 
+        this.scoreDisplay = new ScoreDisplay(score);
+        this.scoreDisplay.setLocation(SCORE_X, SCORE_Y);
+
+        this.moveListDisplay = new TilePathDisplay(moveList, NUM_ALLOWED_MOVES);
+        this.moveListDisplay.setLocation(BOARD_X, BOARD_Y);
+
+        update();
     }
 
     public void mousePressed(MouseEvent e) {
@@ -75,6 +84,21 @@ public class Game extends GraphicsPane{
             start = end;
         }
     }
+
+
+
+    public void update() {
+        new Timer().scheduleAtFixedRate(new TimerTask(){
+            public void run(){
+                combatDisplay.update();
+                boardDisplay.update();
+                scoreDisplay.update();
+                scoreDisplay.update();
+                moveListDisplay.update();
+            }
+        } ,0, 20);
+    }
+
 
     public void mouseReleased(MouseEvent e) {
         if(canMove && moveList.size() > 1) boardStep();
@@ -111,17 +135,17 @@ public class Game extends GraphicsPane{
     }
 
     public void showContents(){
-        program.addDisplay(boardDisplay, BOARD_X, BOARD_Y);
-        program.addDisplay(moveListDisplay, BOARD_X, BOARD_Y);
-        program.addDisplay(combatDisplay, COMBAT_X, COMBAT_Y);
-        program.addDisplay(scoreDisplay, SCORE_X, SCORE_Y);
+        for(GObject o : boardDisplay.getObjects()) program.add(o);
+        for(GObject o : combatDisplay.getObjects()) program.add(o); 
+        for(GObject o : scoreDisplay.getObjects()) program.add(o); 
+        for(GObject o : moveListDisplay.getObjects()) program.add(o);
     }
 
     public void hideContents(){
-        program.removeDisplay(boardDisplay);
-        program.removeDisplay(moveListDisplay);
-        program.removeDisplay(combatDisplay);
-        program.removeDisplay(scoreDisplay);
+        for(GObject o : boardDisplay.getObjects()) program.remove(o);
+        for(GObject o : combatDisplay.getObjects()) program.remove(o); 
+        for(GObject o : scoreDisplay.getObjects()) program.remove(o); 
+        for(GObject o : moveListDisplay.getObjects()) program.remove(o);
     }
 
     public boolean checkWinFight() {

@@ -10,33 +10,46 @@ public class TilePathDisplay extends Display{
     public static final int TILE_SIZE = Game.TILE_SIZE;
     public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
 
-    GLabel scoreLabel;
     Stack<RowCol> moveList;
 
-    TilePathDisplay(GraphicsApplication program, Stack<RowCol> moveList){
-        super(program);
+    int maxMoves;
+    GLabel[] markers;
+
+    TilePathDisplay(Stack<RowCol> moveList, int maxMoves){
+        super();
         this.moveList = moveList;
+        markers = new GLabel[maxMoves+1];
+        initMarkers();
     }
 
-    public void repaint() {
-        displayTilePath(moveList);
+    public void update() {
+        updatePath();
     }
 
-    public void displayTilePath(Stack<RowCol> moveList) {
+    public void initMarkers(){
+        for (int i = 0; i < markers.length; i++) {
+            GLabel l = new GLabel("");
+            l.setFont(PATH_FONT);
+            l.setColor(PATH_COLOR);
+            markers[i] = l;
+            addObject(l);
+        }
+    }
+
+    public void updatePath() {
+        for (int e = 0; e < markers.length; e++) markers[e].setVisible(false);
         int i = 0;
-        clean();
         for(RowCol x: moveList) {
 
             String text = i+"";
             if(i==0) text = "X";
 
-            GLabel l = new GLabel(text);
-            l.setFont(PATH_FONT);
-            l.setColor(PATH_COLOR);
-            l.setLocation(x.getX() * TILE_SIZE + TILE_SIZE/2, x.getY() * TILE_SIZE + TILE_SIZE/2);
-            addObject(l);
+            markers[i].setLabel(text);
+            markers[i].setLocation(x.getX() * TILE_SIZE + TILE_SIZE/2, x.getY() * TILE_SIZE + TILE_SIZE/2);
+            markers[i].move(x_adj,y_adj);
+
+            markers[i].setVisible(true);
             i++;
         }
     }
-
 }
