@@ -1,3 +1,4 @@
+import java.awt.image.BufferedImage;
 //mark's territory
 public abstract class Unit {
 
@@ -6,6 +7,8 @@ public abstract class Unit {
 	private int attack;
 	private int defense;
 	private String name;
+	private BufferedImage[] idleAnimation;
+	private BufferedImage[] attackAnimation;
 
     public Unit(int hp, int maxHp, int attack, int defense, String name) { 
 		this.hp = hp;
@@ -13,9 +16,19 @@ public abstract class Unit {
 		this.attack = attack;
 		this.defense = defense;
 		this.name = name;
+		setAnimations();
     }
 
-
+    public void setAnimations() {
+    	if (this.name == "player") {
+    		idleAnimation = Animation.playerIdle;
+    		//attackAnimation = Animation.playerAttack;
+    	} else if (this.name == "enemy1") {
+    		//idleAnimation = Animation.enemy1Idle;
+    		//attackAnimation = Animation.enemy1Attack;
+    	}
+    }
+    
     public void attack(Unit target, int size){
         // TODO implement
  
