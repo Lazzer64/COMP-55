@@ -19,6 +19,16 @@ public class Main extends GraphicsApplication{
 		addKeyListeners();
 		addMouseListeners();
         update();
+        
+        //Testing the add score function in CONSOLE
+        HighscoreList hm = new HighscoreList();
+	    hm.addScore("Tom", 55);
+	    hm.addScore("Alex", 128);
+	    hm.addScore("Mark", 99);
+	    hm.addScore("Michael",45);
+	    hm.addScore("Osvaldo",0);
+	    System.out.print(hm.printScores());
+
     }
 
     public void addDisplay(Display d, int x, int y) {
@@ -41,5 +51,8 @@ public class Main extends GraphicsApplication{
             }
         } ,0, REFRESH_RATE);
     }
+    
 }
+	
+
 //Hello
