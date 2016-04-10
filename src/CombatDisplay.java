@@ -29,9 +29,8 @@ public class CombatDisplay extends Display{
     }
 
     public void updateEnemy(Enemy enemy){
-        Animation temp = unitAnimations.remove(this.enemy);
         this.enemy = enemy;
-        unitAnimations.put(enemy,temp);
+        initUnit(DISTANCE, 0, enemy);
     }
 
     public void update(){

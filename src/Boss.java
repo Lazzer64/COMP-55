@@ -1,13 +1,13 @@
-import java.io.File;
 //mark's territory
+
 public class Boss extends Enemy{
 
-    public Boss(String image) { 
-        super(HP, DEFENSE, image);
-        generateAttack(MINATTACK, MAXATTACK);
-    }
     private static final int HP = 150;
     private static final int DEFENSE = 4;
     private static final int MINATTACK=1;
     private static final int MAXATTACK=8;
+
+    public Boss(UnitType type) { 
+        super(HP, DEFENSE, type);
+    }
 }

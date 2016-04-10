@@ -4,37 +4,59 @@ enum AnimationState {
 	IDLE, ATTACK;
 }
 
+enum UnitType {
+    PLAYER, GOBLIN, GHOST, SKELETON, GIANT_SLIME, SKELETON_KING; // FIXME Feel free to change this to whatever
+}
 public abstract class Unit {
 
 	private int hp;
 	private int maxHp;
 	private int attack;
 	private int defense;
-	private String name;
 	private BufferedImage[] idleAnimation;
 	private BufferedImage[] attackAnimation;
 	
-	
+    private UnitType type;	
 	private AnimationState state;
 
-    public Unit(int hp, int maxHp, int attack, int defense, String name) { 
+    public Unit(int hp, int maxHp, int attack, int defense, UnitType type) { 
 		this.hp = hp;
 		this.maxHp = maxHp;
 		this.attack = attack;
 		this.defense = defense;
-		this.name = name;
+        this.type = type;
 		setAnimations();
 		state = AnimationState.IDLE;
     }
 
-    public void setAnimations() {
-    	if (this.name == "player") {
-    		idleAnimation = Animation.playerIdle;
-    		attackAnimation = Animation.playerAttack;
-    	} else if (this.name == "enemy1") {
-    		idleAnimation = Animation.playerIdle;
-    		attackAnimation = Animation.playerIdle;
-    	}
+    public void setAnimations(){
+        switch(type){
+            case PLAYER:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            case GOBLIN:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            case GHOST:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            case SKELETON:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            case GIANT_SLIME:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            case SKELETON_KING:
+                idleAnimation = Animation.playerIdle;
+                attackAnimation = Animation.playerAttack;
+                break;
+            default:
+        }
     }
     
     public void setCurrentAnimation(AnimationState state) {
@@ -93,14 +115,6 @@ public abstract class Unit {
 
 	public int getDefense() {    
 		return defense;
-	}
-
-	public void setName(String name) {
-    	this.name = name;
-	}
-
-	public String getName() {    
-		return name;
 	}
 
 }

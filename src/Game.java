@@ -38,8 +38,8 @@ public class Game extends GraphicsPane{
     public Game(Main program){
         this.program = program;
         this.score = new Score("",0);
-        this.player = new Player("player");
-        this.enemy = new Enemy("enemy1");
+        this.player = new Player();
+        this.enemy = new Enemy(UnitType.GOBLIN);
 
         this.boardDisplay = new BoardDisplay(board); 
         this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
@@ -158,7 +158,7 @@ public class Game extends GraphicsPane{
     public void nextFight() {
         // TODO change to actual generation
         System.out.println("NEXT FIGHT!");
-        enemy = new Enemy("enemy1");
+        enemy = new Enemy(UnitType.GOBLIN);
         combatDisplay.updateEnemy(enemy);
     }
 
