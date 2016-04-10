@@ -8,12 +8,11 @@ public class Game extends GraphicsPane{
 
     public static final int NUM_ROWS = 5;
     public static final int NUM_COLS = 6;
-    public static final int REFRESH_RATE = 20; // In milliseconds
     public static final int TILE_MOVE_DELAY = 150; // In milliseconds
     public static final int TILE_SIZE = Main.WINDOW_WIDTH/NUM_COLS; 
     public static final int BOARD_X = 0;
     public static final int BOARD_Y = Main.WINDOW_HEIGHT - NUM_ROWS * TILE_SIZE;
-    public static final int SCORE_X = 0;
+    public static final int SCORE_X = 5;
     public static final int SCORE_Y = 20; 
     public static final int NUM_ALLOWED_MOVES = 5;
     public static final int ENEMY_DAMAGE = 10;
@@ -41,19 +40,12 @@ public class Game extends GraphicsPane{
         this.player = new Player(null);
         this.enemy = new Enemy(null);
 
-        this.boardDisplay = new BoardDisplay(program, board);
-        boardDisplay.setLocation(BOARD_X, BOARD_Y);
-
-        this.moveListDisplay = new TilePathDisplay(program, moveList);
-        moveListDisplay.setLocation(BOARD_X, BOARD_Y);
-
-        this.combatDisplay = new CombatDisplay(program, player, enemy);
-        combatDisplay.setLocation(COMBAT_X,COMBAT_Y);
-
+        this.boardDisplay = new BoardDisplay(program, board); 
+        this.moveListDisplay = new TilePathDisplay(program, moveList); 
+        this.combatDisplay = new CombatDisplay(program, player, enemy); 
         this.scoreDisplay = new ScoreDisplay(program, score);
-        scoreDisplay.setLocation(SCORE_X, SCORE_Y);
 
-        update();
+
     }
 
     public void mousePressed(MouseEvent e) {
@@ -119,15 +111,17 @@ public class Game extends GraphicsPane{
     }
 
     public void showContents(){
-        boardDisplay.showContents();
-        moveListDisplay.showContents();
-        combatDisplay.showContents();
+        program.addDisplay(boardDisplay, BOARD_X, BOARD_Y);
+        program.addDisplay(moveListDisplay, BOARD_X, BOARD_Y);
+        program.addDisplay(combatDisplay, COMBAT_X, COMBAT_Y);
+        program.addDisplay(scoreDisplay, SCORE_X, SCORE_Y);
     }
 
     public void hideContents(){
-        boardDisplay.hideContents();
-        moveListDisplay.hideContents();
-        combatDisplay.hideContents();
+        program.removeDisplay(boardDisplay);
+        program.removeDisplay(moveListDisplay);
+        program.removeDisplay(combatDisplay);
+        program.removeDisplay(scoreDisplay);
     }
 
     public boolean checkWinFight() {
@@ -152,18 +146,7 @@ public class Game extends GraphicsPane{
     public void saveScore(int Score) {
         // TODO implement
     }
-    
-    public void update() {
-        new Timer().schedule(new TimerTask(){
-            public void run(){
-                update();
-            }} ,REFRESH_RATE);
-        boardDisplay.update();
-        moveListDisplay.update();
-        combatDisplay.update();
-        scoreDisplay.update();
-    }
-    
+
     // Helpers 
 
     private boolean isInBoard(int x, int y){

@@ -15,7 +15,6 @@ public class ScoreDisplay extends Display {
         scoreLabel.setColor(Color.BLACK);
         scoreLabel.setFont(SCORE_FONT);
         addObject(scoreLabel);
-        showContents();
     }
 
     public void setLocation(double x, double y){

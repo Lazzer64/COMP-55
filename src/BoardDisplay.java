@@ -48,7 +48,7 @@ public class BoardDisplay extends Display{
             line.setColor(LINE_COLOR);
             addObject(line);
         }
-        showContents();
+
         for (int x = 0; x < cols+1; x++) {
             int xPos = TILE_SIZE*x;
             int yEnd = TILE_SIZE * rows;
