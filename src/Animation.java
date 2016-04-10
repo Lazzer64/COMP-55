@@ -9,6 +9,8 @@ import acm.util.*;
 
 
 public class Animation extends GObject{
+	public static BufferedImage[] playerIdle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
+	
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
@@ -34,6 +36,22 @@ public class Animation extends GObject{
         this.totalFrames = this.frames.size();
     }
 
+    public static BufferedImage[] getFrames(String fileName, int startX, int startY, int numOfFrames, int tileWidth, int tileHeight) {
+    	SpriteSheet image = new SpriteSheet(fileName, tileWidth, tileHeight);
+    	BufferedImage[] result = new BufferedImage[numOfFrames];
+    	int cols = image.getNumOfCols();
+    	int j = 0;
+    	for(int i = 0; i < numOfFrames; i++) {
+    		if(startX + i < cols) {
+    			result[i] = image.getSprite(startX + i, startY);
+    		} else {
+    			if(startX + i % cols == 0) j++;
+    			result[i] = image.getSprite(startX + i - cols*j, startY + j);
+    		}
+    	}
+    	return result;
+    }
+    
     public void start() {
         if (frames.size() == 0) {
             return;
