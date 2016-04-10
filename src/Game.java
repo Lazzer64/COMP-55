@@ -36,7 +36,7 @@ public class Game extends GraphicsPane{
 
     public Game(Main program){
         this.program = program;
-        this.score = new Score(0,"");
+        this.score = new Score("", 0);
         this.player = new Player(null);
         this.enemy = new Enemy(null);
 
