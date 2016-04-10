@@ -1,6 +1,11 @@
 import java.util.Comparator;
 
 
+/**Compares the scores in the list for sorting
+ * @param score1
+ * @param score2
+ * @return
+ */
 public class ScoreComparator implements Comparator<Score>
 {
         public int compare(Score score1, Score score2) {
