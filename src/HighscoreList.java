@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.io.*;
 import java.util.Scanner;
 import java.io.File;
+import java.io.Serializable;
 
 /**
  	* Creates list, keeps track of top 10 scores in games
@@ -20,9 +21,6 @@ public class HighscoreList {
     private static final String highScoreFile = "HighScores/scores.dat";
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
-  
-
-    
     
     /**Generates the default constructor for an empty array list
      * 
@@ -31,7 +29,6 @@ public class HighscoreList {
     {
     	highScoreList = new ArrayList<Score>();
     }
-    
     
     /**Get the scores of the highScoreList by loading file, sorting them
      * then returning the sorted list
