@@ -1,5 +1,6 @@
 import java.awt.Color;
 import acm.graphics.*;
+import java.util.HashMap;
 
 public class CombatDisplay extends Display{
 
@@ -13,6 +14,7 @@ public class CombatDisplay extends Display{
     Player player;
     Enemy enemy;
     GRect playerHp, enemyHp;
+    HashMap<Unit,Animation> unitAnimations = new HashMap<Unit,Animation>();
 
     public CombatDisplay(Player player, Enemy enemy){
         super();
@@ -27,13 +29,24 @@ public class CombatDisplay extends Display{
     }
 
     public void updateEnemy(Enemy enemy){
+        Animation temp = unitAnimations.remove(this.enemy);
         this.enemy = enemy;
+        unitAnimations.put(enemy,temp);
     }
 
     public void update(){
-        for(Animation a: animations) a.update();
+        for(Unit u: unitAnimations.keySet()) updateAnimation(u);
         updateHp(player, playerHp);
         updateHp(enemy, enemyHp);
+    }
+
+    public void updateAnimation(Unit unit){
+        Animation anim = unitAnimations.get(unit);
+        anim.update();
+        if(!anim.equals(unit.getAnimation())) {
+            anim.playAnimation(unit.getAnimation(),20);
+        } 
+
     }
 
     public void updateHp(Unit unit, GRect bar){
@@ -64,5 +77,6 @@ public class CombatDisplay extends Display{
         Animation u = new Animation(unit.getAnimation(),20);
         u.setLocation(x-u.getWidth()/2,y-u.getHeight()/2);
         addAnimation(u);
+        unitAnimations.put(unit, u);
     }
 }

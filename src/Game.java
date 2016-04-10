@@ -3,7 +3,6 @@ import java.util.Stack;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import acm.graphics.*;
 
 public class Game extends GraphicsPane{
@@ -40,7 +39,7 @@ public class Game extends GraphicsPane{
         this.program = program;
         this.score = new Score("",0);
         this.player = new Player("player");
-        this.enemy = new Enemy("player");
+        this.enemy = new Enemy("enemy1");
 
         this.boardDisplay = new BoardDisplay(board); 
         this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
@@ -126,8 +125,8 @@ public class Game extends GraphicsPane{
                                     System.out.println("GAME OVER");
                                 }
                             } else nextFight();
-
                             canMove = true;
+                            player.setCurrentAnimation(AnimationState.IDLE);
                         }
                     }
                 }
@@ -159,7 +158,7 @@ public class Game extends GraphicsPane{
     public void nextFight() {
         // TODO change to actual generation
         System.out.println("NEXT FIGHT!");
-        enemy = new Enemy(null);
+        enemy = new Enemy("enemy1");
         combatDisplay.updateEnemy(enemy);
     }
 
@@ -178,6 +177,7 @@ public class Game extends GraphicsPane{
     }
 
     private void matchEffect(Match m) {
+        player.setCurrentAnimation(AnimationState.ATTACK);
         player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
         System.out.println(m.getType()+" size: "+m.size());
         score.setScore(score.getScore() + m.size());
