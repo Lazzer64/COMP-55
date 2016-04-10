@@ -8,7 +8,7 @@ public class Score {
 		this.score = score;
 		this.name = name;
     }
-
+    
     static Score parseScore(String input) {
         // TODO implement
     	return null;

@@ -14,15 +14,19 @@ import java.io.File;
 
 public class HighscoreList {
 
-    //Array list
+    //Score Objects in Array List
     private ArrayList<Score> highScoreList;
     //Name of file for highscores
-    private static final String HsFile = "scores.txt";
+    private static final String highScoreFile = "scores.txt";
+    ObjectOutputStream output = null;
+    ObjectInputStream input = null;
    
-    Score[] scores;
-    private int numScores;
-    private int numScores2;
+    //Score Objects in Array
+    private Score[] scores;
+    //private int numScores;
+    //private int numScores2;
 
+    
     
     /**Generates the default constructor for an empty array list
      * 
@@ -42,7 +46,7 @@ public class HighscoreList {
      * @return
      */
     public ArrayList<Score> getScores(){
-    	//loadScoreFile();
+    	readScoreFile();
     	sort();
     	return highScoreList;
     }
@@ -101,8 +105,8 @@ public class HighscoreList {
      */
     public void addScore(Score scoreObj)
     {
-    	numScores = 0;
-    	numScores2 = 0;
+    	//numScores = 0;
+    	//numScores2 = 0;
     	
     	 Score temp;
     	 
@@ -130,8 +134,7 @@ public class HighscoreList {
     
     public void writeScores()
 	{
-    	File hsFile;
-    	BufferedWriter outStream;
+    	
     
 	}
 
@@ -139,26 +142,43 @@ public class HighscoreList {
 	 * @param file
 	 * @returns a string parameter file
 	 */
-	/*public void loadScoreFile(String file)
+	public void readScoreFile()
 	{
-		/*highScoreList = new ArrayList<Score>();
+		  try 
+		  {
+		        input = new ObjectInputStream(new FileInputStream(highScoreFile));
+		        highScoreList = (ArrayList<Score>) input.readObject();
+		   } 
+		  catch (FileNotFoundException e) 
+		  {
+		        System.out.println("FNF Error: " + e.getMessage());
+		  } 
+		  catch (IOException e) 
+		  {
+		        System.out.println("IO Error: " + e.getMessage());
+		   } 
+		  catch (ClassNotFoundException e) 
+		  {
+		        System.out.println("Class Not Found Error:" + e.getMessage());
+		    } 
+		  finally 
+		  {
+		       try {
+		            if (output != null) {
+		                output.flush();
+		                output.close();
+		            }
+		        } catch (IOException e) {
+		            System.out.println("Error IO: " + e.getMessage());
+		        }
+		    }
+		}
+			
 		
-		try 
-		{
-			Scanner scan = new Scanner(new File(file));
-			
-			while(scan.hasNext())
-			{
-				
-			}
-			
-			
-			
 		
-		
-	}*/
-	
 }
+	
+
 	
 
 
