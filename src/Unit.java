@@ -1,5 +1,9 @@
 import java.awt.image.BufferedImage;
 //mark's territory
+enum AnimationState { 
+	IDLE, ATTACK;
+}
+
 public abstract class Unit {
 
 	private int hp;
@@ -9,6 +13,9 @@ public abstract class Unit {
 	private String name;
 	private BufferedImage[] idleAnimation;
 	private BufferedImage[] attackAnimation;
+	
+	
+	private AnimationState state;
 
     public Unit(int hp, int maxHp, int attack, int defense, String name) { 
 		this.hp = hp;
@@ -17,15 +24,31 @@ public abstract class Unit {
 		this.defense = defense;
 		this.name = name;
 		setAnimations();
+		state = AnimationState.IDLE;
     }
 
     public void setAnimations() {
     	if (this.name == "player") {
     		idleAnimation = Animation.playerIdle;
-    		//attackAnimation = Animation.playerAttack;
+    		attackAnimation = Animation.playerAttack;
     	} else if (this.name == "enemy1") {
-    		//idleAnimation = Animation.enemy1Idle;
-    		//attackAnimation = Animation.enemy1Attack;
+    		idleAnimation = Animation.playerIdle;
+    		attackAnimation = Animation.playerIdle;
+    	}
+    }
+    
+    public void setCurrentAnimation(AnimationState state) {
+    	this.state = state;
+    }
+    
+    public BufferedImage[] getAnimation() {
+    	switch(state) {
+    		case IDLE:
+    			return idleAnimation;
+    		case ATTACK:
+    			return attackAnimation;
+    		default:
+    			return idleAnimation;
     	}
     }
     
