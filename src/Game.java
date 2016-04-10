@@ -48,6 +48,9 @@ public class Game extends GraphicsPane{
         this.combatDisplay = new CombatDisplay(player, enemy);
         this.combatDisplay.setLocation(COMBAT_X, COMBAT_Y);
 
+        this.scoreDisplay = new ScoreDisplay(score);
+        this.scoreDisplay.setLocation(SCORE_X, SCORE_Y);
+
         update();
     }
 
@@ -86,6 +89,7 @@ public class Game extends GraphicsPane{
             public void run(){
                 combatDisplay.update();
                 boardDisplay.update();
+                scoreDisplay.update();
             }
         } ,0, 20);
     }
@@ -128,11 +132,13 @@ public class Game extends GraphicsPane{
     public void showContents(){
         for(GObject o : boardDisplay.getObjects()) program.add(o);
         for(GObject o : combatDisplay.getObjects()) program.add(o); 
+        for(GObject o : scoreDisplay.getObjects()) program.add(o); 
     }
 
     public void hideContents(){
         for(GObject o : boardDisplay.getObjects()) program.remove(o);
         for(GObject o : combatDisplay.getObjects()) program.remove(o); 
+        for(GObject o : scoreDisplay.getObjects()) program.remove(o); 
     }
 
     public boolean checkWinFight() {

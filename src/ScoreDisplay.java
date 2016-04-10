@@ -9,8 +9,8 @@ public class ScoreDisplay extends Display {
     GLabel scoreLabel = new GLabel("");
     Score score;
 
-    ScoreDisplay(GraphicsApplication program, Score score){
-        super(program);
+    ScoreDisplay(Score score){
+        super();
         this.score = score;
         scoreLabel.setColor(Color.BLACK);
         scoreLabel.setFont(SCORE_FONT);
