@@ -20,7 +20,7 @@ public class Game extends GraphicsPane{
     public static final int ENEMY_DAMAGE = 10;
     public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 100;
-    public static final int COMBAT_X = 100;
+    public static final int COMBAT_X = 3*Main.WINDOW_WIDTH/8;
 
     Main program;
     Player player;
@@ -45,6 +45,8 @@ public class Game extends GraphicsPane{
         this.boardDisplay = new BoardDisplay(board); 
         this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
 
+        this.combatDisplay = new CombatDisplay(player, enemy);
+        this.combatDisplay.setLocation(COMBAT_X, COMBAT_Y);
 
         update();
     }
@@ -82,6 +84,7 @@ public class Game extends GraphicsPane{
     public void update() {
         new Timer().scheduleAtFixedRate(new TimerTask(){
             public void run(){
+                combatDisplay.update();
                 boardDisplay.update();
             }
         } ,0, 20);
@@ -124,10 +127,12 @@ public class Game extends GraphicsPane{
 
     public void showContents(){
         for(GObject o : boardDisplay.getObjects()) program.add(o);
+        for(GObject o : combatDisplay.getObjects()) program.add(o); 
     }
 
     public void hideContents(){
         for(GObject o : boardDisplay.getObjects()) program.remove(o);
+        for(GObject o : combatDisplay.getObjects()) program.remove(o); 
     }
 
     public boolean checkWinFight() {
