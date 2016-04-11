@@ -18,6 +18,8 @@ public class CombatDisplay extends Display{
     HashMap<Unit,GRect> unitHps = new HashMap<Unit,GRect>();
     HashMap<Unit,GLabel> unitNames = new HashMap<Unit,GLabel>();
 
+    HashMap<GRect,Integer> projectiles = new HashMap<GRect,Integer>();
+
     public CombatDisplay(Player player, Enemy enemy){
         super();
         this.player = player;
@@ -30,7 +32,25 @@ public class CombatDisplay extends Display{
         initUnit(DISTANCE, 0, enemy);
         initHp(enemy, DISTANCE, 32+HP_BAR_BUFFER);
         initName(enemy,DISTANCE-17, -25);
-}
+    }
+
+    /**
+     * Adds a projectile to be updated as part of combat field
+     * @param x The x location of the projectile
+     * @param y The y location of the projectile
+     * @param speed The horizontal speed the projectile should travel (Positive to travel right and negative to travel left)
+     * @param color The color of the projectile
+     * @return The GRect that was created
+     */
+    public GRect addProjectile(int x, int y, int speed, Color color){
+        // FIXME remove projectiles when they have reached the enemy
+        GRect proj = new GRect(x,y,10,10);
+        proj.setFilled(true);
+        proj.setColor(color);
+        projectiles.put(proj, speed);
+        addObject(proj);
+        return proj;
+    }
 
     public void updateEnemy(Enemy x){
 
@@ -51,6 +71,7 @@ public class CombatDisplay extends Display{
     public void update(){
         for(Unit u: unitAnimations.keySet()) updateAnimation(u);
         for(Unit u: unitHps.keySet()) updateHp(u);
+        for(GRect p: projectiles.keySet()) p.move(projectiles.get(p),0);
     }
 
     public void initName(Unit unit, int x, int y){
