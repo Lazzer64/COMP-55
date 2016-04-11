@@ -2,11 +2,16 @@ import java.awt.Color;
 import acm.graphics.*;
 import java.util.HashMap;
 
+class UnitInfo {
+    Animation animation;
+    GRect hpBar;
+    GLabel name;
+}
+
 public class CombatDisplay extends Display{
 
     public static final Color HP_BAR_FILLED_COLOR = Color.GREEN;
     public static final Color HP_BAR_EMPTY_COLOR = Color.RED;
-    public static final int HP_BAR_BUFFER = 0;
     public static final int HP_BAR_HEIGHT = 10;
     public static final int HP_BAR_WIDTH = 50;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
@@ -14,10 +19,7 @@ public class CombatDisplay extends Display{
     Player player;
     Enemy enemy;
 
-    HashMap<Unit,Animation> unitAnimations = new HashMap<Unit,Animation>();
-    HashMap<Unit,GRect> unitHps = new HashMap<Unit,GRect>();
-    HashMap<Unit,GLabel> unitNames = new HashMap<Unit,GLabel>();
-
+    HashMap<Unit, UnitInfo> unitInfo = new HashMap<Unit, UnitInfo>();
     HashMap<GRect,Integer> projectiles = new HashMap<GRect,Integer>();
 
     public CombatDisplay(Player player, Enemy enemy){
@@ -25,13 +27,8 @@ public class CombatDisplay extends Display{
         this.player = player;
         this.enemy = enemy;
 
-        initUnit(0, 0, player);
-        initHp(player, 0, 32+HP_BAR_BUFFER);
-        initName(player, -17, -25);
-
+        initUnit(0, 0, player); 
         initUnit(DISTANCE, 0, enemy);
-        initHp(enemy, DISTANCE, 32+HP_BAR_BUFFER);
-        initName(enemy,DISTANCE-17, -25);
     }
 
     /**
@@ -54,35 +51,35 @@ public class CombatDisplay extends Display{
 
     public void updateEnemy(Enemy x){
 
-        Animation a = unitAnimations.remove(enemy);
-        a.playAnimation(x.getAnimation(),20);
-        unitAnimations.put(x, a);
+        UnitInfo info = unitInfo.get(enemy);
+        unitInfo.remove(enemy);
 
-        GRect h = unitHps.remove(enemy);
-        unitHps.put(x, h);
+        info.animation.playAnimation(x.getAnimation(),20); 
+        info.name.setLabel(x.getType().toString());
 
-        GLabel n = unitNames.remove(enemy);
-        n.setLabel(x.getType().toString());
-        unitNames.put(x, n);
+        unitInfo.put(x, info);
 
         enemy = x;
     }
 
     public void update(){
-        for(Unit u: unitAnimations.keySet()) updateAnimation(u);
-        for(Unit u: unitHps.keySet()) updateHp(u);
-        for(GRect p: projectiles.keySet()) p.move(projectiles.get(p),0);
+        for(Unit u: unitInfo.keySet()){
+            updateAnimation(u);
+            updateHp(u);
+        }
+        HashMap<GRect, Integer> projs = (HashMap<GRect, Integer>) projectiles.clone();
+        for(GRect p: projs.keySet()) p.move(projs.get(p),0);
     }
 
-    public void initName(Unit unit, int x, int y){
+    public GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getType().toString());
-        l.setLocation(x,y);
-        unitNames.put(unit, l);
+        l.setLocation(x-l.getWidth()/2,y);
         addObject(l);
+        return l;
     }
 
     public void updateAnimation(Unit unit){
-        Animation anim = unitAnimations.get(unit);
+        Animation anim = unitInfo.get(unit).animation;
         anim.update();
         if(!anim.equals(unit.getAnimation())) {
             anim.playAnimation(unit.getAnimation(),20);
@@ -91,14 +88,14 @@ public class CombatDisplay extends Display{
     }
 
     public void updateHp(Unit unit){
-        GRect bar = unitHps.get(unit);
+        GRect bar = unitInfo.get(unit).hpBar;
         int unitHp = unit.getHp();
         int unitMaxHp = unit.getMaxHp();
         double percentHp = 1.0*unitHp/unitMaxHp;
         bar.setSize(HP_BAR_WIDTH*percentHp,HP_BAR_HEIGHT);
     }
 
-    public GRect initHp(Unit unit, double x, double y){
+    public GRect initHp(double x, double y, Unit unit){
 
         x -= HP_BAR_WIDTH/2;
 
@@ -113,14 +110,24 @@ public class CombatDisplay extends Display{
         addObject(hpMax);
         addObject(hp);
         
-        unitHps.put(unit,hp);
         return hp;
     }
 
+    public Animation initAnimation(double x, double y, Unit unit){
+        Animation anim = new Animation(unit.getAnimation(),20);
+        anim.setLocation(x-anim.getWidth()/2,y-anim.getHeight()/2);
+        addAnimation(anim);
+        return anim;
+    }
+
     public void initUnit(double x, double y, Unit unit) {
-        Animation u = new Animation(unit.getAnimation(),20);
-        u.setLocation(x-u.getWidth()/2,y-u.getHeight()/2);
-        addAnimation(u);
-        unitAnimations.put(unit, u);
+
+        UnitInfo info = new UnitInfo();
+        unitInfo.put(unit, info);
+
+        info.animation = initAnimation(x,y,unit);
+        info.hpBar = initHp(x,y+info.animation.getHeight(),unit);
+        info.name = initName(x,y-info.animation.getHeight(),unit);
+        
     }
 }
