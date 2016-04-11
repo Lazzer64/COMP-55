@@ -1,6 +1,7 @@
 //Tom's Territory
+import java.io.Serializable;
 
-public class Score {
+public class Score implements Serializable {
 	private int score;
 	private String name;
 
