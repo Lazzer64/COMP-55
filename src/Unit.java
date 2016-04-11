@@ -1,3 +1,5 @@
+import java.util.TimerTask;
+import java.util.Timer;
 import java.util.Random;
 import java.awt.image.BufferedImage;
 //mark's territory
@@ -45,34 +47,53 @@ public abstract class Unit {
                 idleAnimation = Animation.playerIdle;
                 attackAnimation = Animation.playerAttack;
                 break;
-            case GOBLIN:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                break;
+            case GOBLIN: // TODO fill these in
             case GHOST:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                break;
             case SKELETON:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                break;
             case GIANT_SLIME:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                break;
             case SKELETON_KING:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                break;
+                idleAnimation = Animation.enemy1Idle;
+                attackAnimation = Animation.enemy1Attack;
             default:
         }
     }
     
+    /**
+     * Changes the animation based on the specified AnimationState.
+     * @param state The AnimationState to change to
+     */
     public void setCurrentAnimation(AnimationState state) {
     	this.state = state;
     }
     
+    /**
+     * Changes the animation to a given animation state after a specified time.
+     * @param time The amount of time (in milliseconds) before the animation is changed
+     * @param state The AnimationState that will be changed to
+     */
+    public void changeAnimationAfter(int time, AnimationState state){
+        new Timer().schedule(new TimerTask(){
+            public void run(){
+                setCurrentAnimation(state);
+            }
+        }, time);
+    }
+
+    /**
+     * Changes the animation to a given animation for a specified time and then to a second given animation.
+     * @param time The amount of time (in milliseconds) before the animation is changed
+     * @param state The AnimationState that will play for the duration
+     * @param returnState The AnimationState that will be switched to after the duration is completed
+     */
+    public void playAnimationFor(int time, AnimationState state, AnimationState returnState){
+        setCurrentAnimation(state);
+        new Timer().schedule(new TimerTask(){
+            public void run(){
+                setCurrentAnimation(returnState);
+            }
+        }, time);
+    }
+
     public BufferedImage[] getAnimation() {
     	switch(state) {
     		case IDLE:

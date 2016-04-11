@@ -120,13 +120,14 @@ public class Game extends GraphicsPane{
 
                             if(!checkWinFight()) {
                                 enemy.attack(player, ENEMY_DAMAGE);
+                                enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
                                 if(checkLoseGame()) {
                                     // TODO change to actual game over
                                     System.out.println("GAME OVER");
                                 }
                             } else nextFight();
                             canMove = true;
-                            player.setCurrentAnimation(AnimationState.IDLE);
+                            player.changeAnimationAfter(150,AnimationState.IDLE);
                         }
                     }
                 }
