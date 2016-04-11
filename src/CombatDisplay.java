@@ -13,8 +13,10 @@ public class CombatDisplay extends Display{
 
     Player player;
     Enemy enemy;
-    GRect playerHp, enemyHp;
+
     HashMap<Unit,Animation> unitAnimations = new HashMap<Unit,Animation>();
+    HashMap<Unit,GRect> unitHps = new HashMap<Unit,GRect>();
+    HashMap<Unit,GLabel> unitNames = new HashMap<Unit,GLabel>();
 
     public CombatDisplay(Player player, Enemy enemy){
         super();
@@ -22,21 +24,40 @@ public class CombatDisplay extends Display{
         this.enemy = enemy;
 
         initUnit(0, 0, player);
-        playerHp = initHp(player, 0, 32+HP_BAR_BUFFER);
+        initHp(player, 0, 32+HP_BAR_BUFFER);
+        initName(player, -17, -25);
 
         initUnit(DISTANCE, 0, enemy);
-        enemyHp = initHp(enemy, DISTANCE, 32+HP_BAR_BUFFER);
-    }
+        initHp(enemy, DISTANCE, 32+HP_BAR_BUFFER);
+        initName(enemy,DISTANCE-17, -25);
+}
 
-    public void updateEnemy(Enemy enemy){
-        this.enemy = enemy;
-        initUnit(DISTANCE, 0, enemy);
+    public void updateEnemy(Enemy x){
+
+        Animation a = unitAnimations.remove(enemy);
+        a.playAnimation(x.getAnimation(),20);
+        unitAnimations.put(x, a);
+
+        GRect h = unitHps.remove(enemy);
+        unitHps.put(x, h);
+
+        GLabel n = unitNames.remove(enemy);
+        n.setLabel(x.getType().toString());
+        unitNames.put(x, n);
+
+        enemy = x;
     }
 
     public void update(){
         for(Unit u: unitAnimations.keySet()) updateAnimation(u);
-        updateHp(player, playerHp);
-        updateHp(enemy, enemyHp);
+        for(Unit u: unitHps.keySet()) updateHp(u);
+    }
+
+    public void initName(Unit unit, int x, int y){
+        GLabel l = new GLabel(unit.getType().toString());
+        l.setLocation(x,y);
+        unitNames.put(unit, l);
+        addObject(l);
     }
 
     public void updateAnimation(Unit unit){
@@ -48,7 +69,8 @@ public class CombatDisplay extends Display{
 
     }
 
-    public void updateHp(Unit unit, GRect bar){
+    public void updateHp(Unit unit){
+        GRect bar = unitHps.get(unit);
         int unitHp = unit.getHp();
         int unitMaxHp = unit.getMaxHp();
         double percentHp = 1.0*unitHp/unitMaxHp;
@@ -69,6 +91,8 @@ public class CombatDisplay extends Display{
 
         addObject(hpMax);
         addObject(hp);
+        
+        unitHps.put(unit,hp);
         return hp;
     }
 

@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.awt.image.BufferedImage;
 //mark's territory
 enum AnimationState { 
@@ -6,6 +7,15 @@ enum AnimationState {
 
 enum UnitType {
     PLAYER, GOBLIN, GHOST, SKELETON, GIANT_SLIME, SKELETON_KING; // FIXME Feel free to change this to whatever
+
+    public static UnitType randomEnemy(){
+        Random r = new Random();
+        int roll = r.nextInt(3);
+
+        if(roll == 0) return UnitType.GOBLIN;
+        if(roll == 1) return UnitType.GHOST;
+        return UnitType.SKELETON;
+    }
 }
 public abstract class Unit {
 
@@ -116,5 +126,9 @@ public abstract class Unit {
 	public int getDefense() {    
 		return defense;
 	}
+
+    public UnitType getType(){
+        return type;
+    }
 
 }
