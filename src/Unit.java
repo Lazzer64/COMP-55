@@ -4,7 +4,7 @@ import java.util.Random;
 import java.awt.image.BufferedImage;
 //mark's territory
 enum AnimationState { 
-	IDLE, ATTACK;
+	IDLE, ATTACK, DEATH;
 }
 
 enum UnitType {
@@ -27,6 +27,7 @@ public abstract class Unit {
 	private int defense;
 	private BufferedImage[] idleAnimation;
 	private BufferedImage[] attackAnimation;
+	private BufferedImage[] deathAnimation;
 	
     private UnitType type;	
 	private AnimationState state;
@@ -46,6 +47,7 @@ public abstract class Unit {
             case PLAYER:
                 idleAnimation = Animation.playerIdle;
                 attackAnimation = Animation.playerAttack;
+                deathAnimation = Animation.playerIdle;
                 break;
             case GOBLIN: // TODO fill these in
             case GHOST:
@@ -54,6 +56,7 @@ public abstract class Unit {
             case SKELETON_KING:
                 idleAnimation = Animation.enemy1Idle;
                 attackAnimation = Animation.enemy1Attack;
+                deathAnimation = Animation.enemy1Die;
             default:
         }
     }
@@ -100,6 +103,8 @@ public abstract class Unit {
     			return idleAnimation;
     		case ATTACK:
     			return attackAnimation;
+    		case DEATH:
+    			return deathAnimation;
     		default:
     			return idleAnimation;
     	}
