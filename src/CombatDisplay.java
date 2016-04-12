@@ -44,8 +44,14 @@ public class CombatDisplay extends Display{
         GRect proj = new GRect(x,y,10,10);
         proj.setFilled(true);
         proj.setColor(color);
-        projectiles.put(proj, speed);
+
+        HashMap<GRect, Integer> projs = (HashMap<GRect, Integer>) projectiles.clone();
+        projs.put(proj, speed);
+        
+        projectiles = projs;
+
         addObject(proj);
+
         return proj;
     }
 
@@ -67,8 +73,11 @@ public class CombatDisplay extends Display{
             updateAnimation(u);
             updateHp(u);
         }
-        HashMap<GRect, Integer> projs = (HashMap<GRect, Integer>) projectiles.clone();
-        for(GRect p: projs.keySet()) p.move(projs.get(p),0);
+
+        for(GRect p: projectiles.keySet()) {
+            p.move(projectiles.get(p),0);
+            if(p.getX() > x_adj + DISTANCE || p.getX() < x_adj) p.setVisible(false);
+        }
     }
 
     public GLabel initName(double x, double y, Unit unit){

@@ -58,7 +58,7 @@ public class Game extends GraphicsPane{
     }
 
     public void mousePressed(MouseEvent e) {
-        if(isInBoard(e.getX(), e.getY()) && canMove){ 
+        if(isInBoard(e.getX(), e.getY()) && moveList.isEmpty() && canMove){ 
             start = getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
         }
