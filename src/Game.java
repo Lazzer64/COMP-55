@@ -19,8 +19,8 @@ public class Game extends GraphicsPane{
     public static final int NUM_ALLOWED_MOVES = 5;
     public static final int ENEMY_DAMAGE = 10;
     public static final int PLAYER_DAMAGE_MULT = 5;
-    public static final int COMBAT_Y = 100;
-    public static final int COMBAT_X = 3*Main.WINDOW_WIDTH/8;
+    public static final int COMBAT_Y = 0;
+    public static final int COMBAT_X = 0;
 
     Main program;
     Player player;

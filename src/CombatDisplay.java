@@ -27,8 +27,9 @@ public class CombatDisplay extends Display{
         this.player = player;
         this.enemy = enemy;
 
-        initUnit(0, 0, player); 
-        initUnit(DISTANCE, 0, enemy);
+        initBackground();
+        initUnit(3*Main.WINDOW_WIDTH/8, 180, player); 
+        initUnit(3*Main.WINDOW_WIDTH/8+DISTANCE, 180, enemy);
     }
 
     /**
@@ -80,6 +81,13 @@ public class CombatDisplay extends Display{
         }
     }
 
+    public void initBackground() {
+    	GImage background = new GImage("SpriteSheets/background.gif");
+    	background.setLocation(0,25);
+    	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
+    	addObject(background);
+    }
+    
     public GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getType().toString());
         l.setLocation(x-l.getWidth()/2,y);
