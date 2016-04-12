@@ -13,14 +13,22 @@ public class Main extends GraphicsApplication{
 		addKeyListeners();
 		addMouseListeners();
         
-   	 //Testing the add score function in CONSOLE
+   	 	//Testing the add score function in CONSOLE
         //Sorts Scores in order!
         HighscoreList hm = new HighscoreList();
 	    hm.addScore("Tom", 55);
 	    hm.addScore("Alex", 128);
 	    hm.addScore("Mark", 99);
 	    hm.addScore("Michael",45);
-	    hm.addScore("Osvaldo",0);
+	    hm.addScore("Osvaldo",6);
+	    hm.addScore("CPU1", 67);
+	    hm.addScore("CPU2", 89);
+	    hm.addScore("CPU3", 59);
+	    hm.addScore("CPU4",29);
+	    hm.addScore("CPU5",44);
+	    
+	    //OUTSIDE the top 10 list
+	    hm.addScore("Test 11th",0);
 	    System.out.print(hm.printScores());
       
 
