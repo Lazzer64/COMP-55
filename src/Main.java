@@ -13,9 +13,8 @@ public class Main extends GraphicsApplication{
 		addKeyListeners();
 		addMouseListeners();
         
-   	 	//Testing the add score function in CONSOLE
-        //Sorts Scores in order!
-        HighscoreList hm = new HighscoreList();
+   	 	//TEST METHOD: the add score function in CONSOLE
+        /*HighscoreList hm = new HighscoreList();
 	    hm.addScore("Tom", 55);
 	    hm.addScore("Alex", 128);
 	    hm.addScore("Mark", 99);
@@ -29,7 +28,7 @@ public class Main extends GraphicsApplication{
 	    
 	    //OUTSIDE the top 10 list
 	    hm.addScore("Test 11th",0);
-	    System.out.print(hm.printScores());
+	    System.out.print(hm.printScores());*/
       
 
     }

@@ -17,7 +17,7 @@ public class HighscoreList {
 
     //Score Objects in Array List
     private ArrayList<Score> highScoreList;
-    //Name of file for highscores
+    //Name of file for highscores, located in bin folder
     private static final String highScoreFile = "scores.dat";
     ObjectOutputStream output = null;
     ObjectInputStream input = null;
