@@ -27,8 +27,9 @@ public class CombatDisplay extends Display{
         this.player = player;
         this.enemy = enemy;
 
-        initUnit(0, 0, player); 
-        initUnit(DISTANCE, 0, enemy);
+        initBackground();
+        initUnit(3*Main.WINDOW_WIDTH/8, 180, player); 
+        initUnit(3*Main.WINDOW_WIDTH/8+DISTANCE, 180, enemy);
     }
 
     /**
@@ -54,6 +55,11 @@ public class CombatDisplay extends Display{
 
         return proj;
     }
+    
+    public GRect addProjectile(Unit u, int speed, Color color){
+        // FIXME remove projectiles when they have reached the enemy
+        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed, color);
+    }
 
     public void updateEnemy(Enemy x){
 
@@ -76,13 +82,21 @@ public class CombatDisplay extends Display{
 
         for(GRect p: projectiles.keySet()) {
             p.move(projectiles.get(p),0);
-            if(p.getX() > x_adj + DISTANCE || p.getX() < x_adj) p.setVisible(false);
+            if((int)unitInfo.get(enemy).animation.getX() < p.getX() || (int)unitInfo.get(player).animation.getX() > p.getX()) p.setVisible(false);
         }
     }
 
+    public void initBackground() {
+    	GImage background = new GImage("SpriteSheets/background.gif");
+    	background.setLocation(0,25);
+    	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
+    	addObject(background);
+    }
+    
     public GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getType().toString());
         l.setLocation(x-l.getWidth()/2,y);
+        l.setColor(Color.ORANGE);
         addObject(l);
         return l;
     }
