@@ -91,6 +91,7 @@ public class CombatDisplay extends Display{
     public GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getType().toString());
         l.setLocation(x-l.getWidth()/2,y);
+        l.setColor(Color.ORANGE);
         addObject(l);
         return l;
     }
