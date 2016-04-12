@@ -55,6 +55,11 @@ public class CombatDisplay extends Display{
 
         return proj;
     }
+    
+    public GRect addProjectile(Unit u, int speed, Color color){
+        // FIXME remove projectiles when they have reached the enemy
+        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed, color);
+    }
 
     public void updateEnemy(Enemy x){
 
@@ -77,7 +82,7 @@ public class CombatDisplay extends Display{
 
         for(GRect p: projectiles.keySet()) {
             p.move(projectiles.get(p),0);
-            if(p.getX() > x_adj + DISTANCE || p.getX() < x_adj) p.setVisible(false);
+            if((int)unitInfo.get(enemy).animation.getX() < p.getX() || (int)unitInfo.get(player).animation.getX() > p.getX()) p.setVisible(false);
         }
     }
 
