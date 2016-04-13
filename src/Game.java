@@ -126,6 +126,7 @@ public class Game extends GraphicsPane{
                                 if(checkLoseGame()) {
                                     // TODO change to actual game over
                                     System.out.println("GAME OVER");
+                                    
                                 }
                             } else nextFight();
                             canMove = true;
@@ -171,8 +172,9 @@ public class Game extends GraphicsPane{
         // TODO implement
     }
     
-    public void saveScore(int Score) {
-        // TODO implement
+    public void saveScore(String name, int Score) {
+    	HighscoreList hm = new HighscoreList();
+    	hm.addScore(name, Score);
     }
 
     // Helpers 
