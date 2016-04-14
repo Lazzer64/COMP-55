@@ -15,18 +15,23 @@ private GLabel play;
 private GLabel instructions;
 private GLabel highscores;
 private GLabel quit;
+private GLabel pumpingpower;
 private GImage background;
+
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
 public static final int OFFSET = 75;
 
 	public  MainMenu(Main app) {
 		program = app;
+		pumpingpower = new GLabel("PUMPING POWER", Main.WINDOW_WIDTH/2-WIDTH/2, 100);
+		pumpingpower.setColor(Color.BLUE);
+		pumpingpower.setFont("Arial-30");
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
 		playbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		playbtn.setFilled(false);
 		play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-		play.setColor(Color.red);
+		play.setColor(Color.RED);
 		play.setFont("Arial-20");
 		play.move(0,play.getHeight());
 		y += OFFSET;
@@ -34,7 +39,7 @@ public static final int OFFSET = 75;
 		instructionsbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		instructionsbtn.setFilled(false);
 		instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-		instructions.setColor(Color.red);
+		instructions.setColor(Color.RED);
 		instructions.setFont("Arial-20");
 		instructions.move(0,play.getHeight());
 		y += OFFSET;
@@ -42,7 +47,7 @@ public static final int OFFSET = 75;
 		highscoresbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		highscoresbtn.setFilled(false);
 		highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-		highscores.setColor(Color.red);
+		highscores.setColor(Color.RED);
 		highscores.setFont("Arial-20");
 		highscores.move(0,play.getHeight());
 		y += OFFSET;
@@ -50,7 +55,7 @@ public static final int OFFSET = 75;
 		quitbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		quitbtn.setFilled(false);
 		quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-		quit.setColor(Color.red);
+		quit.setColor(Color.RED);
 		quit.setFont("Arial-20");
 		quit.move(0,play.getHeight());
 	}
@@ -63,6 +68,7 @@ public static final int OFFSET = 75;
 	 
     public void showContents() {
     	 initBackground();
+    program.add(pumpingpower);
     program.add(playbtn);
     program.add(instructionsbtn);
     program.add(highscoresbtn);
@@ -75,7 +81,8 @@ public static final int OFFSET = 75;
     
     public void hideContents() {
         // TODO implement
-    	    program.remove(playbtn);
+    	    program.remove(pumpingpower);
+    		program.remove(playbtn);
     	    program.remove(instructionsbtn);
     	    program.remove(highscoresbtn);
     	    program.remove(quitbtn);
