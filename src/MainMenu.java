@@ -8,7 +8,7 @@ public class MainMenu extends GraphicsPane {
 
 	 public void initBackground() {
 		 	//initialize the main menu background and set size
-	    	GImage background = new GImage("SpriteSheets/mainmenuBackground.gif");
+	    	GImage background = new GImage("SpriteSheets/mainmenuBackground.jpg");
 	    	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
 	    }
 	 
