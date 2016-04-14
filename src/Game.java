@@ -128,16 +128,17 @@ public class Game extends GraphicsPane{
                                 if(checkLoseGame()) {
                                     // TODO change to actual game over
                                     System.out.println("GAME OVER");
-                                    
-                                    //Testing the Score after the user loses 
-                                    System.out.println("Enter name for high-score list");
-                                    Scanner userNameScanner = new Scanner(System.in);
-                                    String userName = userNameScanner.nextLine();
-                                    
-                                    HighscoreList hm = new HighscoreList();
-                            	    hm.addScore(userName, score.getScore());
-                            	    System.out.println(hm.printScores());
-                            	    
+                                    // FIXME replace when done
+                                    program.switchToScreen(new GraphicsPane(){
+                                        public void showContents(){
+                                            GLabel label = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
+                                            label.setLocation(100,100);
+                                            program.add(label);
+                                        }
+                                        public void hideContents(){
+                                        }
+                                    });
+                                    saveScore(score.getScore());
                                     
                                 }
                             } else nextFight();
@@ -180,10 +181,6 @@ public class Game extends GraphicsPane{
         combatDisplay.updateEnemy(enemy);
     }
 
-    public void playerTurn() {
-        // TODO implement
-    }
-    
     public void playerScore(String name, int Score) {
     	//Creates a new high score object, then adds it
     	HighscoreList hm = new HighscoreList();
@@ -191,7 +188,13 @@ public class Game extends GraphicsPane{
     }
     
     public void saveScore(int score){
-    	
+        System.out.println("Enter name for high-score list");
+        Scanner userNameScanner = new Scanner(System.in);
+        String userName = userNameScanner.nextLine();
+
+        HighscoreList hm = new HighscoreList();
+        hm.addScore(userName, score);
+        System.out.println(hm.printScores());
     }
 
     // Helpers 
