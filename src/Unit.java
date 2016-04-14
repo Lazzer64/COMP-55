@@ -110,16 +110,24 @@ public abstract class Unit {
     	}
     }
     
-    public void attack(Unit target, int size){
-        // TODO implement
+    public void attack(Unit target, int damage){
+        int damageMitigation = target.defense;
+        int totalDamage = (damage - damageMitigation);
+        if(totalDamage > 0){
+            target.hp -= totalDamage;
+        }
+    }
+
  
-     target.hp = target.hp-(size-target.defense);
+    public void heal(int amnt){
+        if(amnt > 0){
+            hp += amnt;
+        }
+        if(hp > maxHp){
+            hp = maxHp;
+        }
     }
-    public void attack(Unit target){
-    
-    	target.hp = target.hp-(attack-target.defense);
-    }
-    
+
     // Getters and Setters
 	public void setHp(int hp) {
     	this.hp = hp;

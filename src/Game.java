@@ -22,6 +22,7 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
+    public static final int HEAL_MOD = 3;
 
     Main program;
     Player player;
@@ -131,8 +132,11 @@ public class Game extends GraphicsPane{
                                     // FIXME replace when done
                                     program.switchToScreen(new GraphicsPane(){
                                         public void showContents(){
-                                            GLabel label = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
+                                            GLabel label = new GLabel("GAME OVER!");
+                                            GLabel label2 = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
                                             label.setLocation(100,100);
+                                            label2.setLocation(100,200);
+                                            program.add(label2);
                                             program.add(label);
                                         }
                                         public void hideContents(){
@@ -204,13 +208,21 @@ public class Game extends GraphicsPane{
     }
 
     private void matchEffect(Match m) {
-        player.setCurrentAnimation(AnimationState.ATTACK);
-        player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
 
-        program.add(combatDisplay.addProjectile(player,10, TileType.getColor(m.getType())));
+        switch(m.getType()){
+            case PINK: // Heal
+                player.heal(m.size()*HEAL_MOD);
+                break;
+            default: // Generic damage
+                player.setCurrentAnimation(AnimationState.ATTACK);
+                player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
 
-        System.out.println(m.getType()+" size: "+m.size());
-        score.setScore(score.getScore() + m.size());
+                program.add(combatDisplay.addProjectile(player,10, TileType.getColor(m.getType())));
+
+                System.out.println(m.getType()+" size: "+m.size());
+                score.setScore(score.getScore() + m.size());
+        }
+
     }
 
     private Tile getTileAt(int x, int y){
