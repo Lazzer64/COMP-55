@@ -108,11 +108,11 @@ public class MainMenu extends GraphicsPane {
             program.switchToScreen(new Game(program));
         }
         //	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn ||program.getElementAt(e.getX(), e.getY()) == instructions){
-        //		program.switchToScreen(new Instructions(program));
+        //	program.switchToScreen(new Instructions(program));
         //	}
-        //	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn || program.getElementAt(e.getX(), e.getY()) == highscores){
-        //		program.switchToScreen(new ScoreScreen(program));
-        //}
+        else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn || program.getElementAt(e.getX(), e.getY()) == highscores){
+            program.switchToScreen(new ScoreScreen(program));
+        }
         else if(program.getElementAt(e.getX(), e.getY()) == quitbtn || program.getElementAt(e.getX(), e.getY()) == quit){
             System.exit(0);
         }
