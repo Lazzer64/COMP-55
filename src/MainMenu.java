@@ -94,7 +94,7 @@ public static final int OFFSET = 75;
     public void mouseClicked(MouseEvent e) {
         // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == playbtn){
-    		
+    		program.switchToScreen(new Game(program));
     	}
     	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn){
     		
