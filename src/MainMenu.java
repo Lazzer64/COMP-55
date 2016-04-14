@@ -93,10 +93,19 @@ public static final int OFFSET = 75;
     
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-    	//if(getElementAt(e.getX(), e.getY()) == playbtn){
+    	if(program.getElementAt(e.getX(), e.getY()) == playbtn){
     		
     	}
-    //}
+    	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn){
+    		
+    	}
+    	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn){
+	
+}
+    	else if(program.getElementAt(e.getX(), e.getY()) == quitbtn){
+	System.exit(0);
+}
+    }
     
     public void mouseMoved() {
         // TODO implement
