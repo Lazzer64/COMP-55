@@ -63,7 +63,7 @@ public class HighscoreList {
     	} 
     	catch (FileNotFoundException e) 
     	{
-    	        System.out.println("[Write] File Not Found: " + e.getMessage() + ",the program will try and make a new file");
+    	        System.out.println("[Write] New Score List File Created");
     	} 
     	catch (IOException e) 
     	{
@@ -99,7 +99,7 @@ public class HighscoreList {
 		   } 
 		  catch (FileNotFoundException e) 
 		  {
-		        System.out.println("[Read] File not found: " + e.getMessage());
+		        System.out.println("[Read] New Score List File Created");
 		  } 
 		  catch (IOException e) 
 		  {
