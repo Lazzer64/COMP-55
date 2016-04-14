@@ -22,6 +22,7 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
+    public static final int HEAL_MOD = 3;
 
     Main program;
     Player player;
@@ -207,13 +208,21 @@ public class Game extends GraphicsPane{
     }
 
     private void matchEffect(Match m) {
-        player.setCurrentAnimation(AnimationState.ATTACK);
-        player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
 
-        program.add(combatDisplay.addProjectile(player,10, TileType.getColor(m.getType())));
+        switch(m.getType()){
+            case PINK: // Heal
+                player.heal(m.size()*HEAL_MOD);
+                break;
+            default: // Generic damage
+                player.setCurrentAnimation(AnimationState.ATTACK);
+                player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
 
-        System.out.println(m.getType()+" size: "+m.size());
-        score.setScore(score.getScore() + m.size());
+                program.add(combatDisplay.addProjectile(player,10, TileType.getColor(m.getType())));
+
+                System.out.println(m.getType()+" size: "+m.size());
+                score.setScore(score.getScore() + m.size());
+        }
+
     }
 
     private Tile getTileAt(int x, int y){
