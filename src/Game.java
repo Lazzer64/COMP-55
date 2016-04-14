@@ -131,8 +131,11 @@ public class Game extends GraphicsPane{
                                     // FIXME replace when done
                                     program.switchToScreen(new GraphicsPane(){
                                         public void showContents(){
-                                            GLabel label = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
+                                            GLabel label = new GLabel("GAME OVER!");
+                                            GLabel label2 = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
                                             label.setLocation(100,100);
+                                            label2.setLocation(100,200);
+                                            program.add(label2);
                                             program.add(label);
                                         }
                                         public void hideContents(){
