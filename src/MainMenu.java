@@ -1,11 +1,18 @@
 import java.awt.event.MouseEvent;
 
 import acm.graphics.GImage;
+import acm.graphics.GRect;
 
 import java.awt.event.KeyEvent; 
 
 public class MainMenu extends GraphicsPane {
-
+private Main program;
+private GRect rect;
+	public  MainMenu(Main app) {
+		program = app;
+		rect = new GRect(Main.WINDOW_WIDTH/2-25, Main.WINDOW_HEIGHT/2-75/2, 50, 75);
+		rect.setFilled(true);
+	}
 	 public void initBackground() {
 		 	//initialize the main menu background and set size
 	    	GImage background = new GImage("SpriteSheets/mainmenuBackground.gif");
@@ -14,6 +21,7 @@ public class MainMenu extends GraphicsPane {
 	 
     public void showContents() {
     	 initBackground();
+    program.add(rect);
     }
     
     public void hideContents() {
