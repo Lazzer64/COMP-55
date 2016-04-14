@@ -15,6 +15,7 @@ private GLabel play;
 private GLabel instructions;
 private GLabel highscores;
 private GLabel quit;
+private GImage background;
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
 public static final int OFFSET = 75;
@@ -55,8 +56,9 @@ public static final int OFFSET = 75;
 	}
 	 public void initBackground() {
 		 	//initialize the main menu background and set size
-	    	//GImage background = new GImage("SpriteSheets/mainmenuBackground.jpg");
-	    	//background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
+	        background = new GImage("SpriteSheets/mainmenuBackground.jpg");
+	    	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
+	    	program.add(background);
 	    }
 	 
     public void showContents() {
@@ -81,6 +83,7 @@ public static final int OFFSET = 75;
     	    program.remove(instructions);
     	    program.remove(highscores);
     	    program.remove(quit);
+    	    program.remove(background);
     }
     
     public void mousePressed(MouseEvent e) {
