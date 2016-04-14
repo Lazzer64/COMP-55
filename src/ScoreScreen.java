@@ -97,7 +97,9 @@ HighscoreList show = new HighscoreList();
  	}
  	
      public void hideContents() {
-         // TODO implement
+    	 program.remove(rect);
+    	 program.remove(titleLabel);
+    	 program.remove(backbtn);
      }
     
      public void mousePressed(MouseEvent e) {
