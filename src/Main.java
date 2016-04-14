@@ -8,10 +8,11 @@ public class Main extends GraphicsApplication{
     	
 	    
         this.setSize(WINDOW_WIDTH, WINDOW_HEIGHT);
-        GraphicsPane p = new Game(this);
+        GraphicsPane p = new MainMenu(this);
         switchToScreen(p);
 		addKeyListeners();
 		addMouseListeners();
+		
         
    	 	//TEST METHOD: the add score function in CONSOLE
         /*HighscoreList hm = new HighscoreList();
