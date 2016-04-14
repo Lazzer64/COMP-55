@@ -15,7 +15,7 @@ private GLabel play;
 private GLabel instructions;
 private GLabel highscores;
 private GLabel quit;
-public static final int WIDTH = 175;
+public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
 public static final int OFFSET = 75;
 
@@ -24,7 +24,7 @@ public static final int OFFSET = 75;
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
 		playbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		playbtn.setFilled(false);
-		play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/2, y);
+		play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/4, y);
 		play.setColor(Color.red);
 		play.setFont("Arial-20");
 		play.move(0,play.getHeight());
@@ -32,7 +32,7 @@ public static final int OFFSET = 75;
 		
 		instructionsbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		instructionsbtn.setFilled(false);
-		instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/2, y);
+		instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
 		instructions.setColor(Color.red);
 		instructions.setFont("Arial-20");
 		instructions.move(0,play.getHeight());
@@ -40,7 +40,7 @@ public static final int OFFSET = 75;
 		
 		highscoresbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		highscoresbtn.setFilled(false);
-		highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/2, y);
+		highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
 		highscores.setColor(Color.red);
 		highscores.setFont("Arial-20");
 		highscores.move(0,play.getHeight());
@@ -48,7 +48,7 @@ public static final int OFFSET = 75;
 		
 		quitbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, y, WIDTH, HEIGHT);
 		quitbtn.setFilled(false);
-		quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/2, y);
+		quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
 		quit.setColor(Color.red);
 		quit.setFont("Arial-20");
 		quit.move(0,play.getHeight());
@@ -73,6 +73,14 @@ public static final int OFFSET = 75;
     
     public void hideContents() {
         // TODO implement
+    	    program.remove(playbtn);
+    	    program.remove(instructionsbtn);
+    	    program.remove(highscoresbtn);
+    	    program.remove(quitbtn);
+    	    program.remove(play);
+    	    program.remove(instructions);
+    	    program.remove(highscores);
+    	    program.remove(quit);
     }
     
     public void mousePressed(MouseEvent e) {
@@ -83,9 +91,12 @@ public static final int OFFSET = 75;
         // TODO implement
     }
     
-    public void mouseClicked() {
+    public void mouseClicked(MouseEvent e) {
         // TODO implement
-    }
+    	//if(getElementAt(e.getX(), e.getY()) == playbtn){
+    		
+    	}
+    //}
     
     public void mouseMoved() {
         // TODO implement
