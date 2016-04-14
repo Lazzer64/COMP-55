@@ -93,16 +93,16 @@ public static final int OFFSET = 75;
     
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-    	if(program.getElementAt(e.getX(), e.getY()) == playbtn){
+    	if(program.getElementAt(e.getX(), e.getY()) == playbtn ||program.getElementAt(e.getX(), e.getY()) == play ){
     		program.switchToScreen(new Game(program));
     	}
-    //	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn){
+    //	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn ||program.getElementAt(e.getX(), e.getY()) == instructions){
     //		program.switchToScreen(new Instructions(program));
     //	}
-    //	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn){
+    //	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn || program.getElementAt(e.getX(), e.getY()) == highscores){
     //		program.switchToScreen(new ScoreScreen(program));
 //}
-    	else if(program.getElementAt(e.getX(), e.getY()) == quitbtn){
+    	else if(program.getElementAt(e.getX(), e.getY()) == quitbtn || program.getElementAt(e.getX(), e.getY()) == quit){
 	System.exit(0);
 }
     }
