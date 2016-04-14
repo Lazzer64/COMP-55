@@ -96,12 +96,12 @@ public static final int OFFSET = 75;
     	if(program.getElementAt(e.getX(), e.getY()) == playbtn){
     		program.switchToScreen(new Game(program));
     	}
-    	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn){
-    		
-    	}
-    	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn){
-	
-}
+    //	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn){
+    //		program.switchToScreen(new Instructions(program));
+    //	}
+    //	else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn){
+    //		program.switchToScreen(new ScoreScreen(program));
+//}
     	else if(program.getElementAt(e.getX(), e.getY()) == quitbtn){
 	System.exit(0);
 }
