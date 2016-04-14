@@ -4,6 +4,7 @@ import java.util.Stack;
 import java.util.TimerTask;
 import java.util.Timer;
 import java.awt.event.MouseEvent;
+import java.util.*;
 import acm.graphics.*;
 
 public class Game extends GraphicsPane{
@@ -17,7 +18,7 @@ public class Game extends GraphicsPane{
     public static final int SCORE_X = 5;
     public static final int SCORE_Y = 20; 
     public static final int NUM_ALLOWED_MOVES = 5;
-    public static final int ENEMY_DAMAGE = 10;
+    public static final int ENEMY_DAMAGE = 30;
     public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
@@ -30,6 +31,7 @@ public class Game extends GraphicsPane{
     TilePathDisplay moveListDisplay;
     CombatDisplay combatDisplay;
     ScoreDisplay scoreDisplay;
+    
 
     Score score;
     Board board = new Board(NUM_ROWS, NUM_COLS);
@@ -127,6 +129,16 @@ public class Game extends GraphicsPane{
                                     // TODO change to actual game over
                                     System.out.println("GAME OVER");
                                     
+                                    //Testing the Score after the user loses 
+                                    System.out.println("Enter name for high-score list");
+                                    Scanner userNameScanner = new Scanner(System.in);
+                                    String userName = userNameScanner.nextLine();
+                                    
+                                    HighscoreList hm = new HighscoreList();
+                            	    hm.addScore(userName, score.getScore());
+                            	    System.out.println(hm.printScores());
+                            	    
+                                    
                                 }
                             } else nextFight();
                             canMove = true;
@@ -172,9 +184,14 @@ public class Game extends GraphicsPane{
         // TODO implement
     }
     
-    public void saveScore(String name, int Score) {
+    public void playerScore(String name, int Score) {
+    	//Creates a new high score object, then adds it
     	HighscoreList hm = new HighscoreList();
     	hm.addScore(name, Score);
+    }
+    
+    public void saveScore(int score){
+    	
     }
 
     // Helpers 
