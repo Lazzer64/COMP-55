@@ -14,6 +14,8 @@ public class CombatDisplay extends Display{
     public static final Color HP_BAR_EMPTY_COLOR = Color.RED;
     public static final int HP_BAR_HEIGHT = 10;
     public static final int HP_BAR_WIDTH = 50;
+    public static final int UNIT_X = 3*Main.WINDOW_WIDTH/8;
+    public static final int UNIT_Y = 180;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
 
     Player player;
@@ -28,8 +30,8 @@ public class CombatDisplay extends Display{
         this.enemy = enemy;
 
         initBackground();
-        initUnit(3*Main.WINDOW_WIDTH/8, 180, player); 
-        initUnit(3*Main.WINDOW_WIDTH/8+DISTANCE, 180, enemy);
+        initUnit(UNIT_X, UNIT_Y, player); 
+        initUnit(UNIT_X+DISTANCE, UNIT_Y, enemy);
     }
 
     /**
@@ -82,7 +84,9 @@ public class CombatDisplay extends Display{
 
         for(GRect p: projectiles.keySet()) {
             p.move(projectiles.get(p),0);
-            if((int)unitInfo.get(enemy).animation.getX() < p.getX() || (int)unitInfo.get(player).animation.getX() > p.getX()) p.setVisible(false);
+            boolean lower = UNIT_X + DISTANCE < p.getX() ;
+            boolean higher = UNIT_X > p.getX();
+            if(lower || higher) p.setVisible(false);
         }
     }
 
