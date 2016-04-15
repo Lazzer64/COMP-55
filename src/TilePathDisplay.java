@@ -5,11 +5,12 @@ import acm.graphics.*;
 
 public class TilePathDisplay extends Display{
 
-    public static final Color PATH_COLOR = Color.WHITE;
+    public static final Color PATH_COLOR = Color.BLACK;
     public static final Color EDGE_COLOR = Color.BLACK;
     public static final Font PATH_FONT = new Font("Consolas",Font.BOLD, 20);
     public static final int TILE_SIZE = Game.TILE_SIZE;
     public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
+    public static final int PATH_SIZE = TILE_SIZE/4;
 
     Stack<RowCol> moveList;
 
@@ -29,7 +30,7 @@ public class TilePathDisplay extends Display{
 
     public void initMarkers(){
         for (int i = 0; i < arrow.length; i++) {
-            GRect l = new GRect(TILE_SIZE/2,TILE_SIZE/2);
+            GRect l = new GRect(PATH_SIZE,PATH_SIZE);
             l.setFillColor(PATH_COLOR);
             l.setFilled(true);
             arrow[i] = l;
@@ -43,21 +44,20 @@ public class TilePathDisplay extends Display{
         RowCol lastRowCol = null;
         Stack<RowCol> moves = (Stack<RowCol>) moveList.clone();
         for(RowCol x: moves) {
-            arrow[i].setLocation(x.getX() * TILE_SIZE + TILE_SIZE/4, x.getY() * TILE_SIZE + TILE_SIZE/4);
+            arrow[i].setLocation(x.getX() * TILE_SIZE + (TILE_SIZE-PATH_SIZE)/2, x.getY() * TILE_SIZE + (TILE_SIZE-PATH_SIZE)/2);
 
             if(i > 0) {
             	int direction = getLastDirectionMoved(x,lastRowCol);
-            	System.out.println(direction);
             	if(direction == 1) { //Up
-            		arrow[i].setSize(TILE_SIZE/2,TILE_SIZE);
+            		arrow[i].setSize(PATH_SIZE,TILE_SIZE);
             	} else if(direction == 2) { //Down
-            		arrow[i].setSize(TILE_SIZE/2,TILE_SIZE);
-            		arrow[i].move(0,-TILE_SIZE/2);
+            		arrow[i].setSize(PATH_SIZE,TILE_SIZE);
+            		arrow[i].move(0,-(TILE_SIZE-PATH_SIZE));
             	} else if(direction == 3) { //Left
-            		arrow[i].setSize(TILE_SIZE, TILE_SIZE/2);
+            		arrow[i].setSize(TILE_SIZE, PATH_SIZE);
             	} else if(direction == 4) { //Right
-            		arrow[i].setSize(TILE_SIZE, TILE_SIZE/2);
-            		arrow[i].move(-TILE_SIZE/2,0);
+            		arrow[i].setSize(TILE_SIZE, PATH_SIZE);
+            		arrow[i].move(-(TILE_SIZE-PATH_SIZE),0);
             	}
             }
             arrow[i].move(x_adj,y_adj);
