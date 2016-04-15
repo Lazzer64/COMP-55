@@ -1,5 +1,7 @@
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
 import java.util.ArrayList;
 import java.util.List;
 import acm.graphics.*;
@@ -115,6 +117,11 @@ public class Animation extends GObject{
             }
     }
 
+    /*@Override
+    public void setColor(Color color) {
+    	
+    }*/
+    
 	@Override
 	public GRectangle getBounds() {
 		// TODO Auto-generated method stub
@@ -129,4 +136,34 @@ public class Animation extends GObject{
 		g.drawImage(getSprite(),(int)getX(),(int)getY(),null);
 	}
 
+	private BufferedImage colorImage(BufferedImage image, Color color) {
+        int width = image.getWidth();
+        int height = image.getHeight();
+        WritableRaster raster = image.getRaster();
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                int[] pixels = raster.getPixel(x, y, (int[]) null);
+                if(color.equals(Color.RED)) {
+                    pixels[0] = 255;
+                    pixels[1] = 0;
+                    pixels[2] = 0;
+                } else if(color.equals(Color.GREEN)) {
+                    pixels[0] = 0;
+                    pixels[1] = 255;
+                    pixels[2] = 0;
+                } else if(color.equals(Color.BLUE)) {
+                    pixels[0] = 0;
+                    pixels[1] = 0;
+                    pixels[2] = 255;
+                } else {
+                    pixels[0] = 255;
+                    pixels[1] = 255;
+                    pixels[2] = 255;
+                }
+                raster.setPixel(x, y, pixels);
+            }
+        }
+        return image;
+    }
 }

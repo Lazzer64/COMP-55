@@ -59,6 +59,7 @@ public abstract class Unit {
                 idleAnimation = Animation.enemy1Idle;
                 attackAnimation = Animation.enemy1Attack;
                 deathAnimation = Animation.enemy1Die;
+                rangedAttack = Animation.playerRangedAttack;
             default:
         }
     }
@@ -112,6 +113,14 @@ public abstract class Unit {
     	}
     }
     
+    public BufferedImage[] getAttackAnimation() {
+    	switch(type) {
+    		case PLAYER:
+    			return rangedAttack;
+    		default:
+    			return rangedAttack;
+    	}
+    }
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
         int totalDamage = (damage - damageMitigation);

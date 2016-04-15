@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+
 import acm.graphics.*;
 import java.util.HashMap;
 
@@ -22,7 +24,7 @@ public class CombatDisplay extends Display{
     Enemy enemy;
 
     HashMap<Unit, UnitInfo> unitInfo = new HashMap<Unit, UnitInfo>();
-    HashMap<GRect,Integer> projectiles = new HashMap<GRect,Integer>();
+    HashMap<Animation,Integer> projectiles = new HashMap<Animation,Integer>();
 
     public CombatDisplay(Player player, Enemy enemy){
         super();
@@ -34,6 +36,9 @@ public class CombatDisplay extends Display{
         initUnit(UNIT_X+DISTANCE, UNIT_Y, enemy);
     }
 
+    //changes the color of an image.
+    
+    
     /**
      * Adds a projectile to be updated as part of combat field
      * @param x The x location of the projectile
@@ -42,13 +47,14 @@ public class CombatDisplay extends Display{
      * @param color The color of the projectile
      * @return The GRect that was created
      */
-    public GRect addProjectile(int x, int y, int speed, Color color){
+    public Animation addProjectile(int x, int y, int speed, Color color, BufferedImage[] animation){
         // FIXME remove projectiles when they have reached the enemy
-        GRect proj = new GRect(x,y,10,10);
-        proj.setFilled(true);
+        Animation proj = new Animation(animation, 10);
         proj.setColor(color);
+        proj.setLocation(x,y);
+        proj.move(speed*2,0);
 
-        HashMap<GRect, Integer> projs = (HashMap<GRect, Integer>) projectiles.clone();
+        HashMap<Animation, Integer> projs = (HashMap<Animation, Integer>) projectiles.clone();
         projs.put(proj, speed);
         
         projectiles = projs;
@@ -58,9 +64,8 @@ public class CombatDisplay extends Display{
         return proj;
     }
     
-    public GRect addProjectile(Unit u, int speed, Color color){
-        // FIXME remove projectiles when they have reached the enemy
-        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed, color);
+    public Animation addProjectile(Unit u, int speed, Color color){
+        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed, color,u.getAttackAnimation());
     }
 
     public void updateEnemy(Enemy x){
@@ -82,7 +87,7 @@ public class CombatDisplay extends Display{
             updateHp(u);
         }
 
-        for(GRect p: projectiles.keySet()) {
+        for(Animation p: projectiles.keySet()) {
             p.move(projectiles.get(p),0);
             boolean lower = UNIT_X + DISTANCE < p.getX() ;
             boolean higher = UNIT_X-10 > p.getX();

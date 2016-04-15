@@ -138,7 +138,7 @@ public class Game extends GraphicsPane{
 
                             if(!checkWinFight()) {
                                 enemy.attack(player, ENEMY_DAMAGE);
-                                program.add(combatDisplay.addProjectile(enemy,-10, Color.WHITE));
+                                program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
                                 if(checkLoseGame()) {
                                     // TODO change to actual game over
@@ -231,7 +231,7 @@ public class Game extends GraphicsPane{
                 player.setCurrentAnimation(AnimationState.ATTACK);
                 player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
 
-                program.add(combatDisplay.addProjectile(player,10, TileType.getColor(m.getType())));
+                program.add(combatDisplay.addProjectile(player,3, TileType.getColor(m.getType())));
 
                 System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + m.size());
