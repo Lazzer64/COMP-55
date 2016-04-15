@@ -28,6 +28,7 @@ public abstract class Unit {
 	private BufferedImage[] idleAnimation;
 	private BufferedImage[] attackAnimation;
 	private BufferedImage[] deathAnimation;
+	private BufferedImage[] rangedAttack;
 	
     private UnitType type;	
 	private AnimationState state;
@@ -48,6 +49,7 @@ public abstract class Unit {
                 idleAnimation = Animation.playerIdle;
                 attackAnimation = Animation.playerAttack;
                 deathAnimation = Animation.playerIdle;
+                rangedAttack = Animation.playerRangedAttack;
                 break;
             case GOBLIN: // TODO fill these in
             case GHOST:

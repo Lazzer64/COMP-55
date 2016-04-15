@@ -11,6 +11,7 @@ import acm.util.*;
 public class Animation extends GObject{
 	public static BufferedImage[] playerIdle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] playerAttack = getFrames("AnimationSpritesheet" ,0,2,3, 32,32);
+	public static BufferedImage[] playerRangedAttack = getFrames("playerAttack", 0,0,4, 20,20);
 	public static BufferedImage[] enemy1Idle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] enemy1Attack = getFrames("AnimationSpritesheet" ,0,1,3, 32,32);
 	public static BufferedImage[] enemy1Die = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
