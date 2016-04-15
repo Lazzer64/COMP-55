@@ -16,7 +16,9 @@ public class ScoreScreen extends GraphicsPane {
 private Main program;
 private GRect rect;
 private GRect backbtn;
-private GLabel back;
+private GLabel backLabel;
+private GLabel scoreLabel[] = new GLabel[11];
+
 
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
@@ -31,7 +33,7 @@ HighscoreList show = new HighscoreList();
 	
 	public ScoreScreen(Main app) {
 		program = app;
-		rect = new GRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-150);
+		rect = new GRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
 		rect.setFilled(true);
 		rect.setColor(Color.PINK);
 		
@@ -40,20 +42,19 @@ HighscoreList show = new HighscoreList();
 		titleLabel.setColor(Color.BLACK);
         titleLabel.setFont(SCORE_FONT);
         
-    	backbtn = new GRect(0,450,Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-450);
+    	backbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6, WIDTH, HEIGHT);
 		backbtn.setFilled(false);
-		back = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, 50);
-		back.setColor(Color.RED);
-		back.setFont("Arial-20");
-		//quit.move(0,play.getHeight());
+		backLabel = new GLabel("<= RETURN", Main.WINDOW_WIDTH/2-WIDTH/4, OFFSET*6+75/2);
+		backLabel.setColor(Color.RED);
+		backLabel.setFont("Arial-20");
+		//backLabel.move(0,back.getHeight());
 		
-	    
 	}
 	
 
 
 	public void update() {
-	
+
 	}
 	
      public void showContents() {
@@ -61,40 +62,34 @@ HighscoreList show = new HighscoreList();
     	 program.add(rect);
     	 program.add(titleLabel);
     	 program.add(backbtn);
-    	 //program.add(scoreLabel);
+    	 program.add(backLabel);
+    	 printScoreLabels(100);
      }
     
-     
-     public String printScoreLabels(double x, double y) {
- 		String displayScore = "";
+   
+     public void printScoreLabels(double y) {
+ 		String displayScore;
  		//displays Top 10 best scores
  		int displayTop10 = 10;
- 		
+ 	
  		ArrayList<Score> highScoreList;
  		highScoreList = show.getScores();
- 		
- 		//i starts at beginning
- 		//j is the size of the list
- 		int i = 0;
- 		int j = highScoreList.size();
- 		
- 		if (j > displayTop10)
+ 	
+ 		for (int i = 0; i < highScoreList.size(); i++)
  		{
- 			j = displayTop10;
- 		}
  		
- 		
- 		while (i < j)
- 		{
+ 			displayScore = (i + 1) + ".\t" + highScoreList.get(i).getName() + "........" + highScoreList.get(i).getScore() + "\n";
  			
- 			displayScore += (i + 1) + ".\t" + highScoreList.get(i).getName() + "\t\t" + highScoreList.get(i).getScore() + "\n";
- 		    i++;
+ 			scoreLabel[i] = new GLabel(displayScore, Main.WINDOW_WIDTH/2-WIDTH/4, y);
+			scoreLabel[i].setFont("Arial-20");
+			program.add(scoreLabel[i]);
+			y+= 30 ; 
+			
+ 			}
  		}
  		
- 		return displayScore;
  		
  		
- 	}
  	
      public void hideContents() {
     	 program.remove(rect);
@@ -111,7 +106,7 @@ HighscoreList show = new HighscoreList();
      }
     
      public void mouseClicked(MouseEvent e) {
-    	 if(program.getElementAt(e.getX(), e.getY()) == backbtn ||program.getElementAt(e.getX(), e.getY()) == back ){
+    	 if(program.getElementAt(e.getX(), e.getY()) == backbtn ||program.getElementAt(e.getX(), e.getY()) == backLabel){
      		program.switchToScreen(new MainMenu(program));
      	}
      }
