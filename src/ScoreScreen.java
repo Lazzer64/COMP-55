@@ -71,6 +71,7 @@ HighscoreList show = new HighscoreList();
     	 program.remove(rect);
     	 program.remove(titleLabel);
     	 program.remove(backbtn);
+    	 program.remove(backLabel);
     	 removeScoreLabels();
      }
      
