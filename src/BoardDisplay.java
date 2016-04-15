@@ -1,4 +1,8 @@
 import java.awt.Color;
+import java.awt.image.BufferedImage;
+import java.awt.Image;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import acm.graphics.*;
 
 public class BoardDisplay extends Display{
@@ -7,7 +11,16 @@ public class BoardDisplay extends Display{
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Color LINE_COLOR = Color.WHITE;
 
+    public static final String ICON_DIR = "SpriteSheets/";
+    public static final Image NO_ICON = new GImage("").getImage();
+    public static final Image RED_ICON = new GImage(ICON_DIR+"RED_tile.png").getImage();
+    public static final Image BLUE_ICON = new GImage(ICON_DIR+"BLUE_tile.png").getImage();
+    public static final Image GREEN_ICON = new GImage(ICON_DIR+"GREEN_tile.png").getImage();
+    public static final Image YELLOW_ICON = new GImage(ICON_DIR+"YELLOW_tile.png").getImage();
+    public static final Image PINK_ICON = new GImage(ICON_DIR+"PINK_tile.png").getImage();
+
     Board board;
+    GImage[][] imgs;
     GRect[][] tiles;
     int rows, cols;
 
@@ -17,6 +30,7 @@ public class BoardDisplay extends Display{
         rows = board.getTiles().length;
         cols = board.getTiles()[0].length;
         tiles = new GRect[rows][cols];
+        imgs = new GImage[rows][cols];
 
         initBack();
         initTiles();
@@ -32,9 +46,16 @@ public class BoardDisplay extends Display{
             for (int x = 0; x < cols; x++) {
 
                 Color color;
-                if(board.getTiles()[y][x] == null) color = EMPTY_TILE_COLOR;
-                else color = TileType.getColor(board.getTiles()[y][x].getType());
+                if(board.getTiles()[y][x] == null) {
+                    color = EMPTY_TILE_COLOR;
+                    imgs[y][x].setVisible(false);
+                } else {
+                    color = TileType.getColor(board.getTiles()[y][x].getType());
+                    imgs[y][x].setImage(getIcon(board.getTiles()[y][x].getType()));
+                    imgs[y][x].setVisible(true);
+                }
 
+                imgs[y][x].setSize(TILE_SIZE, TILE_SIZE);
                 tiles[y][x].setColor(color);
             }
         }
@@ -79,12 +100,38 @@ public class BoardDisplay extends Display{
     private void initTiles(){
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
+
                 GRect t = new GRect(x*TILE_SIZE, y*TILE_SIZE, TILE_SIZE, TILE_SIZE);
                 t.setColor(EMPTY_TILE_COLOR);
                 t.setFilled(true);
                 tiles[y][x] = t;
+
                 addObject(tiles[y][x]);
+
+                GImage i = new GImage("");
+                i.setSize(TILE_SIZE, TILE_SIZE);
+                i.setLocation(x*TILE_SIZE, y*TILE_SIZE);
+                imgs[y][x] = i;
+
+                addObject(imgs[y][x]);
             }
+        }
+    }
+
+    private Image getIcon(TileType t){
+        switch(t){
+            case RED:
+                return RED_ICON;
+            case BLUE:
+                return BLUE_ICON;
+            case GREEN:
+                return GREEN_ICON;
+            case YELLOW:
+                return YELLOW_ICON;
+            case PINK:
+                return PINK_ICON;
+            default:
+                return NO_ICON;
         }
     }
 
