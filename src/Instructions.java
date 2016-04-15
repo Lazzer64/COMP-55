@@ -63,6 +63,10 @@ public class Instructions extends GraphicsPane {
     
     public void mouseClicked(MouseEvent e) {
         // TODO implement
+   	 if(program.getElementAt(e.getX(), e.getY()) == returnbtn ||program.getElementAt(e.getX(), e.getY()) == returnlab){
+  		program.switchToScreen(new MainMenu(program));
+  	}
+  
     }
     
     public void mouseMoved() {
