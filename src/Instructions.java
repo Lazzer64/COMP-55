@@ -39,7 +39,10 @@ public class Instructions extends GraphicsPane {
     }
     public void showContents() {
         // TODO implement
-    	
+    	initBackground();
+    	program.add(instructions);
+    	program.add(returnbtn);
+    	program.add(returnlab);
     }
     
     public void hideContents() {
