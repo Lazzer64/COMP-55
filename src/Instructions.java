@@ -13,6 +13,7 @@ public class Instructions extends GraphicsPane {
     private GRect returnbtn;
     private GLabel returnlab;
     private GLabel instructions;
+    private GImage background;
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -30,8 +31,15 @@ public class Instructions extends GraphicsPane {
 		returnlab.setColor(Color.RED);
 		returnlab.setFont("Arial-20");
     }
-	public void showContents() {
+    public void initBackground() {
+        
+        background = new GImage("SpriteSheets/mainmenuBackground.jpg");
+        background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
+        program.add(background);
+    }
+    public void showContents() {
         // TODO implement
+    	
     }
     
     public void hideContents() {
