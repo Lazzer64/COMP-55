@@ -13,7 +13,9 @@ import acm.util.*;
 public class Animation extends GObject{
 	public static BufferedImage[] playerIdle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] playerAttack = getFrames("AnimationSpritesheet" ,0,2,3, 32,32);
-	public static BufferedImage[] playerRangedAttack = getFrames("playerAttack", 0,0,4, 20,20);
+	public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
+	public static BufferedImage[] playerGreenAttack = getFrames("playerAttack", 0,1,4, 20,20);
+	public static BufferedImage[] playerBlueAttack = getFrames("playerAttack", 0,2,4, 20,20);
 	public static BufferedImage[] enemy1Idle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] enemy1Attack = getFrames("AnimationSpritesheet" ,0,1,3, 32,32);
 	public static BufferedImage[] enemy1Die = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
@@ -116,11 +118,6 @@ public class Animation extends GObject{
                 }
             }
     }
-
-    /*@Override
-    public void setColor(Color color) {
-    	
-    }*/
     
 	@Override
 	public GRectangle getBounds() {
@@ -136,7 +133,15 @@ public class Animation extends GObject{
 		g.drawImage(getSprite(),(int)getX(),(int)getY(),null);
 	}
 
-	private BufferedImage colorImage(BufferedImage image, Color color) {
+	public static BufferedImage[] changeColor(BufferedImage[] frames, Color color) {
+		BufferedImage[] result = new BufferedImage[frames.length];
+		for(int i = 0; i < frames.length; i++) {
+			result[i] = colorImage(frames[i],color);
+		}
+		return result;
+	}
+	
+	private static BufferedImage colorImage(BufferedImage image, Color color) {
         int width = image.getWidth();
         int height = image.getHeight();
         WritableRaster raster = image.getRaster();
@@ -156,11 +161,7 @@ public class Animation extends GObject{
                     pixels[0] = 0;
                     pixels[1] = 0;
                     pixels[2] = 255;
-                } else {
-                    pixels[0] = 255;
-                    pixels[1] = 255;
-                    pixels[2] = 255;
-                }
+                } 
                 raster.setPixel(x, y, pixels);
             }
         }

@@ -47,10 +47,9 @@ public class CombatDisplay extends Display{
      * @param color The color of the projectile
      * @return The GRect that was created
      */
-    public Animation addProjectile(int x, int y, int speed, Color color, BufferedImage[] animation){
+    public Animation addProjectile(int x, int y, int speed, BufferedImage[] animation){
         // FIXME remove projectiles when they have reached the enemy
         Animation proj = new Animation(animation, 10);
-        proj.setColor(color);
         proj.setLocation(x,y);
         proj.move(speed*2,0);
 
@@ -65,7 +64,7 @@ public class CombatDisplay extends Display{
     }
     
     public Animation addProjectile(Unit u, int speed, Color color){
-        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed, color,u.getAttackAnimation());
+        return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed,u.getAttackAnimation(color));
     }
 
     public void updateEnemy(Enemy x){
