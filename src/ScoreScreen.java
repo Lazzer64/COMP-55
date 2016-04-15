@@ -9,8 +9,7 @@ import java.awt.Font;
 import java.awt.event.KeyEvent; 
 
 
-//public static final int WINDOW_WIDTH = 400;
-//public static final int WINDOW_HEIGHT = 600;
+//Program WIDTH = 400, HEIGHT = 600;
 
 public class ScoreScreen extends GraphicsPane {
 private Main program;
@@ -69,13 +68,20 @@ HighscoreList show = new HighscoreList();
    
      public void printScoreLabels(double y) {
  		String displayScore;
- 		//displays Top 10 best scores
- 		int displayTop10 = 10;
  	
+ 		int displayTop10 = 10;
+ 		
  		ArrayList<Score> highScoreList;
  		highScoreList = show.getScores();
+ 		
+ 		int j = highScoreList.size();
+		
+		if (j > displayTop10)
+		{
+			j = displayTop10;
+		}
  	
- 		for (int i = 0; i < highScoreList.size(); i++)
+ 		for (int i = 0; i < j; i++)
  		{
  		
  			displayScore = (i + 1) + ".\t" + highScoreList.get(i).getName() + "........" + highScoreList.get(i).getScore() + "\n";
