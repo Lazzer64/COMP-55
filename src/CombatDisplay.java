@@ -85,7 +85,7 @@ public class CombatDisplay extends Display{
         for(GRect p: projectiles.keySet()) {
             p.move(projectiles.get(p),0);
             boolean lower = UNIT_X + DISTANCE < p.getX() ;
-            boolean higher = UNIT_X > p.getX();
+            boolean higher = UNIT_X-10 > p.getX();
             if(lower || higher) p.setVisible(false);
         }
     }

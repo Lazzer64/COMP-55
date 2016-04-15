@@ -1,10 +1,8 @@
 //Alex and Tom's Territory
 import java.awt.Color;
-import java.util.Stack;
-import java.util.TimerTask;
-import java.util.Timer;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import acm.util.Animator;
 import acm.graphics.*;
 
 public class Game extends GraphicsPane{
@@ -23,6 +21,7 @@ public class Game extends GraphicsPane{
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
     public static final int HEAL_MOD = 3;
+    public static final double GAME_SPEED = 0.82; // Value from 0.0 to 1.0
 
     Main program;
     Player player;
@@ -32,6 +31,19 @@ public class Game extends GraphicsPane{
     TilePathDisplay moveListDisplay;
     CombatDisplay combatDisplay;
     ScoreDisplay scoreDisplay;
+
+    Animator animator = new Animator(){
+            public void run(){
+                while(true){
+                    combatDisplay.update();
+                    boardDisplay.update();
+                    scoreDisplay.update();
+                    scoreDisplay.update();
+                    moveListDisplay.update();
+                    delay();
+                }
+            }
+        };
     
 
     Score score;
@@ -57,7 +69,9 @@ public class Game extends GraphicsPane{
         this.moveListDisplay = new TilePathDisplay(moveList, NUM_ALLOWED_MOVES);
         this.moveListDisplay.setLocation(BOARD_X, BOARD_Y);
 
-        update();
+        animator.start();
+        animator.setSpeed(GAME_SPEED);
+        System.out.println(animator.getAnimatorState());
     }
 
     public void mousePressed(MouseEvent e) {
@@ -91,15 +105,15 @@ public class Game extends GraphicsPane{
 
 
     public void update() {
-        new Timer().scheduleAtFixedRate(new TimerTask(){
-            public void run(){
-                combatDisplay.update();
-                boardDisplay.update();
-                scoreDisplay.update();
-                scoreDisplay.update();
-                moveListDisplay.update();
-            }
-        } ,0, 20);
+        // new Timer().scheduleAtFixedRate(new TimerTask(){
+        //     public void run(){
+        //         combatDisplay.update();
+        //         boardDisplay.update();
+        //         scoreDisplay.update();
+        //         scoreDisplay.update();
+        //         moveListDisplay.update();
+        //     }
+        // } ,0, 20);
     }
 
 
