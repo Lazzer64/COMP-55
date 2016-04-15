@@ -65,43 +65,65 @@ HighscoreList show = new HighscoreList();
     	 printScoreLabels(100);
      }
     
-   
-     public void printScoreLabels(double y) {
- 		String displayScore;
- 	
- 		int displayTop10 = 10;
- 		
- 		ArrayList<Score> highScoreList;
- 		highScoreList = show.getScores();
- 		
- 		int j = highScoreList.size();
-		
-		if (j > displayTop10)
-		{
-			j = displayTop10;
-		}
- 	
- 		for (int i = 0; i < j; i++)
- 		{
- 		
- 			displayScore = (i + 1) + ".\t" + highScoreList.get(i).getName() + "........" + highScoreList.get(i).getScore() + "\n";
- 			
- 			scoreLabel[i] = new GLabel(displayScore, Main.WINDOW_WIDTH/2-WIDTH/4, y);
-			scoreLabel[i].setFont("Arial-20");
-			program.add(scoreLabel[i]);
-			y+= 30 ; 
-			
- 			}
- 		}
- 		
- 		
  		
  	
      public void hideContents() {
     	 program.remove(rect);
     	 program.remove(titleLabel);
     	 program.remove(backbtn);
+    	 removeScoreLabels();
      }
+     
+     public void printScoreLabels(double y) {
+  		String displayScore;
+  	
+  		int displayTop10 = 10;
+  		
+  		ArrayList<Score> highScoreList;
+  		highScoreList = show.getScores();
+  		
+  		int j = highScoreList.size();
+ 		
+ 		if (j > displayTop10)
+ 		{
+ 			j = displayTop10;
+ 		}
+  	
+  		for (int i = 0; i < j; i++)
+  		{
+  		
+  			displayScore = (i + 1) + ".\t" + highScoreList.get(i).getName() + "........" + highScoreList.get(i).getScore() + "\n";
+  			
+  			scoreLabel[i] = new GLabel(displayScore, Main.WINDOW_WIDTH/2-WIDTH/4, y);
+ 			scoreLabel[i].setFont("Arial-20");
+ 			program.add(scoreLabel[i]);
+ 			y+= 30 ; 
+ 			
+  			}
+  		}
+  		
+  		
+      public void removeScoreLabels(){
+    	  int displayTop10 = 10;
+    		
+    	ArrayList<Score> highScoreList;
+    	highScoreList = show.getScores();
+    		
+    	int j = highScoreList.size();
+   		
+   		if (j > displayTop10)
+   		{
+   			j = displayTop10;
+   		}
+   		
+     	 for (int i = 0; i < j; i++)
+     	 {
+     		 program.remove(scoreLabel[i]);
+     		 
+     	 }
+     	 
+     	 
+      }
     
      public void mousePressed(MouseEvent e) {
          // TODO implement
