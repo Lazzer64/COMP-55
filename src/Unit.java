@@ -1,6 +1,7 @@
 import java.util.TimerTask;
 import java.util.Timer;
 import java.util.Random;
+import java.awt.Color;
 import java.awt.image.BufferedImage;
 //mark's territory
 enum AnimationState { 
@@ -28,6 +29,7 @@ public abstract class Unit {
 	private BufferedImage[] idleAnimation;
 	private BufferedImage[] attackAnimation;
 	private BufferedImage[] deathAnimation;
+	private BufferedImage[] rangedAttack;
 	
     private UnitType type;	
 	private AnimationState state;
@@ -48,6 +50,7 @@ public abstract class Unit {
                 idleAnimation = Animation.playerIdle;
                 attackAnimation = Animation.playerAttack;
                 deathAnimation = Animation.playerIdle;
+                rangedAttack = Animation.playerRedAttack;
                 break;
             case GOBLIN: // TODO fill these in
             case GHOST:
@@ -57,6 +60,7 @@ public abstract class Unit {
                 idleAnimation = Animation.enemy1Idle;
                 attackAnimation = Animation.enemy1Attack;
                 deathAnimation = Animation.enemy1Die;
+                rangedAttack = Animation.playerRedAttack;
             default:
         }
     }
@@ -110,6 +114,16 @@ public abstract class Unit {
     	}
     }
     
+    public BufferedImage[] getAttackAnimation(Color color) {
+    	switch(type) {
+    		case PLAYER:
+    			if(color.equals(Color.RED)) return Animation.playerRedAttack;
+    			else if(color.equals(Color.BLUE)) return Animation.playerBlueAttack;
+    			else if(color.equals(Color.GREEN)) return Animation.playerGreenAttack;
+    		default:
+    			return rangedAttack;
+    	}
+    }
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
         int totalDamage = (damage - damageMitigation);
