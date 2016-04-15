@@ -47,6 +47,10 @@ public class Instructions extends GraphicsPane {
     
     public void hideContents() {
         // TODO implement
+    	program.remove(instructions);
+    	program.remove(returnbtn);
+    	program.remove(returnlab);
+    	program.remove(background);
     }
     
     public void mousePressed(MouseEvent e) {
