@@ -8,7 +8,7 @@ public enum TileType {
             case RED:
                 return Color.RED;
             case BLUE:
-                return Color.BLUE;
+                return new Color(50,50,255);
             case GREEN:
                 return Color.GREEN;
             case YELLOW:
