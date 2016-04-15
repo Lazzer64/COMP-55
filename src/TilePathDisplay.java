@@ -39,7 +39,8 @@ public class TilePathDisplay extends Display{
     public void updatePath() {
         for (int e = 0; e < markers.length; e++) markers[e].setVisible(false);
         int i = 0;
-        for(RowCol x: moveList) {
+        Stack<RowCol> moves = (Stack<RowCol>) moveList.clone();
+        for(RowCol x: moves) {
 
             String text = i+"";
             if(i==0) text = "X";
