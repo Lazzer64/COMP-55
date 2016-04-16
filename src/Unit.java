@@ -117,9 +117,9 @@ public abstract class Unit {
     public BufferedImage[] getAttackAnimation(Color color) {
     	switch(type) {
     		case PLAYER:
-    			if(color.equals(Color.RED)) return Animation.playerRedAttack;
-    			else if(color.equals(Color.BLUE)) return Animation.playerBlueAttack;
-    			else if(color.equals(Color.GREEN)) return Animation.playerGreenAttack;
+    			if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
+    			else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;
+    			else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenAttack;
     		default:
     			return rangedAttack;
     	}
