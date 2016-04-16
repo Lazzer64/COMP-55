@@ -102,21 +102,6 @@ public class Game extends GraphicsPane{
         }
     }
 
-
-
-    public void update() {
-        // new Timer().scheduleAtFixedRate(new TimerTask(){
-        //     public void run(){
-        //         combatDisplay.update();
-        //         boardDisplay.update();
-        //         scoreDisplay.update();
-        //         scoreDisplay.update();
-        //         moveListDisplay.update();
-        //     }
-        // } ,0, 20);
-    }
-
-
     public void mouseReleased(MouseEvent e) {
         if(canMove && moveList.size() > 1) boardStep();
         moveList.clear();
