@@ -1,8 +1,5 @@
 import java.awt.Color;
-import java.awt.image.BufferedImage;
 import java.awt.Image;
-import java.io.IOException;
-import javax.imageio.ImageIO;
 import acm.graphics.*;
 
 public class BoardDisplay extends Display{
@@ -45,18 +42,23 @@ public class BoardDisplay extends Display{
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
 
+                Tile tile = board.getTiles()[y][x];
+                GRect square = tiles[y][x];
+                GImage image = imgs[y][x];
+
                 Color color;
-                if(board.getTiles()[y][x] == null) {
+                Image icon;
+                if(tile == null) {
                     color = EMPTY_TILE_COLOR;
-                    imgs[y][x].setVisible(false);
+                    icon = NO_ICON;
                 } else {
-                    color = TileType.getColor(board.getTiles()[y][x].getType());
-                    imgs[y][x].setImage(getIcon(board.getTiles()[y][x].getType()));
-                    imgs[y][x].setVisible(true);
+                    color = TileType.getColor(tile.getType());
+                    icon = getIcon(tile.getType());
                 }
 
-                imgs[y][x].setSize(TILE_SIZE, TILE_SIZE);
-                tiles[y][x].setColor(color);
+                square.setColor(color);
+                image.setImage(icon);
+                image.setSize(TILE_SIZE, TILE_SIZE);
             }
         }
     }
@@ -119,6 +121,7 @@ public class BoardDisplay extends Display{
     }
 
     private Image getIcon(TileType t){
+        if(t == null) return NO_ICON;
         switch(t){
             case RED:
                 return RED_ICON;
