@@ -16,6 +16,7 @@ public class ScoreScreen extends GraphicsPane {
 private Main program;
 private GRect rect;
 private GRect backbtn;
+private GImage returnpic;
 private GLabel backLabel;
 private GLabel scoreLabel[] = new GLabel[11];
 private GLabel nameLabel[] = new GLabel[11];
@@ -38,22 +39,15 @@ HighscoreList show = new HighscoreList();
 		rect = new GRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
 		rect.setFilled(true);
 		rect.setColor(Color.PINK);
-		
-	/*	titleLabel.setLabel("---High Score List---");
-		titleLabel.setLocation(140,70);
-		titleLabel.setColor(Color.BLACK);
-        titleLabel.setFont(SCORE_FONT);
-      */  
-    	backbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6, WIDTH, HEIGHT);
-		backbtn.setFilled(false);
-		backLabel = new GLabel("<= RETURN", Main.WINDOW_WIDTH/2-WIDTH/4, OFFSET*6+75/2);
-		backLabel.setColor(Color.RED);
-		backLabel.setFont("Arial-20");
+
+		returnpic = new GImage("SpriteSheets/returnpic.png");
+        returnpic.setSize(WIDTH, HEIGHT);
+        returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
 		//backLabel.move(0,back.getHeight());
 		
-		titleIMG = new GImage("SpriteSheets/ScoreScreenTitle.png");
-        titleIMG.setSize(Main.WINDOW_WIDTH/2-WIDTH/4, 75);
-        titleIMG.setLocation(140,70);
+		titleIMG = new GImage("SpriteSheets/highscorelistpic.png");
+        titleIMG.setSize(WIDTH, HEIGHT);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2,70);
 		
 	}
 	
@@ -67,8 +61,7 @@ HighscoreList show = new HighscoreList();
          // TODO implement
     	 program.add(rect);
     	// program.add(titleLabel);
-    	 program.add(backbtn);
-    	 program.add(backLabel);
+    	 program.add(returnpic);
     	 program.add(titleIMG);
     	 
     	 printScoreLabels(175);
@@ -79,8 +72,8 @@ HighscoreList show = new HighscoreList();
      public void hideContents() {
     	 program.remove(rect);
     	// program.remove(titleLabel);
-    	 program.remove(backbtn);
-    	 program.remove(backLabel);
+    	 program.remove(returnpic);
+    	 
     	 removeScoreLabels();
      }
      
@@ -157,7 +150,7 @@ HighscoreList show = new HighscoreList();
      }
     
      public void mouseClicked(MouseEvent e) {
-    	 if(program.getElementAt(e.getX(), e.getY()) == backbtn ||program.getElementAt(e.getX(), e.getY()) == backLabel){
+    	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
      		program.switchToScreen(new MainMenu(program));
      	}
      }
