@@ -17,6 +17,7 @@ public class MainMenu extends GraphicsPane {
     private GLabel quit;
     private GLabel pumpingpower;
     private GImage background;
+    private GImage playpic;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -29,12 +30,9 @@ public class MainMenu extends GraphicsPane {
         pumpingpower.setColor(Color.WHITE);
         pumpingpower.setFont("Arial-30");
         int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
-        playbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        playbtn.setFilled(false);
-        play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        play.setColor(Color.PINK);
-        play.setFont("Arial-20");
-        play.move(0,play.getHeight());
+        playpic = new GImage("SpriteSheets/playpic.png");
+        playpic.setSize(WIDTH, HEIGHT);
+        playpic.setLocation(xPos, y);
         y += OFFSET;
 
         instructionsbtn = new GRect(xPos, y, WIDTH, HEIGHT);
@@ -42,7 +40,7 @@ public class MainMenu extends GraphicsPane {
         instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
         instructions.setColor(Color.PINK);
         instructions.setFont("Arial-20");
-        instructions.move(0,play.getHeight());
+        instructions.move(0,playpic.getHeight());
         y += OFFSET;
 
         highscoresbtn = new GRect(xPos, y, WIDTH, HEIGHT);
@@ -50,7 +48,7 @@ public class MainMenu extends GraphicsPane {
         highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
         highscores.setColor(Color.PINK);
         highscores.setFont("Arial-20");
-        highscores.move(0,play.getHeight());
+        highscores.move(0,playpic.getHeight());
         y += OFFSET;
 
         quitbtn = new GRect(xPos, y, WIDTH, HEIGHT);
@@ -58,7 +56,7 @@ public class MainMenu extends GraphicsPane {
         quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
         quit.setColor(Color.PINK);
         quit.setFont("Arial-20");
-        quit.move(0,play.getHeight());
+        quit.move(0,playpic.getHeight());
     }
     public void initBackground() {
         //initialize the main menu background and set size
@@ -70,11 +68,12 @@ public class MainMenu extends GraphicsPane {
     public void showContents() {
         initBackground();
         program.add(pumpingpower);
-        program.add(playbtn);
+        program.add(playpic);
+      
         program.add(instructionsbtn);
         program.add(highscoresbtn);
         program.add(quitbtn);
-        program.add(play);
+        
         program.add(instructions);
         program.add(highscores);
         program.add(quit);
@@ -83,11 +82,12 @@ public class MainMenu extends GraphicsPane {
     public void hideContents() {
         // TODO implement
         program.remove(pumpingpower);
-        program.remove(playbtn);
+        program.remove(playpic);
+        
         program.remove(instructionsbtn);
         program.remove(highscoresbtn);
         program.remove(quitbtn);
-        program.remove(play);
+        
         program.remove(instructions);
         program.remove(highscores);
         program.remove(quit);
@@ -104,7 +104,7 @@ public class MainMenu extends GraphicsPane {
 
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-        if(program.getElementAt(e.getX(), e.getY()) == playbtn ||program.getElementAt(e.getX(), e.getY()) == play ){
+        if(program.getElementAt(e.getX(), e.getY()) == playpic){
             program.switchToScreen(new Game(program));
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn ||program.getElementAt(e.getX(), e.getY()) == instructions){
