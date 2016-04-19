@@ -7,16 +7,12 @@ import java.awt.event.KeyEvent;
 
 public class MainMenu extends GraphicsPane {
     private Main program;
-    private GRect playbtn;
-    private GRect instructionsbtn;
-    private GRect highscoresbtn;
-    private GRect quitbtn;
-    private GLabel play;
-    private GLabel instructions;
-    private GLabel highscores;
-    private GLabel quit;
     private GLabel pumpingpower;
     private GImage background;
+    private GImage playpic;
+    private GImage instructionspic;
+    private GImage highscorespic;
+    private GImage quitpic;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -26,39 +22,30 @@ public class MainMenu extends GraphicsPane {
     public  MainMenu(Main app) {
         program = app;
         pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
-        pumpingpower.setColor(Color.BLUE);
+        pumpingpower.setColor(Color.WHITE);
         pumpingpower.setFont("Arial-30");
         int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
-        playbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        playbtn.setFilled(false);
-        play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        play.setColor(Color.RED);
-        play.setFont("Arial-20");
-        play.move(0,play.getHeight());
+        playpic = new GImage("SpriteSheets/playpic.png");
+        playpic.setSize(WIDTH, HEIGHT);
+        playpic.setLocation(xPos, y);
         y += OFFSET;
 
-        instructionsbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        instructionsbtn.setFilled(false);
-        instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        instructions.setColor(Color.RED);
-        instructions.setFont("Arial-20");
-        instructions.move(0,play.getHeight());
+
+        instructionspic = new GImage("SpriteSheets/instructionspic.png");
+        instructionspic.setSize(WIDTH, HEIGHT);
+        instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
-        highscoresbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        highscoresbtn.setFilled(false);
-        highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        highscores.setColor(Color.RED);
-        highscores.setFont("Arial-20");
-        highscores.move(0,play.getHeight());
+        highscorespic = new GImage("SpriteSheets/highscorespic.png");
+        highscorespic.setSize(WIDTH, HEIGHT);
+        highscorespic.setLocation(xPos, y);
+        
         y += OFFSET;
 
-        quitbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        quitbtn.setFilled(false);
-        quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        quit.setColor(Color.RED);
-        quit.setFont("Arial-20");
-        quit.move(0,play.getHeight());
+
+        quitpic = new GImage("SpriteSheets/quitpic.png");
+        quitpic.setSize(WIDTH, HEIGHT);
+        quitpic.setLocation(xPos, y);
     }
     public void initBackground() {
         //initialize the main menu background and set size
@@ -70,27 +57,19 @@ public class MainMenu extends GraphicsPane {
     public void showContents() {
         initBackground();
         program.add(pumpingpower);
-        program.add(playbtn);
-        program.add(instructionsbtn);
-        program.add(highscoresbtn);
-        program.add(quitbtn);
-        program.add(play);
-        program.add(instructions);
-        program.add(highscores);
-        program.add(quit);
+        program.add(playpic);
+        program.add(instructionspic);
+        program.add(highscorespic);
+        program.add(quitpic);
     }
 
     public void hideContents() {
         // TODO implement
         program.remove(pumpingpower);
-        program.remove(playbtn);
-        program.remove(instructionsbtn);
-        program.remove(highscoresbtn);
-        program.remove(quitbtn);
-        program.remove(play);
-        program.remove(instructions);
-        program.remove(highscores);
-        program.remove(quit);
+        program.remove(playpic);
+        program.remove(instructionspic);
+        program.remove(highscorespic);
+        program.remove(quitpic);
         program.remove(background);
     }
 
@@ -104,16 +83,16 @@ public class MainMenu extends GraphicsPane {
 
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-        if(program.getElementAt(e.getX(), e.getY()) == playbtn ||program.getElementAt(e.getX(), e.getY()) == play ){
+        if(program.getElementAt(e.getX(), e.getY()) == playpic){
             program.switchToScreen(new Game(program));
         }
-        	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn ||program.getElementAt(e.getX(), e.getY()) == instructions){
+        	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	program.switchToScreen(new Instructions(program));
         	}
-        else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn || program.getElementAt(e.getX(), e.getY()) == highscores){
+        else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
             program.switchToScreen(new ScoreScreen(program));
         }
-        else if(program.getElementAt(e.getX(), e.getY()) == quitbtn || program.getElementAt(e.getX(), e.getY()) == quit){
+        else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
             System.exit(0);
         }
     }

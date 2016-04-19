@@ -1,6 +1,7 @@
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
+import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GRect;
 
@@ -14,9 +15,10 @@ import java.awt.event.KeyEvent;
 public class ScoreScreen extends GraphicsPane {
 private Main program;
 private GRect rect;
-private GRect backbtn;
-private GLabel backLabel;
+private GImage returnpic;
 private GLabel scoreLabel[] = new GLabel[11];
+private GLabel nameLabel[] = new GLabel[11];
+private GImage titleIMG;
 
 
 public static final int WIDTH = 200;
@@ -35,18 +37,15 @@ HighscoreList show = new HighscoreList();
 		rect = new GRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
 		rect.setFilled(true);
 		rect.setColor(Color.PINK);
-		
-		titleLabel.setLabel("---High Score List---");
-		titleLabel.setLocation(140,70);
-		titleLabel.setColor(Color.BLACK);
-        titleLabel.setFont(SCORE_FONT);
-        
-    	backbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6, WIDTH, HEIGHT);
-		backbtn.setFilled(false);
-		backLabel = new GLabel("<= RETURN", Main.WINDOW_WIDTH/2-WIDTH/4, OFFSET*6+75/2);
-		backLabel.setColor(Color.RED);
-		backLabel.setFont("Arial-20");
+
+		returnpic = new GImage("SpriteSheets/returnpic.png");
+        returnpic.setSize(WIDTH, HEIGHT);
+        returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
 		//backLabel.move(0,back.getHeight());
+		
+		titleIMG = new GImage("SpriteSheets/highscorelistpic.png");
+        titleIMG.setSize(WIDTH, HEIGHT);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2,70);
 		
 	}
 	
@@ -59,24 +58,28 @@ HighscoreList show = new HighscoreList();
      public void showContents() {
          // TODO implement
     	 program.add(rect);
-    	 program.add(titleLabel);
-    	 program.add(backbtn);
-    	 program.add(backLabel);
-    	 printScoreLabels(100);
+    	// program.add(titleLabel);
+    	 program.add(returnpic);
+    	 program.add(titleIMG);
+    	 
+    	 printScoreLabels(175);
      }
     
  		
  	
      public void hideContents() {
     	 program.remove(rect);
-    	 program.remove(titleLabel);
-    	 program.remove(backbtn);
-    	 program.remove(backLabel);
+    	// program.remove(titleLabel);
+    	 program.remove(returnpic);
+    	 
     	 removeScoreLabels();
      }
      
      public void printScoreLabels(double y) {
-  		String displayScore;
+  		String displayName;
+  		String displayScores;
+  		//String offsetLength;
+  		//String spaces;
   	
   		int displayTop10 = 10;
   		
@@ -89,15 +92,25 @@ HighscoreList show = new HighscoreList();
  		{
  			j = displayTop10;
  		}
+ 
+ 		
   	
-  		for (int i = 0; i < j; i++)
+ 		for (int i = 0; i < j; i++)
   		{
   		
-  			displayScore = (i + 1) + ".\t" + highScoreList.get(i).getName() + "........" + highScoreList.get(i).getScore() + "\n";
-  			
-  			scoreLabel[i] = new GLabel(displayScore, Main.WINDOW_WIDTH/2-WIDTH/4, y);
+  			//offsetLength = Integer.toString(highScoreList.get(i).getName().length());
+  			//spaces = "......";
+  			displayName = (i + 1) + ".\t" + highScoreList.get(i).getName(); //+ spaces-(offsetLength) + highScoreList.get(i).getScore() + "\n";
+  			displayScores = Integer.toString(highScoreList.get(i).getScore());
+  			nameLabel[i] = new GLabel(displayName, Main.WINDOW_WIDTH/2-WIDTH/1.75, y);
+ 			nameLabel[i].setFont("Arial-20");
+ 			
+ 			scoreLabel[i] = new GLabel(displayScores, Main.WINDOW_WIDTH/1-WIDTH/1.75, y);
  			scoreLabel[i].setFont("Arial-20");
+ 			
+ 			program.add(nameLabel[i]);
  			program.add(scoreLabel[i]);
+ 			
  			y+= 30 ; 
  			
   			}
@@ -135,7 +148,7 @@ HighscoreList show = new HighscoreList();
      }
     
      public void mouseClicked(MouseEvent e) {
-    	 if(program.getElementAt(e.getX(), e.getY()) == backbtn ||program.getElementAt(e.getX(), e.getY()) == backLabel){
+    	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
      		program.switchToScreen(new MainMenu(program));
      	}
      }
