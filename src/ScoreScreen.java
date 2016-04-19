@@ -15,9 +15,7 @@ import java.awt.event.KeyEvent;
 public class ScoreScreen extends GraphicsPane {
 private Main program;
 private GRect rect;
-private GRect backbtn;
 private GImage returnpic;
-private GLabel backLabel;
 private GLabel scoreLabel[] = new GLabel[11];
 private GLabel nameLabel[] = new GLabel[11];
 private GImage titleIMG;
@@ -97,17 +95,17 @@ HighscoreList show = new HighscoreList();
  
  		
   	
-  		for (int i = 0; i < j; i++)
+ 		for (int i = 0; i < j; i++)
   		{
   		
   			//offsetLength = Integer.toString(highScoreList.get(i).getName().length());
   			//spaces = "......";
   			displayName = (i + 1) + ".\t" + highScoreList.get(i).getName(); //+ spaces-(offsetLength) + highScoreList.get(i).getScore() + "\n";
   			displayScores = Integer.toString(highScoreList.get(i).getScore());
-  			nameLabel[i] = new GLabel(displayName, Main.WINDOW_WIDTH/2-WIDTH/4, y);
+  			nameLabel[i] = new GLabel(displayName, Main.WINDOW_WIDTH/2-WIDTH/1.75, y);
  			nameLabel[i].setFont("Arial-20");
  			
- 			scoreLabel[i] = new GLabel(displayScores, Main.WINDOW_WIDTH/1-WIDTH/3, y);
+ 			scoreLabel[i] = new GLabel(displayScores, Main.WINDOW_WIDTH/1-WIDTH/1.75, y);
  			scoreLabel[i].setFont("Arial-20");
  			
  			program.add(nameLabel[i]);
