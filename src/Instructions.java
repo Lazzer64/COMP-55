@@ -10,10 +10,10 @@ import java.awt.event.KeyEvent
 public class Instructions extends GraphicsPane {
 
     private Main program;
-    private GRect returnbtn;
-    private GLabel returnlab;
+
     private GLabel instructions;
     private GImage background;
+    private GImage returnpic;
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -25,11 +25,10 @@ public class Instructions extends GraphicsPane {
     	instructions = new GLabel("INSTRUCTIONS", xPos, 100);
     	instructions.setColor(Color.WHITE);
     	instructions.setFont("Arial-30");
-    	returnbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6, WIDTH, HEIGHT);
-		returnbtn.setFilled(false);
-		returnlab = new GLabel("<= RETURN", Main.WINDOW_WIDTH/2-WIDTH/4, OFFSET*6+75/2);
-		returnlab.setColor(Color.PINK);
-		returnlab.setFont("Arial-20");
+
+		returnpic = new GImage("SpriteSheets/returnpic.png");
+        returnpic.setSize(WIDTH, HEIGHT);
+        returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
     }
     public void initBackground() {
         
@@ -41,15 +40,13 @@ public class Instructions extends GraphicsPane {
         // TODO implement
     	initBackground();
     	program.add(instructions);
-    	program.add(returnbtn);
-    	program.add(returnlab);
+    	program.add(returnpic);
     }
     
     public void hideContents() {
         // TODO implement
     	program.remove(instructions);
-    	program.remove(returnbtn);
-    	program.remove(returnlab);
+    	program.remove(returnpic);
     	program.remove(background);
     }
     
@@ -63,7 +60,7 @@ public class Instructions extends GraphicsPane {
     
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-   	 if(program.getElementAt(e.getX(), e.getY()) == returnbtn ||program.getElementAt(e.getX(), e.getY()) == returnlab){
+   	 if(program.getElementAt(e.getX(), e.getY()) == returnpic){
   		program.switchToScreen(new MainMenu(program));
   	}
   
