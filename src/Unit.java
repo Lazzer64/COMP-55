@@ -49,7 +49,7 @@ public abstract class Unit {
             case PLAYER:
                 idleAnimation = Animation.playerIdle;
                 attackAnimation = Animation.playerAttack;
-                deathAnimation = Animation.playerIdle;
+                deathAnimation = Animation.playerDie;
                 rangedAttack = Animation.playerRedAttack;
                 break;
             case GOBLIN: // TODO fill these in

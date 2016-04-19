@@ -2,6 +2,7 @@
 import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.*;
+import acm.io.IODialog;
 import acm.util.Animator;
 import acm.graphics.*;
 
@@ -31,6 +32,7 @@ public class Game extends GraphicsPane{
     TilePathDisplay moveListDisplay;
     CombatDisplay combatDisplay;
     ScoreDisplay scoreDisplay;
+    IODialog dialog;
 
     Animator animator = new Animator(){
             public void run(){
@@ -56,6 +58,7 @@ public class Game extends GraphicsPane{
         this.score = new Score("",0);
         this.player = new Player();
         this.enemy = new Enemy(UnitType.randomEnemy());
+        this.dialog = new IODialog(program);
 
         this.boardDisplay = new BoardDisplay(board); 
         this.boardDisplay.setLocation(BOARD_X, BOARD_Y);
@@ -126,23 +129,10 @@ public class Game extends GraphicsPane{
                                 program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
                                 if(checkLoseGame()) {
-                                    // TODO change to actual game over
-                                    System.out.println("GAME OVER");
-                                    // FIXME replace when done
-                                    program.switchToScreen(new GraphicsPane(){
-                                        public void showContents(){
-                                            GLabel label = new GLabel("GAME OVER!");
-                                            GLabel label2 = new GLabel("(TEMP) ENTER NAME IN CONSOLE");
-                                            label.setLocation(100,100);
-                                            label2.setLocation(100,200);
-                                            program.add(label2);
-                                            program.add(label);
-                                        }
-                                        public void hideContents(){
-                                        }
-                                    });
-                                    saveScore(score.getScore());
-                                    
+                                    player.setCurrentAnimation(AnimationState.DEATH);
+                                    String name = dialog.readLine("\tGame Over!\nEnter your name.");
+                                    saveScore(name, score.getScore());
+                                    program.switchToScreen(new ScoreScreen(program));
                                 }
                             } else nextFight();
                             canMove = true;
@@ -190,11 +180,7 @@ public class Game extends GraphicsPane{
     	hm.addScore(name, Score);
     }
     
-    public void saveScore(int score){
-        System.out.println("Enter name for high-score list");
-        Scanner userNameScanner = new Scanner(System.in);
-        String userName = userNameScanner.nextLine();
-
+    public void saveScore(String userName, int score){
         HighscoreList hm = new HighscoreList();
         hm.addScore(userName, score);
         System.out.println(hm.printScores());
