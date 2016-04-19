@@ -25,6 +25,7 @@ public class Game extends GraphicsPane{
     public static final int ATTACK_SCALE = 1;
     public static final int DEFENSE_SCALE = 0;
     public static final double ENEMY_GROWTH = 1.1;
+    public static final int FRAME_TIME = 16;
 
     public static final int BASE_HP  = 15;
     public static final int BASE_ATK = 5;
@@ -53,7 +54,8 @@ public class Game extends GraphicsPane{
                 scoreDisplay.update();
                 scoreDisplay.update();
                 moveListDisplay.update();
-                delay();
+                program.pause(FRAME_TIME);
+                //delay();
             }
         }
     };
@@ -148,9 +150,10 @@ public class Game extends GraphicsPane{
                         } else {
 
                             if(!checkWinFight()) {
-                                enemy.attack(player, enemy.getAttack());
                                 program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
+                                program.pause(CombatDisplay.getTimeToDisplay(-3));
+                                enemy.attack(player, enemy.getAttack());
                                 if(checkLoseGame()) {
                                     player.setCurrentAnimation(AnimationState.DEATH);
                                     String name = dialog.readLine("\tGame Over!\nEnter your name.");
@@ -224,10 +227,19 @@ public class Game extends GraphicsPane{
                 break;
             default: // Generic damage
                 player.setCurrentAnimation(AnimationState.ATTACK);
-                player.attack(enemy, m.size() * player.getAttack());
+                GObject proj = combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+                program.add(proj);
 
-                program.add(combatDisplay.addProjectile(player,3, TileType.getColor(m.getType())));
-
+                new Timer().schedule(
+                        new TimerTask(){
+                            public void run(){
+                            	player.attack(enemy, m.size() * player.getAttack());
+                            	
+                                program.remove(proj);
+                            }
+                        }
+                        ,CombatDisplay.getTimeToDisplay(3));
+                
                 System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + m.size());
         }

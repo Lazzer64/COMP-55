@@ -65,7 +65,7 @@ public abstract class Unit {
             }
         }, time);
     }
-
+    
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
         int totalDamage = (damage - damageMitigation);

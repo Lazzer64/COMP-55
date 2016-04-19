@@ -64,6 +64,14 @@ public class CombatDisplay extends Display{
         return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed,u.getAttackAnimation(color));
     }
 
+    public static int getTimeToDisplay(int speed) {
+    	int delay = 0;
+    	delay += ((DISTANCE)/Math.abs(speed))*Game.FRAME_TIME;
+    	//TODO add delay for effects time
+        // System.out.println(delay);
+    	return delay;
+    }
+    
     public void updateEnemy(Enemy x){
 
         UnitInfo info = unitInfo.get(enemy);
