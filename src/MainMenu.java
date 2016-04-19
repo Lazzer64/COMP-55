@@ -18,6 +18,7 @@ public class MainMenu extends GraphicsPane {
     private GLabel pumpingpower;
     private GImage background;
     private GImage playpic;
+    private GImage instructionspic;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -35,12 +36,15 @@ public class MainMenu extends GraphicsPane {
         playpic.setLocation(xPos, y);
         y += OFFSET;
 
-        instructionsbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        instructionsbtn.setFilled(false);
-        instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        instructions.setColor(Color.PINK);
-        instructions.setFont("Arial-20");
-        instructions.move(0,playpic.getHeight());
+//        instructionsbtn = new GRect(xPos, y, WIDTH, HEIGHT);
+//        instructionsbtn.setFilled(false);
+//        instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
+//        instructions.setColor(Color.PINK);
+//        instructions.setFont("Arial-20");
+//        instructions.move(0,playpic.getHeight());
+        instructionspic = new GImage("SpriteSheets/instructionspic.png");
+        instructionspic.setSize(WIDTH, HEIGHT);
+        instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
         highscoresbtn = new GRect(xPos, y, WIDTH, HEIGHT);
@@ -70,11 +74,11 @@ public class MainMenu extends GraphicsPane {
         program.add(pumpingpower);
         program.add(playpic);
       
-        program.add(instructionsbtn);
+        program.add(instructionspic);
         program.add(highscoresbtn);
         program.add(quitbtn);
         
-        program.add(instructions);
+        
         program.add(highscores);
         program.add(quit);
     }
@@ -84,11 +88,11 @@ public class MainMenu extends GraphicsPane {
         program.remove(pumpingpower);
         program.remove(playpic);
         
-        program.remove(instructionsbtn);
+        program.remove(instructionspic);
         program.remove(highscoresbtn);
         program.remove(quitbtn);
         
-        program.remove(instructions);
+       
         program.remove(highscores);
         program.remove(quit);
         program.remove(background);
@@ -107,7 +111,7 @@ public class MainMenu extends GraphicsPane {
         if(program.getElementAt(e.getX(), e.getY()) == playpic){
             program.switchToScreen(new Game(program));
         }
-        	else if(program.getElementAt(e.getX(), e.getY()) == instructionsbtn ||program.getElementAt(e.getX(), e.getY()) == instructions){
+        	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	program.switchToScreen(new Instructions(program));
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == highscoresbtn || program.getElementAt(e.getX(), e.getY()) == highscores){
