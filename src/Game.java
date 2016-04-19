@@ -21,14 +21,19 @@ public class Game extends GraphicsPane{
     public static final int COMBAT_X = 0;
     public static final double GAME_SPEED = 0.82; // Value from 0.0 to 1.0
 
-    public static final int ENEMY_HEALTH = 100;
-    public static final int ENEMY_ATTACK = 30;
-    public static final int ENEMY_DEFENSE = 0;
+    public static final int HEALTH_SCALE = 3;
+    public static final int ATTACK_SCALE = 1;
+    public static final int DEFENSE_SCALE = 0;
+    public static final double ENEMY_GROWTH = 1.1;
 
-    public static final int PLAYER_HEALTH = 200;
-    public static final int PLAYER_ATTACK = 5;
+    public static final int BASE_HP  = 15;
+    public static final int BASE_ATK = 5;
+    public static final int BASE_DEF = 0;
+
+    public static final int PLAYER_HEALTH = 100;
+    public static final int PLAYER_ATTACK = 2;
     public static final int PLAYER_DEFENSE = 3;
-    public static final int HEAL_MOD = 3;
+    public static final int HEAL_MOD = 1;
 
     Main program;
     Player player;
@@ -58,12 +63,13 @@ public class Game extends GraphicsPane{
     Board board = new Board(NUM_ROWS, NUM_COLS);
     boolean canMove = true;
     Stack<RowCol> moveList = new Stack<RowCol>();
+    int level = 1;
 
     public Game(Main program){
         this.program = program;
         this.score = new Score("",0);
         this.player = new Player(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE);
-        this.enemy = new Enemy("Grunt",ENEMY_HEALTH, ENEMY_ATTACK, ENEMY_DEFENSE);
+        this.enemy = generateEnemy(level);
         this.dialog = new IODialog(program);
 
         this.boardDisplay = new BoardDisplay(board); 
@@ -80,7 +86,18 @@ public class Game extends GraphicsPane{
 
         animator.start();
         animator.setSpeed(GAME_SPEED);
-        System.out.println(animator.getAnimatorState());
+    }
+
+    private Enemy generateEnemy(int level) {
+
+        double scale = Math.pow(level-1, ENEMY_GROWTH);
+
+        int hp  =  BASE_HP  + (int) (HEALTH_SCALE  * scale);
+        int atk =  BASE_ATK + (int) (ATTACK_SCALE  * scale);
+        int def =  BASE_DEF + (int) (DEFENSE_SCALE * scale);
+
+        if(level%5 == 0) return new Boss((int)2*hp, (int)2*atk, (int)2*def);
+        return new Enemy("Grunt lvl: "+level, hp, atk, def);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -176,7 +193,8 @@ public class Game extends GraphicsPane{
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
         System.out.println("NEXT FIGHT!");
-        enemy = new Enemy("Grunt",ENEMY_HEALTH, ENEMY_ATTACK, ENEMY_DEFENSE);
+        level++;
+        enemy = generateEnemy(level);
         combatDisplay.updateEnemy(enemy);
     }
 

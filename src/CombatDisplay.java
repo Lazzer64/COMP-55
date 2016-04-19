@@ -72,6 +72,10 @@ public class CombatDisplay extends Display{
         info.animation.playAnimation(x.getAnimation(),20); 
         info.name.setLabel(x.getName());
 
+        double nameX = info.animation.getX()-info.name.getWidth()/4;
+        double nameY = info.name.getY();
+        info.name.setLocation(nameX,nameY);
+
         unitInfo.put(x, info);
 
         enemy = x;
