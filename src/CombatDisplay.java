@@ -35,9 +35,6 @@ public class CombatDisplay extends Display{
         initUnit(UNIT_X, UNIT_Y, player); 
         initUnit(UNIT_X+DISTANCE, UNIT_Y, enemy);
     }
-
-    //changes the color of an image.
-    
     
     /**
      * Adds a projectile to be updated as part of combat field
@@ -73,7 +70,7 @@ public class CombatDisplay extends Display{
         unitInfo.remove(enemy);
 
         info.animation.playAnimation(x.getAnimation(),20); 
-        info.name.setLabel(x.getType().toString());
+        info.name.setLabel(x.getName());
 
         unitInfo.put(x, info);
 
@@ -102,7 +99,7 @@ public class CombatDisplay extends Display{
     }
     
     public GLabel initName(double x, double y, Unit unit){
-        GLabel l = new GLabel(unit.getType().toString());
+        GLabel l = new GLabel(unit.getName());
         l.setLocation(x-l.getWidth()/2,y);
         l.setColor(Color.ORANGE);
         addObject(l);

@@ -1,27 +1,38 @@
+import java.awt.image.BufferedImage;
+import java.awt.Color;
 import java.util.Random;
 //mark's territory
 
 public class Enemy extends Unit{
 
     private Random rng;
-    private static final int HP = 100;
-    private static final int DEFENSE = 2;
-    private static final int MINATTACK=1;
-    private static final int MAXATTACK=5;
 
-    public Enemy(int hp, int defense, UnitType type){
-    	super(hp, hp, 0, defense, type);
+    public Enemy(String name, int hp, int attack, int defense){
+    	super(name, hp, attack, defense);
     }
 
-    public Enemy(UnitType type) { 
-        super(HP, HP, 0, DEFENSE, type);
-        rng = new Random(System.currentTimeMillis());
-        generateAttack(MINATTACK, MAXATTACK);
+    public BufferedImage[] getAnimation() {
+        switch(state){
+            case IDLE:
+                return Animation.enemy1Idle;
+            case ATTACK:
+                return Animation.enemy1Attack;
+            case DEATH:
+                return Animation.enemy1Die;
+            default:
+                return Animation.enemy1Idle;
+        }
+    }
+
+    public BufferedImage[] getAttackAnimation(Color color){
+        if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
+        else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;
+        else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenAttack;
+        return Animation.playerRedAttack;
     }
 
     public void generateAttack(int min, int max){
-    	
-    setAttack(min + rng.nextInt(max-min+1));
+        setAttack(min + rng.nextInt(max-min+1));
     }
     
 }

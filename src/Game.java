@@ -17,12 +17,18 @@ public class Game extends GraphicsPane{
     public static final int SCORE_X = 5;
     public static final int SCORE_Y = 20; 
     public static final int NUM_ALLOWED_MOVES = 5;
-    public static final int ENEMY_DAMAGE = 30;
-    public static final int PLAYER_DAMAGE_MULT = 5;
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
-    public static final int HEAL_MOD = 3;
     public static final double GAME_SPEED = 0.82; // Value from 0.0 to 1.0
+
+    public static final int ENEMY_HEALTH = 100;
+    public static final int ENEMY_ATTACK = 30;
+    public static final int ENEMY_DEFENSE = 0;
+
+    public static final int PLAYER_HEALTH = 200;
+    public static final int PLAYER_ATTACK = 5;
+    public static final int PLAYER_DEFENSE = 3;
+    public static final int HEAL_MOD = 3;
 
     Main program;
     Player player;
@@ -35,18 +41,18 @@ public class Game extends GraphicsPane{
     IODialog dialog;
 
     Animator animator = new Animator(){
-            public void run(){
-                while(true){
-                    combatDisplay.update();
-                    boardDisplay.update();
-                    scoreDisplay.update();
-                    scoreDisplay.update();
-                    moveListDisplay.update();
-                    delay();
-                }
+        public void run(){
+            while(true){
+                combatDisplay.update();
+                boardDisplay.update();
+                scoreDisplay.update();
+                scoreDisplay.update();
+                moveListDisplay.update();
+                delay();
             }
-        };
-    
+        }
+    };
+
 
     Score score;
     Board board = new Board(NUM_ROWS, NUM_COLS);
@@ -56,8 +62,8 @@ public class Game extends GraphicsPane{
     public Game(Main program){
         this.program = program;
         this.score = new Score("",0);
-        this.player = new Player();
-        this.enemy = new Enemy(UnitType.randomEnemy());
+        this.player = new Player(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE);
+        this.enemy = new Enemy("Grunt",ENEMY_HEALTH, ENEMY_ATTACK, ENEMY_DEFENSE);
         this.dialog = new IODialog(program);
 
         this.boardDisplay = new BoardDisplay(board); 
@@ -125,7 +131,7 @@ public class Game extends GraphicsPane{
                         } else {
 
                             if(!checkWinFight()) {
-                                enemy.attack(player, ENEMY_DAMAGE);
+                                enemy.attack(player, enemy.getAttack());
                                 program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
                                 if(checkLoseGame()) {
@@ -170,16 +176,16 @@ public class Game extends GraphicsPane{
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
         System.out.println("NEXT FIGHT!");
-        enemy = new Enemy(UnitType.randomEnemy());
+        enemy = new Enemy("Grunt",ENEMY_HEALTH, ENEMY_ATTACK, ENEMY_DEFENSE);
         combatDisplay.updateEnemy(enemy);
     }
 
     public void playerScore(String name, int Score) {
-    	//Creates a new high score object, then adds it
-    	HighscoreList hm = new HighscoreList();
-    	hm.addScore(name, Score);
+        //Creates a new high score object, then adds it
+        HighscoreList hm = new HighscoreList();
+        hm.addScore(name, Score);
     }
-    
+
     public void saveScore(String userName, int score){
         HighscoreList hm = new HighscoreList();
         hm.addScore(userName, score);
@@ -200,7 +206,7 @@ public class Game extends GraphicsPane{
                 break;
             default: // Generic damage
                 player.setCurrentAnimation(AnimationState.ATTACK);
-                player.attack(enemy, m.size()*PLAYER_DAMAGE_MULT);
+                player.attack(enemy, m.size() * player.getAttack());
 
                 program.add(combatDisplay.addProjectile(player,3, TileType.getColor(m.getType())));
 

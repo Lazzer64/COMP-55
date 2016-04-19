@@ -1,70 +1,35 @@
 import java.util.TimerTask;
 import java.util.Timer;
-import java.util.Random;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
 //mark's territory
+
 enum AnimationState { 
 	IDLE, ATTACK, DEATH;
 }
 
-enum UnitType {
-    PLAYER, GOBLIN, GHOST, SKELETON, GIANT_SLIME, SKELETON_KING; // FIXME Feel free to change this to whatever
-
-    public static UnitType randomEnemy(){
-        Random r = new Random();
-        int roll = r.nextInt(3);
-
-        if(roll == 0) return UnitType.GOBLIN;
-        if(roll == 1) return UnitType.GHOST;
-        return UnitType.SKELETON;
-    }
-}
 public abstract class Unit {
 
+    private String name;
 	private int hp;
 	private int maxHp;
 	private int attack;
 	private int defense;
-	private BufferedImage[] idleAnimation;
-	private BufferedImage[] attackAnimation;
-	private BufferedImage[] deathAnimation;
-	private BufferedImage[] rangedAttack;
 	
-    private UnitType type;	
-	private AnimationState state;
+	protected AnimationState state;
 
-    public Unit(int hp, int maxHp, int attack, int defense, UnitType type) { 
+    public Unit(String name, int hp, int attack, int defense) { 
+        this.name = name;
 		this.hp = hp;
-		this.maxHp = maxHp;
+		this.maxHp = hp;
 		this.attack = attack;
 		this.defense = defense;
-        this.type = type;
-		setAnimations();
 		state = AnimationState.IDLE;
     }
 
-    public void setAnimations(){
-        switch(type){
-            case PLAYER:
-                idleAnimation = Animation.playerIdle;
-                attackAnimation = Animation.playerAttack;
-                deathAnimation = Animation.playerDie;
-                rangedAttack = Animation.playerRedAttack;
-                break;
-            case GOBLIN: // TODO fill these in
-            case GHOST:
-            case SKELETON:
-            case GIANT_SLIME:
-            case SKELETON_KING:
-                idleAnimation = Animation.enemy1Idle;
-                attackAnimation = Animation.enemy1Attack;
-                deathAnimation = Animation.enemy1Die;
-                rangedAttack = Animation.playerRedAttack;
-            default:
-        }
-    }
-    
+    public abstract BufferedImage[] getAnimation(); 
+    public abstract BufferedImage[] getAttackAnimation(Color color);
+
     /**
      * Changes the animation based on the specified AnimationState.
      * @param state The AnimationState to change to
@@ -101,29 +66,6 @@ public abstract class Unit {
         }, time);
     }
 
-    public BufferedImage[] getAnimation() {
-    	switch(state) {
-    		case IDLE:
-    			return idleAnimation;
-    		case ATTACK:
-    			return attackAnimation;
-    		case DEATH:
-    			return deathAnimation;
-    		default:
-    			return idleAnimation;
-    	}
-    }
-    
-    public BufferedImage[] getAttackAnimation(Color color) {
-    	switch(type) {
-    		case PLAYER:
-    			if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
-    			else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;
-    			else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenAttack;
-    		default:
-    			return rangedAttack;
-    	}
-    }
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
         int totalDamage = (damage - damageMitigation);
@@ -175,8 +117,12 @@ public abstract class Unit {
 		return defense;
 	}
 
-    public UnitType getType(){
-        return type;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
     }
 
 }
