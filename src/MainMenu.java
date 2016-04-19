@@ -7,19 +7,12 @@ import java.awt.event.KeyEvent;
 
 public class MainMenu extends GraphicsPane {
     private Main program;
-    private GRect playbtn;
-    private GRect instructionsbtn;
-    private GRect highscoresbtn;
-    private GRect quitbtn;
-    private GLabel play;
-    private GLabel instructions;
-    private GLabel highscores;
-    private GLabel quit;
     private GLabel pumpingpower;
     private GImage background;
     private GImage playpic;
     private GImage instructionspic;
     private GImage highscorespic;
+    private GImage quitpic;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -43,24 +36,16 @@ public class MainMenu extends GraphicsPane {
         instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
-//        highscoresbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-//        highscoresbtn.setFilled(false);
-//        highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-//        highscores.setColor(Color.PINK);
-//        highscores.setFont("Arial-20");
-//        highscores.move(0,playpic.getHeight());
         highscorespic = new GImage("SpriteSheets/highscorespic.png");
         highscorespic.setSize(WIDTH, HEIGHT);
         highscorespic.setLocation(xPos, y);
         
         y += OFFSET;
 
-        quitbtn = new GRect(xPos, y, WIDTH, HEIGHT);
-        quitbtn.setFilled(false);
-        quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        quit.setColor(Color.PINK);
-        quit.setFont("Arial-20");
-        quit.move(0,playpic.getHeight());
+
+        quitpic = new GImage("SpriteSheets/quitpic.png");
+        quitpic.setSize(WIDTH, HEIGHT);
+        quitpic.setLocation(xPos, y);
     }
     public void initBackground() {
         //initialize the main menu background and set size
@@ -73,28 +58,18 @@ public class MainMenu extends GraphicsPane {
         initBackground();
         program.add(pumpingpower);
         program.add(playpic);
-      
         program.add(instructionspic);
         program.add(highscorespic);
-        program.add(quitbtn);
-        
-        
-      
-        program.add(quit);
+        program.add(quitpic);
     }
 
     public void hideContents() {
         // TODO implement
         program.remove(pumpingpower);
         program.remove(playpic);
-        
         program.remove(instructionspic);
         program.remove(highscorespic);
-        program.remove(quitbtn);
-        
-       
-       
-        program.remove(quit);
+        program.remove(quitpic);
         program.remove(background);
     }
 
@@ -117,7 +92,7 @@ public class MainMenu extends GraphicsPane {
         else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
             program.switchToScreen(new ScoreScreen(program));
         }
-        else if(program.getElementAt(e.getX(), e.getY()) == quitbtn || program.getElementAt(e.getX(), e.getY()) == quit){
+        else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
             System.exit(0);
         }
     }
