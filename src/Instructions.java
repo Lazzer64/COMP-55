@@ -23,12 +23,12 @@ public class Instructions extends GraphicsPane {
     public Instructions(Main app){
     	program =app;
     	instructions = new GLabel("INSTRUCTIONS", xPos, 100);
-    	instructions.setColor(Color.BLUE);
+    	instructions.setColor(Color.WHITE);
     	instructions.setFont("Arial-30");
     	returnbtn = new GRect(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6, WIDTH, HEIGHT);
 		returnbtn.setFilled(false);
 		returnlab = new GLabel("<= RETURN", Main.WINDOW_WIDTH/2-WIDTH/4, OFFSET*6+75/2);
-		returnlab.setColor(Color.RED);
+		returnlab.setColor(Color.PINK);
 		returnlab.setFont("Arial-20");
     }
     public void initBackground() {

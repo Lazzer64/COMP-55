@@ -26,13 +26,13 @@ public class MainMenu extends GraphicsPane {
     public  MainMenu(Main app) {
         program = app;
         pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
-        pumpingpower.setColor(Color.BLUE);
+        pumpingpower.setColor(Color.WHITE);
         pumpingpower.setFont("Arial-30");
         int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
         playbtn = new GRect(xPos, y, WIDTH, HEIGHT);
         playbtn.setFilled(false);
         play = new GLabel("PLAY", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        play.setColor(Color.RED);
+        play.setColor(Color.PINK);
         play.setFont("Arial-20");
         play.move(0,play.getHeight());
         y += OFFSET;
@@ -40,7 +40,7 @@ public class MainMenu extends GraphicsPane {
         instructionsbtn = new GRect(xPos, y, WIDTH, HEIGHT);
         instructionsbtn.setFilled(false);
         instructions = new GLabel("INSTRUCTIONS", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        instructions.setColor(Color.RED);
+        instructions.setColor(Color.PINK);
         instructions.setFont("Arial-20");
         instructions.move(0,play.getHeight());
         y += OFFSET;
@@ -48,7 +48,7 @@ public class MainMenu extends GraphicsPane {
         highscoresbtn = new GRect(xPos, y, WIDTH, HEIGHT);
         highscoresbtn.setFilled(false);
         highscores = new GLabel("HIGH SCORES", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        highscores.setColor(Color.RED);
+        highscores.setColor(Color.PINK);
         highscores.setFont("Arial-20");
         highscores.move(0,play.getHeight());
         y += OFFSET;
@@ -56,7 +56,7 @@ public class MainMenu extends GraphicsPane {
         quitbtn = new GRect(xPos, y, WIDTH, HEIGHT);
         quitbtn.setFilled(false);
         quit = new GLabel("QUIT", Main.WINDOW_WIDTH/2-WIDTH/4, y);
-        quit.setColor(Color.RED);
+        quit.setColor(Color.PINK);
         quit.setFont("Arial-20");
         quit.move(0,play.getHeight());
     }
