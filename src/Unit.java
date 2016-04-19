@@ -65,10 +65,6 @@ public abstract class Unit {
             }
         }, time);
     }
-
-    public void use(Unit target, Skill skill) {
-    	skill.useOn(target);
-    }
     
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
