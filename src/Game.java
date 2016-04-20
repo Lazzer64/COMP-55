@@ -152,8 +152,9 @@ public class Game extends GraphicsPane{
                             if(!checkWinFight()) {
                                 program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
-                                program.pause(CombatDisplay.getTimeToDisplay(-3));
+                                program.pause(CombatDisplay.getTimeToDisplayProjectile(-3));
                                 enemy.attack(player, enemy.getAttack());
+                            	combatDisplay.addEffect(enemy,player, Color.WHITE);
                                 if(checkLoseGame()) {
                                     player.setCurrentAnimation(AnimationState.DEATH);
                                     String name = dialog.readLine("\tGame Over!\nEnter your name.");
@@ -234,11 +235,18 @@ public class Game extends GraphicsPane{
                         new TimerTask(){
                             public void run(){
                             	player.attack(enemy, m.size() * player.getAttack());
-                            	
+                            	Animation effect = combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
+                            	program.add(effect);
+                            	new Timer().schedule( 
+                            			new TimerTask() {
+                            				public void run() {
+                            					program.remove(effect);
+                            				}
+                            			},CombatDisplay.getTimeToDisplayEffect(effect));
                                 program.remove(proj);
                             }
                         }
-                        ,CombatDisplay.getTimeToDisplay(3));
+                        ,CombatDisplay.getTimeToDisplayProjectile(3));
                 
                 System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + m.size());

@@ -27,4 +27,10 @@ public class Player extends Unit{
         return Animation.playerRedAttack;
     }
 
+    public BufferedImage[] getAttackExplosionAnimation(Color color) {
+        if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedExplosion;
+        else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueExplosion;
+        else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenExplosion;
+        return Animation.playerRedExplosion;
+    }
 }

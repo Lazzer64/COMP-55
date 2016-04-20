@@ -29,6 +29,7 @@ public abstract class Unit {
 
     public abstract BufferedImage[] getAnimation(); 
     public abstract BufferedImage[] getAttackAnimation(Color color);
+    public abstract BufferedImage[] getAttackExplosionAnimation(Color color);
 
     /**
      * Changes the animation based on the specified AnimationState.

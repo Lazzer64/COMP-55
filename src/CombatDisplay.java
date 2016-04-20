@@ -25,6 +25,7 @@ public class CombatDisplay extends Display{
 
     HashMap<Unit, UnitInfo> unitInfo = new HashMap<Unit, UnitInfo>();
     HashMap<Animation,Integer> projectiles = new HashMap<Animation,Integer>();
+    HashMap<Animation,Integer> effects = new HashMap<Animation,Integer>();
 
     public CombatDisplay(Player player, Enemy enemy){
         super();
@@ -46,7 +47,7 @@ public class CombatDisplay extends Display{
      */
     public Animation addProjectile(int x, int y, int speed, BufferedImage[] animation){
         // FIXME remove projectiles when they have reached the enemy
-        Animation proj = new Animation(animation, 10);
+        Animation proj = new Animation(animation, 7);
         proj.setLocation(x,y);
         proj.move(speed*2,0);
 
@@ -64,11 +65,36 @@ public class CombatDisplay extends Display{
         return addProjectile((int)unitInfo.get(u).animation.getX(),(int)unitInfo.get(u).animation.getY(), speed,u.getAttackAnimation(color));
     }
 
-    public static int getTimeToDisplay(int speed) {
+    public Animation addEffect(int x, int y, BufferedImage[] animation) {
+    	Animation effect = new Animation(animation, 12);
+    	effect.setLocation(x,y);
+    	
+    	HashMap<Animation, Integer> effectz = (HashMap<Animation, Integer>) effects.clone();
+        effectz.put(effect, 0);
+    	
+        effects = effectz;
+        
+    	addObject(effect);
+    	
+    	return effect;
+    }
+    
+    public Animation addEffect(Unit caster,Unit target, Color color) {
+    	return addEffect((int) unitInfo.get(target).animation.getX(),(int)unitInfo.get(target).animation.getY(), caster.getAttackExplosionAnimation(color));
+    }
+    
+    public static int getTimeToDisplayProjectile(int speed) {
     	int delay = 0;
     	delay += ((DISTANCE)/Math.abs(speed))*Game.FRAME_TIME;
     	//TODO add delay for effects time
         // System.out.println(delay);
+    	return delay;
+    }
+    
+    public static int getTimeToDisplayEffect(Animation effect) {
+    	int delay = 0;
+    	delay += effect.getFrameDelay()*effect.getNumberOfFrames()*Game.FRAME_TIME;
+    	delay -= 1;
     	return delay;
     }
     
@@ -96,10 +122,16 @@ public class CombatDisplay extends Display{
         }
 
         for(Animation p: projectiles.keySet()) {
+        	p.update();
             p.move(projectiles.get(p),0);
             boolean lower = UNIT_X + DISTANCE < p.getX() ;
             boolean higher = UNIT_X-10 > p.getX();
             if(lower || higher) p.setVisible(false);
+        }
+        
+        for(Animation e: effects.keySet()) {
+        	e.update();
+        	e.move(0, 0);
         }
     }
 

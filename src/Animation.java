@@ -16,8 +16,11 @@ public class Animation extends GObject{
 	public static BufferedImage[] playerDie = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
 
 	public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
+	public static BufferedImage[] playerRedExplosion = getFrames("playerAttackExplosions", 0,0,4,25,25);
 	public static BufferedImage[] playerGreenAttack = getFrames("playerAttack", 0,1,4, 20,20);
+	public static BufferedImage[] playerGreenExplosion = getFrames("playerAttackExplosions", 0,1,4,25,25);
 	public static BufferedImage[] playerBlueAttack = getFrames("playerAttack", 0,2,4, 20,20);
+	public static BufferedImage[] playerBlueExplosion = getFrames("playerAttackExplosions", 0,2,4,25,25);
 
 	public static BufferedImage[] enemy1Idle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] enemy1Attack = getFrames("AnimationSpritesheet" ,0,1,3, 32,32);
@@ -170,4 +173,12 @@ public class Animation extends GObject{
         }
         return image;
     }
+	
+	public int getFrameDelay() {
+		return this.frameDelay;
+	}
+	
+	public int getNumberOfFrames() {
+		return this.frames.size();
+	}
 }

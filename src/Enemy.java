@@ -25,12 +25,21 @@ public class Enemy extends Unit{
     }
 
     public BufferedImage[] getAttackAnimation(Color color){
+    	//TODO
         if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
         else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;
         else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenAttack;
         return Animation.playerRedAttack;
     }
 
+    public BufferedImage[] getAttackExplosionAnimation(Color color) {
+    	//TODO
+        if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedExplosion;
+        else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueExplosion;
+        else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenExplosion;
+        return Animation.playerRedExplosion;
+    }
+    
     public void generateAttack(int min, int max){
         setAttack(min + rng.nextInt(max-min+1));
     }
