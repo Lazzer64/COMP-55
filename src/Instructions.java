@@ -11,9 +11,10 @@ public class Instructions extends GraphicsPane {
 
     private Main program;
 
-    private GLabel instructions;
+   // private GLabel instructions;
     private GImage background;
     private GImage returnpic;
+    private GImage titleIMG;
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -22,13 +23,18 @@ public class Instructions extends GraphicsPane {
     
     public Instructions(Main app){
     	program =app;
-    	instructions = new GLabel("INSTRUCTIONS", xPos, 100);
-    	instructions.setColor(Color.WHITE);
-    	instructions.setFont("Arial-30");
+    	//instructions = new GLabel("INSTRUCTIONS", xPos, 100);
+//    	instructions.setColor(Color.WHITE);
+//    	instructions.setFont("Arial-30");
 
 		returnpic = new GImage("SpriteSheets/returnpic.png");
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
+        
+        titleIMG = new GImage("SpriteSheets/button (1).png");
+        titleIMG.setSize(400, 75);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
+        
     }
     public void initBackground() {
         
@@ -39,15 +45,17 @@ public class Instructions extends GraphicsPane {
     public void showContents() {
         // TODO implement
     	initBackground();
-    	program.add(instructions);
+//    	program.add(instructions);
     	program.add(returnpic);
+    	program.add(titleIMG);
     }
     
     public void hideContents() {
         // TODO implement
-    	program.remove(instructions);
+    	//program.remove(instructions);
     	program.remove(returnpic);
     	program.remove(background);
+    	program.remove(titleIMG);
     }
     
     public void mousePressed(MouseEvent e) {
