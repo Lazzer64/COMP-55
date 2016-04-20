@@ -35,6 +35,7 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_ATTACK = 2;
     public static final int PLAYER_DEFENSE = 3;
     public static final int HEAL_MOD = 1;
+ 
 
     Main program;
     Player player;
@@ -62,6 +63,7 @@ public class Game extends GraphicsPane{
 
 
     Score score;
+    double currentMultiplier = 1;
     Board board = new Board(NUM_ROWS, NUM_COLS);
     boolean canMove = true;
     Stack<RowCol> moveList = new Stack<RowCol>();
@@ -148,7 +150,7 @@ public class Game extends GraphicsPane{
                             canMove = false;
 
                         } else {
-
+                        	currentMultiplier = 1;
                             if(!checkWinFight()) {
                                 program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
@@ -201,6 +203,7 @@ public class Game extends GraphicsPane{
 
     public void nextFight() {
         // TODO change to actual generation
+    	score.setScore(score.getScore() + level*10);
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
         System.out.println("NEXT FIGHT!");
@@ -256,7 +259,8 @@ public class Game extends GraphicsPane{
                         ,CombatDisplay.getTimeToDisplayProjectile(3));
                 
                 System.out.println(m.getType()+" size: "+m.size());
-                score.setScore(score.getScore() + m.size());
+                score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
+                currentMultiplier += 0.5;
         }
 
     }
