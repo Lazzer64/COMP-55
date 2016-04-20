@@ -43,9 +43,9 @@ HighscoreList show = new HighscoreList();
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
 		//backLabel.move(0,back.getHeight());
 		
-		titleIMG = new GImage("SpriteSheets/highscorelistpic.png");
-        titleIMG.setSize(WIDTH, HEIGHT);
-        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2,70);
+		titleIMG = new GImage("SpriteSheets/button (1).png");
+        titleIMG.setSize(400, 75);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
 		
 	}
 	
