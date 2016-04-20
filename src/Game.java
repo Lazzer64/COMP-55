@@ -56,7 +56,6 @@ public class Game extends GraphicsPane{
                 scoreDisplay.update();
                 moveListDisplay.update();
                 program.pause(FRAME_TIME);
-                //delay();
             }
         }
     };
@@ -152,18 +151,18 @@ public class Game extends GraphicsPane{
                         } else {
                         	currentMultiplier = 1;
                             if(!checkWinFight()) {
-                                program.add(combatDisplay.addProjectile(enemy,-3, Color.WHITE));
-                                enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
-                                program.pause(CombatDisplay.getTimeToDisplayProjectile(-3));
-                                enemy.attack(player, enemy.getAttack());
-                                Animation effect = combatDisplay.addEffect(enemy,player, Color.WHITE);
-                                program.add(effect);
-                                new Timer().schedule( 
-                            			new TimerTask() {
-                            				public void run() {
-                            					program.remove(effect);
-                            				}
-                            			},CombatDisplay.getTimeToDisplayEffect(effect));
+
+                                combatDisplay.addProjectile(enemy,-3, Color.WHITE);
+                                enemy.setCurrentAnimation(AnimationState.ATTACK);
+
+                                new Timer().schedule( new TimerTask(){
+                                    public void run(){
+                                        enemy.attack(player, enemy.getAttack());
+                                        combatDisplay.addEffect(enemy, player, Color.WHITE);
+                                        enemy.setCurrentAnimation(AnimationState.IDLE);
+                                        combatDisplay.addEffect(enemy,player, Color.WHITE);
+                                    }}, combatDisplay.getTimeToDisplayProjectile(-3));
+
                                 if(checkLoseGame()) {
                                     player.setCurrentAnimation(AnimationState.DEATH);
                                     String name = dialog.readLine("\tGame Over!\nEnter your name.");
@@ -180,17 +179,17 @@ public class Game extends GraphicsPane{
     }
 
     public void showContents(){
-        for(GObject o : boardDisplay.getObjects()) program.add(o);
-        for(GObject o : combatDisplay.getObjects()) program.add(o); 
-        for(GObject o : scoreDisplay.getObjects()) program.add(o); 
-        for(GObject o : moveListDisplay.getObjects()) program.add(o);
+        program.add(boardDisplay);
+        program.add(combatDisplay);
+        program.add(scoreDisplay);
+        program.add(moveListDisplay);
     }
 
     public void hideContents(){
-        for(GObject o : boardDisplay.getObjects()) program.remove(o);
-        for(GObject o : combatDisplay.getObjects()) program.remove(o); 
-        for(GObject o : scoreDisplay.getObjects()) program.remove(o); 
-        for(GObject o : moveListDisplay.getObjects()) program.remove(o);
+        program.remove(boardDisplay);
+        program.remove(combatDisplay);
+        program.remove(scoreDisplay);
+        program.remove(moveListDisplay);
     }
 
     public boolean checkWinFight() {
@@ -238,26 +237,14 @@ public class Game extends GraphicsPane{
                 break;
             default: // Generic damage
                 player.setCurrentAnimation(AnimationState.ATTACK);
-                GObject proj = combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
-                program.add(proj);
+                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
 
-                new Timer().schedule(
-                        new TimerTask(){
-                            public void run(){
-                            	player.attack(enemy, m.size() * player.getAttack());
-                            	Animation effect = combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
-                            	program.add(effect);
-                            	new Timer().schedule( 
-                            			new TimerTask() {
-                            				public void run() {
-                            					program.remove(effect);
-                            				}
-                            			},CombatDisplay.getTimeToDisplayEffect(effect));
-                                program.remove(proj);
-                            }
-                        }
-                        ,CombatDisplay.getTimeToDisplayProjectile(3));
-                
+                new Timer().schedule( new TimerTask(){
+                    public void run(){
+                        player.attack(enemy, m.size() * player.getAttack());
+                        combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
+                    }}, combatDisplay.getTimeToDisplayProjectile(3));
+
                 System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
                 currentMultiplier += 0.5;

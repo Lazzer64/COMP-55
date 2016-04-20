@@ -6,11 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import acm.graphics.*;
 import acm.graphics.GRectangle;
-import acm.program.*;
-import acm.util.*;
 
 
-public class Animation extends GObject{
+public class Animation extends GObject implements Updatable {
 	public static BufferedImage[] playerIdle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
 	public static BufferedImage[] playerAttack = getFrames("AnimationSpritesheet" ,0,2,3, 32,32);
 	public static BufferedImage[] playerDie = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
@@ -32,7 +30,6 @@ public class Animation extends GObject{
     private int animationDirection;         // animation direction (i.e counting forward or backward)
     private int totalFrames;                // total amount of frames for your animation
     
-    // FIXME maybe we should be passing/storing a list of Frames instead of an array of BufferedImages
     private BufferedImage[] rawFrames;
 
     private boolean stopped;                // has animations stopped

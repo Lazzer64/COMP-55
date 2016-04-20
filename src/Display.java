@@ -1,41 +1,40 @@
 import java.util.ArrayList;
 import acm.graphics.*;
-public abstract class Display {
+public abstract class Display extends GCompound {
 
-    GraphicsApplication program;
-    ArrayList<GObject> objects;
-    ArrayList<Animation> animations;
+    ArrayList<Updatable> updatables;
 
     double x_adj = 0, y_adj = 0;
     boolean moved = true;
 
     Display(){
-        this.objects = new ArrayList<GObject>();
-        this.animations = new ArrayList<Animation>();
+        this.updatables = new ArrayList<Updatable>();
     }
 
     public void addObject(GObject x){
-        if(objects.contains(x)) return;
-        if(!animations.contains(x)) x.move(x_adj, y_adj);
-        objects.add(x);
+        this.add(x);
     }
 
-    public void addAnimation(Animation x){
-        if(animations.contains(x)) return;
-        animations.add(x);
-        addObject(x);
+    public void removeObject(GObject x){
+        this.remove(x);
     }
 
-    public abstract void update();
-
-    public ArrayList<GObject> getObjects(){
-        return objects;
+    public void addUpdatable(Updatable x){
+        if(updatables.contains(x)) return;
+        ArrayList<Updatable> ups = (ArrayList<Updatable>) updatables.clone();
+        ups.add(x);
+        updatables = ups;
     }
 
-    public void setLocation(double x, double y) {
-        for(GObject o: objects) o.move(x-x_adj,y-y_adj);
-        x_adj = x;
-        y_adj = y;
+    public void removeUpdatable(Updatable x){
+        if(!updatables.contains(x)) return;
+        ArrayList<Updatable> ups = (ArrayList<Updatable>) updatables.clone();
+        ups.remove(x);
+        updatables = ups;
+    }
+
+    public void update(){
+        for(Updatable u: updatables) u.update();
     }
 
 }

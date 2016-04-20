@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.image.BufferedImage;
-
+import java.util.Timer;
+import java.util.TimerTask;
 import acm.graphics.*;
 import java.util.HashMap;
 
@@ -24,8 +25,6 @@ public class CombatDisplay extends Display{
     Enemy enemy;
 
     HashMap<Unit, UnitInfo> unitInfo = new HashMap<Unit, UnitInfo>();
-    HashMap<Animation,Integer> projectiles = new HashMap<Animation,Integer>();
-    HashMap<Animation,Integer> effects = new HashMap<Animation,Integer>();
 
     public CombatDisplay(Player player, Enemy enemy){
         super();
@@ -46,19 +45,15 @@ public class CombatDisplay extends Display{
      * @return The GRect that was created
      */
     public Animation addProjectile(int x, int y, int speed, BufferedImage[] animation){
-        // FIXME remove projectiles when they have reached the enemy
-        Animation proj = new Animation(animation, 7);
-        proj.setLocation(x,y);
-        proj.move(speed*2,0);
 
-        HashMap<Animation, Integer> projs = (HashMap<Animation, Integer>) projectiles.clone();
-        projs.put(proj, speed);
+        Animation anim = new Animation(animation, 7);
+        anim.setLocation(x,y);
+        Projectile proj = new Projectile(anim, speed, DISTANCE);
         
-        projectiles = projs;
+        addUpdatable(proj);
+        addObject(anim);
 
-        addObject(proj);
-
-        return proj;
+        return anim;
     }
     
     public Animation addProjectile(Unit u, int speed, Color color){
@@ -69,13 +64,15 @@ public class CombatDisplay extends Display{
     	Animation effect = new Animation(animation, 12);
     	effect.setLocation(x,y);
     	
-    	HashMap<Animation, Integer> effectz = (HashMap<Animation, Integer>) effects.clone();
-        effectz.put(effect, 0);
-    	
-        effects = effectz;
-        
-    	addObject(effect);
-    	
+        addUpdatable(effect);
+        addObject(effect); 
+
+        new Timer().schedule( new TimerTask(){
+            public void run(){
+                removeUpdatable(effect);
+                removeObject(effect);
+            }}, getTimeToDisplayEffect(effect));
+
     	return effect;
     }
     
@@ -120,19 +117,7 @@ public class CombatDisplay extends Display{
             updateAnimation(u);
             updateHp(u);
         }
-
-        for(Animation p: projectiles.keySet()) {
-        	p.update();
-            p.move(projectiles.get(p),0);
-            boolean lower = UNIT_X + DISTANCE < p.getX() ;
-            boolean higher = UNIT_X-10 > p.getX();
-            if(lower || higher) p.setVisible(false);
-        }
-        
-        for(Animation e: effects.keySet()) {
-        	e.update();
-        	e.move(0, 0);
-        }
+        super.update();
     }
 
     public void initBackground() {
@@ -188,7 +173,8 @@ public class CombatDisplay extends Display{
     public Animation initAnimation(double x, double y, Unit unit){
         Animation anim = new Animation(unit.getAnimation(),20);
         anim.setLocation(x-anim.getWidth()/2,y-anim.getHeight()/2);
-        addAnimation(anim);
+        addUpdatable(anim);
+        addObject(anim);
         return anim;
     }
 
