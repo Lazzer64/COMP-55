@@ -154,7 +154,14 @@ public class Game extends GraphicsPane{
                                 enemy.playAnimationFor(500, AnimationState.ATTACK, AnimationState.IDLE);
                                 program.pause(CombatDisplay.getTimeToDisplayProjectile(-3));
                                 enemy.attack(player, enemy.getAttack());
-                            	combatDisplay.addEffect(enemy,player, Color.WHITE);
+                                Animation effect = combatDisplay.addEffect(enemy,player, Color.WHITE);
+                                program.add(effect);
+                                new Timer().schedule( 
+                            			new TimerTask() {
+                            				public void run() {
+                            					program.remove(effect);
+                            				}
+                            			},CombatDisplay.getTimeToDisplayEffect(effect));
                                 if(checkLoseGame()) {
                                     player.setCurrentAnimation(AnimationState.DEATH);
                                     String name = dialog.readLine("\tGame Over!\nEnter your name.");
