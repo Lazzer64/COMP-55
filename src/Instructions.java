@@ -15,6 +15,7 @@ public class Instructions extends GraphicsPane {
     private GImage background;
     private GImage returnpic;
     private GImage titleIMG;
+    private GImage instructions;
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -29,16 +30,21 @@ public class Instructions extends GraphicsPane {
 
 		returnpic = new GImage("SpriteSheets/returnpic.png");
         returnpic.setSize(WIDTH, HEIGHT);
-        returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
+        returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6.9);
         
         titleIMG = new GImage("SpriteSheets/button (1).png");
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
         
+        instructions = new GImage("SpriteSheets/Pumping Power.png");
+        instructions.setSize(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-80);
+        instructions.setLocation(Main.WINDOW_WIDTH/2-WIDTH,0);
+       
+        
     }
     public void initBackground() {
         
-        background = new GImage("SpriteSheets/mainmenuBackground.jpg");
+        background = new GImage("SpriteSheets/instructionsBack.jpg");
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
     }
@@ -47,12 +53,13 @@ public class Instructions extends GraphicsPane {
     	initBackground();
 //    	program.add(instructions);
     	program.add(returnpic);
-    	program.add(titleIMG);
+    	//program.add(titleIMG);
+    	program.add(instructions);
     }
     
     public void hideContents() {
         // TODO implement
-    	//program.remove(instructions);
+    	program.remove(instructions);
     	program.remove(returnpic);
     	program.remove(background);
     	program.remove(titleIMG);

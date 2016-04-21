@@ -46,6 +46,8 @@ HighscoreList show = new HighscoreList();
 		titleIMG = new GImage("SpriteSheets/button (1).png");
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
+        
+        
 		
 	}
 	
@@ -133,6 +135,7 @@ HighscoreList show = new HighscoreList();
      	 for (int i = 0; i < j; i++)
      	 {
      		 program.remove(scoreLabel[i]);
+     		 program.remove(nameLabel[i]);
      		 
      	 }
      	 
