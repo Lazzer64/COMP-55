@@ -149,6 +149,7 @@ public class Game extends GraphicsPane{
                             canMove = false;
 
                         } else {
+                        	boardDisplay.removeMultipliers();
                         	currentMultiplier = 1;
                             if(!checkWinFight()) {
 
@@ -233,20 +234,23 @@ public class Game extends GraphicsPane{
 
         switch(m.getType()){
             case PINK: // Heal
-                player.heal(m.size()*HEAL_MOD);
+                player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
+                boardDisplay.addMultiLabel(m,currentMultiplier);
+                currentMultiplier += 0.5;
                 break;
             default: // Generic damage
                 player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
 
-                new Timer().schedule( new TimerTask(){
+                new Timer().schedule(new TimerTask(){
                     public void run(){
-                        player.attack(enemy, m.size() * player.getAttack());
+                        player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
                         combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
                     }}, combatDisplay.getTimeToDisplayProjectile(3));
 
                 System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
+                boardDisplay.addMultiLabel(m,currentMultiplier);
                 currentMultiplier += 0.5;
         }
 

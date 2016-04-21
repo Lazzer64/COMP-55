@@ -184,8 +184,8 @@ public class CombatDisplay extends Display{
         unitInfo.put(unit, info);
 
         info.animation = initAnimation(x,y,unit);
-        info.hpBar = initHp(x,y+info.animation.getHeight(),unit);
-        info.name = initName(x,y-info.animation.getHeight(),unit);
+        info.hpBar = initHp(x,y+info.animation.getHeight()/2,unit);
+        info.name = initName(x,y-info.animation.getHeight()/2,unit);
         
     }
 }

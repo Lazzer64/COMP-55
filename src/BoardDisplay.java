@@ -1,12 +1,22 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Image;
+import java.util.ArrayList;
+
 import acm.graphics.*;
+
 
 public class BoardDisplay extends Display{
 
     public static final int TILE_SIZE = Game.TILE_SIZE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Color LINE_COLOR = Color.WHITE;
+    
+    public static final Color FIRST = Color.ORANGE;
+    public static final Color SECOND = Color.BLACK;
+    public static final Color THIRD = new Color(80,80,220);
+    
+    public static final Font MULTI_FONT = new Font("Times New Roman",Font.BOLD,30);
 
     public static final String ICON_DIR = "SpriteSheets/";
     public static final Image NO_ICON = new GImage("").getImage();
@@ -16,6 +26,8 @@ public class BoardDisplay extends Display{
     public static final Image YELLOW_ICON = new GImage(ICON_DIR+"YELLOW_tile.png").getImage();
     public static final Image PINK_ICON = new GImage(ICON_DIR+"PINK_tile.png").getImage();
 
+    ArrayList<GLabel> multiLabels = new ArrayList<GLabel>();
+    
     Board board;
     GImage[][] imgs;
     GRect[][] tiles;
@@ -36,8 +48,41 @@ public class BoardDisplay extends Display{
 
     public void update(){
         updateTiles();
+        updateMultipliers();
     }
 
+    public void updateMultipliers() {
+    	for(GLabel l : multiLabels) {
+    		if(l.getColor().equals(Color.BLACK) || l.getColor().equals(THIRD)) {
+    			l.setColor(FIRST);
+    		} else if(l.getColor().equals(FIRST)) {
+    			l.setColor(SECOND);
+    		} else if(l.getColor().equals(SECOND)) {
+    			l.setColor(THIRD);
+    		}
+    		
+    	}
+    }
+    
+    public void removeMultipliers() {
+    	for(GLabel l : multiLabels) {
+    		removeObject(l);
+    	}
+    	multiLabels = new ArrayList<GLabel>();
+    }
+    
+    public GLabel addMultiLabel(Match m, double currMultiplier) {
+    	GLabel l = new GLabel("x" + currMultiplier);
+    	RowCol[] loc = m.getPositions();
+    	l.setLocation(loc[loc.length/2].getX()*TILE_SIZE,loc[loc.length/2].getY()*TILE_SIZE + TILE_SIZE/2);
+    	l.setFont(MULTI_FONT);
+    	addObject(l);
+    	ArrayList<GLabel> mLabels = (ArrayList<GLabel>) multiLabels.clone();
+        mLabels.add(l);
+        multiLabels = mLabels;
+    	return l;
+    }
+    
     public void updateTiles() {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
