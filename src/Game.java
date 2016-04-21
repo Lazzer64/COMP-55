@@ -159,20 +159,16 @@ public class Game extends GraphicsPane{
 
                                 new Timer().schedule( new TimerTask(){
                                     public void run(){
+
                                         enemy.attack(player, enemy.getAttack());
                                         combatDisplay.addEffect(enemy, player, Color.WHITE);
+
                                         enemy.setCurrentAnimation(AnimationState.IDLE);
                                         combatDisplay.addEffect(enemy,player, Color.WHITE);
+
+                                        if(checkLoseGame() && !game_over) endGame();
                                     }}, combatDisplay.getTimeToDisplayProjectile(-3));
 
-                                if(checkLoseGame() && !game_over) {
-                                    game_over = true;
-                                    player.setCurrentAnimation(AnimationState.DEATH);
-                                    String name = "";
-                                    while(name.equals("")) name = dialog.readLine("\tGame Over!\nEnter your name.");
-                                    saveScore(name, score.getScore());
-                                    program.switchToScreen(new ScoreScreen(program));
-                                }
                             } else nextFight();
                             canMove = true;
                             player.changeAnimationAfter(150,AnimationState.IDLE);
@@ -180,6 +176,17 @@ public class Game extends GraphicsPane{
                     }
                 }
         ,TILE_MOVE_DELAY);
+    }
+
+    public void endGame(){
+        game_over = true;
+        player.setCurrentAnimation(AnimationState.DEATH);
+        combatDisplay.update();
+        animator.stopAction();
+        String name = "";
+        while(name.equals("")) name = dialog.readLine("\tGame Over!\nEnter your name.");
+        saveScore(name, score.getScore());
+        program.switchToScreen(new ScoreScreen(program));
     }
 
     public void showContents(){
