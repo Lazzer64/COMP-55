@@ -2,12 +2,12 @@ import acm.graphics.*;
 
 public class Projectile implements Updatable {
 
-	private GObject display;
+	private Animation display;
 	private int speed;
 	private int distance;
     private int travelled;
 
-    public Projectile(GObject display, int speed, int distance) { 
+    public Projectile(Animation display, int speed, int distance) { 
 		this.display = display;
 		this.speed = speed;
 		this.distance = distance;
@@ -16,15 +16,16 @@ public class Projectile implements Updatable {
 
     public void update(){
         if(travelled >= distance) display.setVisible(false); // TODO change to a real solution
+        display.update();
         display.move(speed,0);
         travelled += Math.abs(speed);
     }
 
-	public void setDisplay(GObject display) {
+	public void setDisplay(Animation display) {
     	this.display = display;
 	}
 
-	public GObject getDisplay() {    
+	public Animation getDisplay() {    
 		return display;
 	}
 
