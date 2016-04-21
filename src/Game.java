@@ -168,7 +168,8 @@ public class Game extends GraphicsPane{
                                 if(checkLoseGame() && !game_over) {
                                     game_over = true;
                                     player.setCurrentAnimation(AnimationState.DEATH);
-                                    String name = dialog.readLine("\tGame Over!\nEnter your name.");
+                                    String name = "";
+                                    while(name.equals("")) name = dialog.readLine("\tGame Over!\nEnter your name.");
                                     saveScore(name, score.getScore());
                                     program.switchToScreen(new ScoreScreen(program));
                                 }
