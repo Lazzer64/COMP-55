@@ -7,26 +7,25 @@ import java.util.List;
 import acm.graphics.*;
 import acm.graphics.GRectangle;
 
-
 public class Animation extends GObject implements Updatable {
-	public static BufferedImage[] playerIdle = getFrames("WizardSpriteSheet" ,0,0,2, 50,80);
-	public static BufferedImage[] playerAttack = getFrames("WizardSpriteSheet" ,0,1,2, 50,80);
-	public static BufferedImage[] playerDie = getFrames("WizardSpriteSheet" ,0,2,2, 50,80);
+	final public static BufferedImage[] playerIdle = getFrames("WizardSpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] playerAttack = getFrames("WizardSpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] playerDie = getFrames("WizardSpriteSheet" ,0,2,2, 50,80);
 
-	public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
-	public static BufferedImage[] playerRedExplosion = getFrames("playerAttackExplosions", 0,0,4,25,25);
-	public static BufferedImage[] playerGreenAttack = getFrames("playerAttack", 0,1,4, 20,20);
-	public static BufferedImage[] playerGreenExplosion = getFrames("playerAttackExplosions", 0,1,4,25,25);
-	public static BufferedImage[] playerBlueAttack = getFrames("playerAttack", 0,2,4, 20,20);
-	public static BufferedImage[] playerBlueExplosion = getFrames("playerAttackExplosions", 0,2,4,25,25);
+	final public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
+	final public static BufferedImage[] playerRedExplosion = getFrames("playerAttackExplosions", 0,0,4,25,25);
+	final public static BufferedImage[] playerGreenAttack = getFrames("playerAttack", 0,1,4, 20,20);
+	final public static BufferedImage[] playerGreenExplosion = getFrames("playerAttackExplosions", 0,1,4,25,25);
+	final public static BufferedImage[] playerBlueAttack = getFrames("playerAttack", 0,2,4, 20,20);
+	final public static BufferedImage[] playerBlueExplosion = getFrames("playerAttackExplosions", 0,2,4,25,25);
 
-	public static BufferedImage[] enemy1Idle = getFrames("enemy1SpriteSheet" ,0,0,2, 50,80);
-	public static BufferedImage[] enemy1Attack = getFrames("enemy1SpriteSheet" ,0,1,2, 50,80);
-	public static BufferedImage[] enemy1Die = getFrames("enemy1SpriteSheet" ,0,2,2, 50,80);
+	final public static BufferedImage[] enemy1Idle = getFrames("enemy1SpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] enemy1Attack = getFrames("enemy1SpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] enemy1Die = getFrames("enemy1SpriteSheet" ,0,2,2, 50,80);
 
-    public static BufferedImage[] boss1Idle = getFrames("boss1SpriteSheet" ,0,0,2, 50,80);
-    public static BufferedImage[] boss1Attack = getFrames("boss1SpriteSheet" ,0,1,2, 50,80);
-    public static BufferedImage[] boss1Die = getFrames("boss1SpriteSheet" ,0,2,2, 50,80);
+    final public static BufferedImage[] boss1Idle = getFrames("boss1SpriteSheet" ,0,0,2, 50,80);
+    final public static BufferedImage[] boss1Attack = getFrames("boss1SpriteSheet" ,0,1,2, 50,80);
+    final public static BufferedImage[] boss1Die = getFrames("boss1SpriteSheet" ,0,2,2, 50,80);
 
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)

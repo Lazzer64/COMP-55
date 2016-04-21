@@ -19,8 +19,16 @@ public class MainMenu extends GraphicsPane {
     public static final int OFFSET = 75;
     public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
+    private Game game;
+    private ScoreScreen scores;
+    private Instructions instructions;
+
     public  MainMenu(Main app) {
         program = app;
+        game = new Game(app);
+        scores = new ScoreScreen(program);
+        instructions = new Instructions(program);
+
         pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
         pumpingpower.setFont("Arial-30");
@@ -84,13 +92,13 @@ public class MainMenu extends GraphicsPane {
     public void mouseClicked(MouseEvent e) {
         // TODO implement
         if(program.getElementAt(e.getX(), e.getY()) == playpic){
-            program.switchToScreen(new Game(program));
+            program.switchToScreen(game);
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
-        	program.switchToScreen(new Instructions(program));
+        	program.switchToScreen(instructions);
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
-            program.switchToScreen(new ScoreScreen(program));
+            program.switchToScreen(scores);
         }
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
             System.exit(0);
