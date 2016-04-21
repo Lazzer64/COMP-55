@@ -44,7 +44,7 @@ public class Instructions extends GraphicsPane {
     }
     public void initBackground() {
         
-        background = new GImage("SpriteSheets/instructionsBack.jpg");
+        background = new GImage("SpriteSheets/instructionsBack.png");
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
     }
