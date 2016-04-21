@@ -49,7 +49,7 @@ public class Game extends GraphicsPane{
 
     Animator animator = new Animator(){
         public void run(){
-            while(true){
+            while(!game_over){
                 combatDisplay.update();
                 boardDisplay.update();
                 scoreDisplay.update();
@@ -67,6 +67,7 @@ public class Game extends GraphicsPane{
     boolean canMove = true;
     Stack<RowCol> moveList = new Stack<RowCol>();
     int level = 1;
+    boolean game_over = false;
 
     public Game(Main program){
         this.program = program;
@@ -164,7 +165,8 @@ public class Game extends GraphicsPane{
                                         combatDisplay.addEffect(enemy,player, Color.WHITE);
                                     }}, combatDisplay.getTimeToDisplayProjectile(-3));
 
-                                if(checkLoseGame()) {
+                                if(checkLoseGame() && !game_over) {
+                                    game_over = true;
                                     player.setCurrentAnimation(AnimationState.DEATH);
                                     String name = dialog.readLine("\tGame Over!\nEnter your name.");
                                     saveScore(name, score.getScore());

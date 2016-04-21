@@ -20,10 +20,14 @@ public class Animation extends GObject implements Updatable {
 	public static BufferedImage[] playerBlueAttack = getFrames("playerAttack", 0,2,4, 20,20);
 	public static BufferedImage[] playerBlueExplosion = getFrames("playerAttackExplosions", 0,2,4,25,25);
 
-	public static BufferedImage[] enemy1Idle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
-	public static BufferedImage[] enemy1Attack = getFrames("AnimationSpritesheet" ,0,1,3, 32,32);
-	public static BufferedImage[] enemy1Die = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
-	
+	public static BufferedImage[] enemy1Idle = getFrames("enemy1SpriteSheet" ,0,0,2, 50,80);
+	public static BufferedImage[] enemy1Attack = getFrames("enemy1SpriteSheet" ,0,1,2, 50,80);
+	public static BufferedImage[] enemy1Die = getFrames("enemy1SpriteSheet" ,0,2,2, 50,80);
+
+    public static BufferedImage[] boss1Idle = getFrames("boss1SpriteSheet" ,0,0,2, 50,80);
+    public static BufferedImage[] boss1Attack = getFrames("boss1SpriteSheet" ,0,1,2, 50,80);
+    public static BufferedImage[] boss1Die = getFrames("boss1SpriteSheet" ,0,2,2, 50,80);
+
     private int frameCount;                 // Counts ticks for change
     private int frameDelay;                 // frame delay 1-12 (You will have to play around with this)
     private int currentFrame;               // animations current frame
