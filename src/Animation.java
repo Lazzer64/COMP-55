@@ -9,9 +9,9 @@ import acm.graphics.GRectangle;
 
 
 public class Animation extends GObject implements Updatable {
-	public static BufferedImage[] playerIdle = getFrames("AnimationSpritesheet" ,0,0,3, 32,32);
-	public static BufferedImage[] playerAttack = getFrames("AnimationSpritesheet" ,0,2,3, 32,32);
-	public static BufferedImage[] playerDie = getFrames("AnimationSpritesheet" ,0,3,3, 32,32);
+	public static BufferedImage[] playerIdle = getFrames("WizardSpriteSheet" ,0,0,2, 50,80);
+	public static BufferedImage[] playerAttack = getFrames("WizardSpriteSheet" ,0,1,2, 50,80);
+	public static BufferedImage[] playerDie = getFrames("WizardSpriteSheet" ,0,2,2, 50,80);
 
 	public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
 	public static BufferedImage[] playerRedExplosion = getFrames("playerAttackExplosions", 0,0,4,25,25);
