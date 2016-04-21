@@ -7,7 +7,8 @@ import java.awt.event.KeyEvent;
 
 public class MainMenu extends GraphicsPane {
     private Main program;
-    private GLabel pumpingpower;
+    //private GLabel pumpingpower;
+    private GImage pumpingpower;
     private GImage background;
     private GImage playpic;
     private GImage instructionspic;
@@ -21,9 +22,13 @@ public class MainMenu extends GraphicsPane {
 
     public  MainMenu(Main app) {
         program = app;
-        pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
+        /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
-        pumpingpower.setFont("Arial-30");
+        pumpingpower.setFont("Arial-30");*/
+        
+        pumpingpower = new GImage("SpriteSheets/pumpingpowertitle.png");
+        pumpingpower.setLocation(25, 50);
+        
         int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
         playpic = new GImage("SpriteSheets/playpic.png");
         playpic.setSize(WIDTH, HEIGHT);
