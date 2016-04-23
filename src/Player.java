@@ -3,8 +3,13 @@ import java.awt.Color;
 //mark's territory
 public class Player extends Unit{
 
-    public Player(int hp, int attack, int defense){
+	private int energy;
+	private int maxEnergy;
+	
+    public Player(int hp, int attack, int defense, int energy){
     	super("Player", hp, attack, defense);
+    	this.energy = 0;
+    	maxEnergy = energy;
     }
 
     public BufferedImage[] getAnimation() {
@@ -33,5 +38,15 @@ public class Player extends Unit{
         else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenExplosion;
         else if(color.equals(TileType.getColor(TileType.PINK))) return Animation.playerHealingEffect;
         return Animation.playerRedExplosion;
+    }
+    
+    public void increaseEnergy(int addedEnergy) {
+    	energy += addedEnergy;
+    	if(energy > maxEnergy) energy = maxEnergy;
+    }
+    
+    public void decreaseEnergy(int subtractedEnergy) {
+    	energy -= subtractedEnergy;
+    	if(energy < 0) energy = 0;
     }
 }

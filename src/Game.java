@@ -34,6 +34,7 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_HEALTH = 100;
     public static final int PLAYER_ATTACK = 2;
     public static final int PLAYER_DEFENSE = 3;
+    public static final int PLAYER_ENERGY = 100;
     public static final int HEAL_MOD = 1;
  
 
@@ -72,7 +73,7 @@ public class Game extends GraphicsPane{
     public Game(Main program){
         this.program = program;
         this.score = new Score("",0);
-        this.player = new Player(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE);
+        this.player = new Player(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE, PLAYER_ENERGY);
         this.enemy = generateEnemy(level);
         this.dialog = new IODialog(program);
 
@@ -250,9 +251,10 @@ public class Game extends GraphicsPane{
             case PINK: // Heal
                 player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
-                boardDisplay.addMultiLabel(m,currentMultiplier);
-                currentMultiplier += 0.5;
                 break;
+            case YELLOW:
+            	player.increaseEnergy((int)(m.size()*currentMultiplier));
+            	break;
             default: // Generic damage
                 player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
@@ -263,12 +265,12 @@ public class Game extends GraphicsPane{
                         combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
                     }}, combatDisplay.getTimeToDisplayProjectile(3));
 
-                System.out.println(m.getType()+" size: "+m.size());
                 score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
-                boardDisplay.addMultiLabel(m,currentMultiplier);
-                currentMultiplier += 0.5;
         }
 
+        System.out.println(m.getType()+" size: "+m.size() + " multiplier: x" + currentMultiplier);
+        boardDisplay.addMultiLabel(m,currentMultiplier);
+        currentMultiplier += 0.5;
     }
 
     private Tile getTileAt(int x, int y){

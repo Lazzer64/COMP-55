@@ -29,7 +29,7 @@ public enum TileType {
         case GREEN:
             return "Deals damage to enemy";
         case YELLOW:
-            return "Deals damage to enemy";
+            return "Gives you energy";
         case PINK:
             return "Heals you";
         default:
