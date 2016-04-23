@@ -138,6 +138,10 @@ public class Game extends GraphicsPane{
         start = null;
     }
 
+    public void mouseMoved(MouseEvent e) {
+    	boardDisplay.setCurrentMousePosition(e.getX(), e.getY()-BOARD_Y);
+    }
+    
     private void boardStep() {
         new Timer().schedule(
                 new TimerTask(){

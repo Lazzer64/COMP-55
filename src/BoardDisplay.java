@@ -32,6 +32,7 @@ public class BoardDisplay extends Display{
     GImage[][] imgs;
     GRect[][] tiles;
     int rows, cols;
+    int mouseX, mouseY;
 
     BoardDisplay(Board board){
         super();
@@ -49,8 +50,40 @@ public class BoardDisplay extends Display{
     public void update(){
         updateTiles();
         updateMultipliers();
+        updateToolTips();
     }
 
+    public void updateToolTips() {
+    	for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+
+            	Tile tile = board.getTiles()[y][x];
+                GImage image = imgs[y][x];
+
+
+                if (image.getBounds().contains(mouseX,mouseY)) {
+                	System.out.println(mouseX + " " + mouseY + " " + image);
+                	GLabel toolTip = new GLabel(tile.getType().toString());
+                	toolTip.setLocation(mouseX,mouseY);
+                	addObject(toolTip);
+                }
+            }
+        }
+    }
+    
+    public void setCurrentMousePosition(int x, int y) {
+    	setMouseX(x);
+    	setMouseY(y);
+    }
+    
+    public void setMouseX(int x) {
+    	mouseX = x;
+    }
+    
+    public void setMouseY(int y) {
+    	mouseY = y;
+    }
+    
     public void updateMultipliers() {
     	for(GLabel l : multiLabels) {
     		if(l.getColor().equals(Color.BLACK) || l.getColor().equals(THIRD)) {
