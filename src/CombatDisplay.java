@@ -9,6 +9,7 @@ import java.util.HashMap;
 class UnitInfo {
     Animation animation;
     GRect hpBar;
+    GRect energyBar;
     GLabel name;
 }
 
@@ -16,10 +17,12 @@ public class CombatDisplay extends Display{
 
     public static final Color HP_BAR_FILLED_COLOR = Color.GREEN;
     public static final Color HP_BAR_EMPTY_COLOR = Color.RED;
+    public static final Color ENERGY_BAR_FILLED_COLOR = Color.YELLOW;
+    public static final Color ENERGY_BAR_EMPTY_COLOR = Color.BLACK;
     public static final int HP_BAR_HEIGHT = 10;
     public static final int HP_BAR_WIDTH = 50;
     public static final int UNIT_X = 3*Main.WINDOW_WIDTH/8;
-    public static final int UNIT_Y = 180;
+    public static final int UNIT_Y = 155;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
     public static final Font HP_FONT = new Font("Times New Roman",Font.BOLD,12);
 
@@ -118,13 +121,14 @@ public class CombatDisplay extends Display{
         for(Unit u: unitInfo.keySet()){
             updateAnimation(u);
             updateHp(u);
+            if(u.equals(player)) updateEnergy(player);
         }
         super.update();
     }
 
     public void initBackground() {
     	GImage background = new GImage("SpriteSheets/background.gif");
-    	background.setLocation(0,50);
+    	background.setLocation(0,25);
     	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
     	addObject(background);
     }
@@ -177,6 +181,38 @@ public class CombatDisplay extends Display{
         
         return hp;
     }
+    
+    public void updateEnergy(Player unit){
+        GRect bar = unitInfo.get(unit).energyBar;
+        int unitEnergy = unit.getEnergy();
+        int unitMaxEnergy = unit.getMaxEnergy();
+        double percentEnergy = 1.0*unitEnergy/unitMaxEnergy;
+        bar.setSize(HP_BAR_WIDTH*percentEnergy,HP_BAR_HEIGHT);
+    }
+    
+    public GRect initEnergy(double x, double y, Player unit){
+
+        x -= HP_BAR_WIDTH/2;
+
+        GRect energyMax = new GRect(x, y, HP_BAR_WIDTH, HP_BAR_HEIGHT);
+        energyMax.setFilled(true);
+        energyMax.setColor(ENERGY_BAR_EMPTY_COLOR);
+
+        GRect energy = new GRect(x, y, HP_BAR_WIDTH, HP_BAR_HEIGHT);
+        energy.setFilled(true);
+        energy.setColor(ENERGY_BAR_FILLED_COLOR);
+
+        GLabel energyTitle = new GLabel("Energy:");
+        energyTitle.setLocation(x-energyTitle.getWidth(),y + HP_BAR_HEIGHT);
+        energyTitle.setFont(HP_FONT);
+        energyTitle.setColor(ENERGY_BAR_FILLED_COLOR);
+        
+        addObject(energyMax);
+        addObject(energy);
+        addObject(energyTitle);
+        
+        return energy;
+    }
 
     public Animation initAnimation(double x, double y, Unit unit){
         Animation anim = new Animation(unit.getAnimation(),20);
@@ -193,6 +229,7 @@ public class CombatDisplay extends Display{
 
         info.animation = initAnimation(x,y,unit);
         info.hpBar = initHp(x,y+info.animation.getHeight()/2,unit);
+        if(unit.equals(player)) info.energyBar = initEnergy(x,y+info.animation.getHeight()/2+info.hpBar.getHeight() + 5,player);
         info.name = initName(x,y-info.animation.getHeight()/2,unit);
         
     }

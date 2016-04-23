@@ -8,7 +8,7 @@ public class Player extends Unit{
 	
     public Player(int hp, int attack, int defense, int energy){
     	super("Player", hp, attack, defense);
-    	this.energy = 0;
+    	this.energy = 1;
     	maxEnergy = energy;
     }
 
@@ -48,5 +48,13 @@ public class Player extends Unit{
     public void decreaseEnergy(int subtractedEnergy) {
     	energy -= subtractedEnergy;
     	if(energy < 0) energy = 0;
+    }
+    
+    public int getEnergy() {
+    	return this.energy;
+    }
+    
+    public int getMaxEnergy() { 
+    	return this.maxEnergy;
     }
 }
