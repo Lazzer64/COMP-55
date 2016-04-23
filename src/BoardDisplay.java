@@ -27,12 +27,14 @@ public class BoardDisplay extends Display{
     public static final Image PINK_ICON = new GImage(ICON_DIR+"PINK_tile.png").getImage();
 
     ArrayList<GLabel> multiLabels = new ArrayList<GLabel>();
+    GLabel currentToolTip = null;
     
     Board board;
     GImage[][] imgs;
     GRect[][] tiles;
     int rows, cols;
-    int mouseX, mouseY;
+    int mouseX, mouseY, lastMouseX,lastMouseY;
+    int updatesSinceLastMove = 0;
 
     BoardDisplay(Board board){
         super();
@@ -54,21 +56,43 @@ public class BoardDisplay extends Display{
     }
 
     public void updateToolTips() {
-    	for (int y = 0; y < rows; y++) {
-            for (int x = 0; x < cols; x++) {
-
-            	Tile tile = board.getTiles()[y][x];
-                GImage image = imgs[y][x];
-
-
-                if (image.getBounds().contains(mouseX,mouseY)) {
-                	System.out.println(mouseX + " " + mouseY + " " + image);
-                	GLabel toolTip = new GLabel(tile.getType().toString());
-                	toolTip.setLocation(mouseX,mouseY);
-                	addObject(toolTip);
-                }
-            }
+    	Tile currTile = getCurrentTile(mouseX,mouseY);
+    	
+    	if (mouseX == lastMouseX && mouseY == lastMouseY && currTile != null) {
+    		updatesSinceLastMove++;
+    		if(updatesSinceLastMove > 100 && currentToolTip == null) {
+	        	GLabel toolTip = new GLabel(currTile.getType().toString());
+	        	toolTip.setLocation(mouseX,mouseY);
+		        currentToolTip = toolTip;
+		        addObject(currentToolTip);
+    		}
+        } else {
+        	if(currentToolTip != null) {
+        		removeObject(currentToolTip);
+        		currentToolTip = null;
+        	}
+        	updatesSinceLastMove = 0;
         }
+    	
+    	lastMouseX = mouseX;
+    	lastMouseY = mouseY;
+    	
+    }
+    
+    public Tile getCurrentTile(int x, int y) {
+    	if(outOfBounds(x,y)) return null;
+    	return board.getTiles()[y/TILE_SIZE][x/TILE_SIZE];
+    }
+    
+    public boolean outOfBounds(int x, int y) {
+    	if(x/TILE_SIZE < 0 || x/TILE_SIZE >cols-1) return true;
+    	if(y/TILE_SIZE < 0 || y/TILE_SIZE >rows-1) return true;
+    	return false;
+    }
+    
+    public GImage getCurrentImage(int x, int y) {
+    	if(outOfBounds(x,y)) return null;
+    	return imgs[y/TILE_SIZE][x/TILE_SIZE];
     }
     
     public void setCurrentMousePosition(int x, int y) {
