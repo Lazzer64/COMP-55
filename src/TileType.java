@@ -19,6 +19,23 @@ public enum TileType {
                 return Color.BLACK;
         }
     }
+    
+    public static String getToolTipText(TileType t) {
+    	switch(t){
+        case RED:
+            return "Deals damage to enemy";
+        case BLUE:
+            return "Deals damage to enemy";
+        case GREEN:
+            return "Deals damage to enemy";
+        case YELLOW:
+            return "Deals damage to enemy";
+        case PINK:
+            return "Heals you";
+        default:
+            return "Unknown";
+    }
+    }
 
     public static TileType randomType() {
 

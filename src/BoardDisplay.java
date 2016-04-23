@@ -61,7 +61,7 @@ public class BoardDisplay extends Display{
     	if (mouseX == lastMouseX && mouseY == lastMouseY && currTile != null) {
     		updatesSinceLastMove++;
     		if(updatesSinceLastMove > 100 && currentToolTip == null) {
-	        	GLabel toolTip = new GLabel(currTile.getType().toString());
+	        	GLabel toolTip = new GLabel(TileType.getToolTipText(currTile.getType()));
 	        	toolTip.setLocation(mouseX,mouseY);
 		        currentToolTip = toolTip;
 		        addObject(currentToolTip);
