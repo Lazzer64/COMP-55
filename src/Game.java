@@ -111,7 +111,7 @@ public class Game extends GraphicsPane{
         }
     }
     public void mouseDragged(MouseEvent e) {
-
+    	mouseMoved(e);
         if(isInBoard(e.getX(), e.getY()) && start != null) {
             end = getTileAt(e.getX(),e.getY()).getPosition(); 
             int xAdj = Math.abs(end.getX() - moveList.peek().getX());

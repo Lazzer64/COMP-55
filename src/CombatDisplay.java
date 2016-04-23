@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.image.BufferedImage;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -20,6 +21,7 @@ public class CombatDisplay extends Display{
     public static final int UNIT_X = 3*Main.WINDOW_WIDTH/8;
     public static final int UNIT_Y = 180;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
+    public static final Font HP_FONT = new Font("Times New Roman",Font.BOLD,12);
 
     Player player;
     Enemy enemy;
@@ -122,7 +124,7 @@ public class CombatDisplay extends Display{
 
     public void initBackground() {
     	GImage background = new GImage("SpriteSheets/background.gif");
-    	background.setLocation(0,25);
+    	background.setLocation(0,50);
     	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
     	addObject(background);
     }
@@ -164,8 +166,14 @@ public class CombatDisplay extends Display{
         hp.setFilled(true);
         hp.setColor(HP_BAR_FILLED_COLOR);
 
+        GLabel hpTitle = new GLabel("HP:");
+        hpTitle.setLocation(x-hpTitle.getWidth(),y + HP_BAR_HEIGHT);
+        hpTitle.setFont(HP_FONT);
+        hpTitle.setColor(HP_BAR_FILLED_COLOR);
+        
         addObject(hpMax);
         addObject(hp);
+        addObject(hpTitle);
         
         return hp;
     }
