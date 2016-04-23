@@ -31,6 +31,7 @@ public class Player extends Unit{
         if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedExplosion;
         else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueExplosion;
         else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenExplosion;
+        else if(color.equals(TileType.getColor(TileType.PINK))) return Animation.playerHealingEffect;
         return Animation.playerRedExplosion;
     }
 }

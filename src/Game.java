@@ -245,6 +245,7 @@ public class Game extends GraphicsPane{
         switch(m.getType()){
             case PINK: // Heal
                 player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
+                combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 boardDisplay.addMultiLabel(m,currentMultiplier);
                 currentMultiplier += 0.5;
                 break;
