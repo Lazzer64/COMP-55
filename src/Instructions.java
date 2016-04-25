@@ -1,12 +1,10 @@
-import java.awt.event.MouseEvent;
-
+import java.util.Timer;
+import java.util.TimerTask;
+import java.awt.event.MouseEvent; 
 import java.awt.event.KeyEvent; 
-
-import acm.graphics.*;
-
+import acm.graphics.*; 
 import java.awt.Color;
-import java.awt.event.KeyEvent
-;
+import java.awt.event.KeyEvent;
 public class Instructions extends GraphicsPane {
 
     private Main program;
@@ -16,17 +14,27 @@ public class Instructions extends GraphicsPane {
     private GImage returnpic;
     private GImage titleIMG;
     private GImage instructions;
+    private Board board = new Board(4,4);
+    private BoardDisplay boardDisplay = new BoardDisplay(board); 
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
     public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
     public static final int OFFSET = 75;
+
+    Tile start;
+    boolean canMove = true;
+    
     
     public Instructions(Main app){
-    	program =app;
-    	//instructions = new GLabel("INSTRUCTIONS", xPos, 100);
-//    	instructions.setColor(Color.WHITE);
-//    	instructions.setFont("Arial-30");
+    	program = app;
+
+        GLabel tryMe = new GLabel("Try Me!");
+        tryMe.setColor(Color.WHITE);
+        boardDisplay.add(tryMe);
+        boardDisplay.setLocation(300, 10);
+        boardDisplay.resize(.3);
+        boardDisplay.update();
 
 		returnpic = new GImage("SpriteSheets/returnpic.png");
         returnpic.setSize(WIDTH, HEIGHT);
@@ -39,8 +47,6 @@ public class Instructions extends GraphicsPane {
         instructions = new GImage("SpriteSheets/Pumping Power.png");
         instructions.setSize(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-80);
         instructions.setLocation(Main.WINDOW_WIDTH/2-WIDTH,0);
-       
-        
     }
     public void initBackground() {
         
@@ -55,6 +61,8 @@ public class Instructions extends GraphicsPane {
     	program.add(returnpic);
     	//program.add(titleIMG);
     	program.add(instructions);
+        program.add(boardDisplay);
+
     }
     
     public void hideContents() {
@@ -63,29 +71,47 @@ public class Instructions extends GraphicsPane {
     	program.remove(returnpic);
     	program.remove(background);
     	program.remove(titleIMG);
+    	program.remove(boardDisplay);
+
     }
-    
+
     public void mousePressed(MouseEvent e) {
-        // TODO implement
+        start = boardDisplay.getTileAt(e.getX(), e.getY());
     }
 
     public void mouseReleased(MouseEvent e) {
-        // TODO implement
+        boardStep();
+        start = null;
+    }
+
+    private void boardStep(){
+        new Timer().schedule( new TimerTask(){
+            public void run(){
+                if(board.step()){
+                    boardStep();
+                    boardDisplay.update();
+                    canMove = false;
+                } else canMove = true;
+            }}, Game.TILE_MOVE_DELAY);
+    }
+
+    public void mouseDragged(MouseEvent e) {
+        if(start != null && canMove && boardDisplay.isInBoard(e.getX(), e.getY())){
+            Tile end = boardDisplay.getTileAt(e.getX(), e.getY());
+            board.moveTile(start.getPosition(), end.getPosition());
+            boardDisplay.update();
+        }
     }
     
     public void mouseClicked(MouseEvent e) {
         // TODO implement
-   	 if(program.getElementAt(e.getX(), e.getY()) == returnpic){
-  		program.switchToScreen(new MainMenu(program));
-  	}
-  
+        if(program.getElementAt(e.getX(), e.getY()) == returnpic){
+            program.switchToScreen(new MainMenu(program));
+        }
+
     }
     
     public void mouseMoved() {
-        // TODO implement
-    }
-    
-    public void mouseDragged() {
         // TODO implement
     }
     
