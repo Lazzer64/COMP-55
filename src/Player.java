@@ -25,6 +25,11 @@ public class Player extends Unit{
         }
     }
 
+    public int getNumAbilities() {
+    	//TODO
+    	return 3;
+    }
+    
     public BufferedImage[] getAttackAnimation(Color color){
         if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
         else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;

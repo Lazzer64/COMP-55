@@ -109,6 +109,10 @@ public class Game extends GraphicsPane{
         if(isInBoard(e.getX(), e.getY()) && moveList.isEmpty() && canMove){ 
             start = getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
+        } else {
+        	if(combatDisplay.useAbility(e.getX(),e.getY())) {
+        		System.out.println("Ability used");
+        	}
         }
     }
     public void mouseDragged(MouseEvent e) {
