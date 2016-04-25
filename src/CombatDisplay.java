@@ -23,9 +23,14 @@ public class CombatDisplay extends Display{
     public static final int HP_BAR_WIDTH = 50;
     public static final int UNIT_X = 3*Main.WINDOW_WIDTH/8;
     public static final int UNIT_Y = 155;
+    public static final int ABILITY_Y = Main.WINDOW_HEIGHT/3 + 25;
+    public static final int ABILITY_X = 0;
+    public static final int ABILITY_X_OFFSET = 25;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
     public static final Font HP_FONT = new Font("Times New Roman",Font.BOLD,12);
 
+    private GLabel[] abilities;
+    
     Player player;
     Enemy enemy;
 
@@ -39,6 +44,7 @@ public class CombatDisplay extends Display{
         initBackground();
         initUnit(UNIT_X, UNIT_Y, player); 
         initUnit(UNIT_X+DISTANCE, UNIT_Y, enemy);
+        initAbilities();
     }
     
     /**
@@ -133,12 +139,30 @@ public class CombatDisplay extends Display{
     	addObject(background);
     }
     
+    public void initAbilities() {
+    	abilities = new GLabel[player.getNumAbilities()];
+    	for(int i = 0; i < abilities.length;i++) {
+    		abilities[i] = new GLabel("Ability " + (i+1),ABILITY_X+i*ABILITY_X_OFFSET,ABILITY_Y);
+    		abilities[i].setFont("Arial-18");
+    		abilities[i].move(0, abilities[i].getHeight());
+    		if(i > 0) abilities[i].move(abilities[i-1].getWidth()*i, 0);
+    		addObject(abilities[i]);
+    	}
+    }
+    
     public GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getName());
         l.setLocation(x-l.getWidth()/2,y);
         l.setColor(Color.ORANGE);
         addObject(l);
         return l;
+    }
+    
+    public boolean useAbility(int x, int y) {
+    	for(GLabel ability : abilities) {
+    		if(ability.contains(x,y)) return true;
+    	}
+    	return false;
     }
 
     public void updateAnimation(Unit unit){

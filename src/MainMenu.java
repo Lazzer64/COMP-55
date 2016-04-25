@@ -88,15 +88,7 @@ public class MainMenu extends GraphicsPane {
 
     public void mousePressed(MouseEvent e) {
         // TODO implement
-    }
-
-    public void mouseReleased(MouseEvent e) {
-        // TODO implement
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        // TODO implement
-        if(program.getElementAt(e.getX(), e.getY()) == playpic){
+    	if(program.getElementAt(e.getX(), e.getY()) == playpic){
             program.switchToScreen(game);
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
@@ -108,6 +100,15 @@ public class MainMenu extends GraphicsPane {
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
             System.exit(0);
         }
+    }
+
+    public void mouseReleased(MouseEvent e) {
+        // TODO implement
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        // TODO implement
+        
     }
 
     public void mouseMoved() {
