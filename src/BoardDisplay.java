@@ -55,6 +55,17 @@ public class BoardDisplay extends Display{
         updateToolTips();
     }
 
+    public boolean isInBoard(int x, int y){
+        return (x > getX() && x < getX()+TILE_SIZE*cols && y > getY() && y < getY()+TILE_SIZE*rows);
+    }
+
+    public Tile getTileAt(int x, int y){
+        if(!isInBoard(x,y)) return null;
+        int row = (int)((y-getY())/TILE_SIZE);
+        int col = (int)((x-getX())/TILE_SIZE);
+        return board.getTiles()[row][col];
+    }
+
     public void updateToolTips() {
     	Tile currTile = getCurrentTile(mouseX,mouseY);
     	

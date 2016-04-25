@@ -106,15 +106,15 @@ public class Game extends GraphicsPane{
     }
 
     public void mousePressed(MouseEvent e) {
-        if(isInBoard(e.getX(), e.getY()) && moveList.isEmpty() && canMove){ 
-            start = getTileAt(e.getX(),e.getY()).getPosition();
+        if(boardDisplay.isInBoard(e.getX(), e.getY()) && moveList.isEmpty() && canMove){ 
+            start = boardDisplay.getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
         }
     }
     public void mouseDragged(MouseEvent e) {
     	mouseMoved(e);
-        if(isInBoard(e.getX(), e.getY()) && start != null) {
-            end = getTileAt(e.getX(),e.getY()).getPosition(); 
+        if(boardDisplay.isInBoard(e.getX(), e.getY()) && start != null) {
+            end = boardDisplay.getTileAt(e.getX(),e.getY()).getPosition(); 
             int xAdj = Math.abs(end.getX() - moveList.peek().getX());
             int yAdj = Math.abs(end.getY() - moveList.peek().getY());
             boolean adjacent = xAdj <= 1 && yAdj <= 1 && xAdj != yAdj;
@@ -241,10 +241,6 @@ public class Game extends GraphicsPane{
 
     // Helpers 
 
-    private boolean isInBoard(int x, int y){
-        return (x > BOARD_X && x < BOARD_X+TILE_SIZE*NUM_COLS && y > BOARD_Y && y < BOARD_Y+TILE_SIZE*NUM_ROWS);
-    }
-
     private void matchEffect(Match m) {
 
         switch(m.getType()){
@@ -271,13 +267,6 @@ public class Game extends GraphicsPane{
         System.out.println(m.getType()+" size: "+m.size() + " multiplier: x" + currentMultiplier);
         boardDisplay.addMultiLabel(m,currentMultiplier);
         currentMultiplier += 0.5;
-    }
-
-    private Tile getTileAt(int x, int y){
-        if(!isInBoard(x,y)) return null;
-        int row = (int)((y-BOARD_Y)/TILE_SIZE);
-        int col = (int)((x-BOARD_X)/TILE_SIZE);
-        return board.getTiles()[row][col];
     }
 
 }
