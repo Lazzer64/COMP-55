@@ -8,12 +8,12 @@ public class TilePathDisplay extends Display{
     public static final Color PATH_COLOR = Color.BLACK;
     public static final Color EDGE_COLOR = Color.BLACK;
     public static final Font PATH_FONT = new Font("Consolas",Font.BOLD, 20);
-    public static final int TILE_SIZE = Game.TILE_SIZE;
     public static final Font SCORE_FONT = new Font("Consolas",Font.BOLD, 20);
-    public static final int PATH_SIZE = TILE_SIZE/4;
 
     Stack<RowCol> moveList;
 
+    int TILE_SIZE = Game.TILE_SIZE;
+    int PATH_SIZE = TILE_SIZE/4;
     int maxMoves;
     GRect[] arrow;
 
@@ -22,6 +22,12 @@ public class TilePathDisplay extends Display{
         this.moveList = moveList;
         arrow = new GRect[maxMoves+1];
         initMarkers();
+    }
+
+    public void resize(double x){
+        super.resize(x);
+        this.TILE_SIZE = (int) (TILE_SIZE * x);
+        this.PATH_SIZE = (int) (PATH_SIZE * x);
     }
 
     public void update() {
@@ -60,7 +66,6 @@ public class TilePathDisplay extends Display{
             		arrow[i].move(-(TILE_SIZE-PATH_SIZE),0);
             	}
             }
-            arrow[i].move(x_adj,y_adj);
             arrow[i].setVisible(true);
             i++;
             lastRowCol = x;

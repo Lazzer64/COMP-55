@@ -8,7 +8,6 @@ import acm.graphics.*;
 
 public class BoardDisplay extends Display{
 
-    public static final int TILE_SIZE = Game.TILE_SIZE;
     public static final Color EMPTY_TILE_COLOR = Color.LIGHT_GRAY;
     public static final Color LINE_COLOR = Color.WHITE;
     
@@ -26,6 +25,7 @@ public class BoardDisplay extends Display{
     public static final Image YELLOW_ICON = new GImage(ICON_DIR+"YELLOW_tile.png").getImage();
     public static final Image PINK_ICON = new GImage(ICON_DIR+"PINK_tile.png").getImage();
 
+
     ArrayList<GLabel> multiLabels = new ArrayList<GLabel>();
     GLabel currentToolTip = null;
     
@@ -35,6 +35,7 @@ public class BoardDisplay extends Display{
     int rows, cols;
     int mouseX, mouseY, lastMouseX,lastMouseY;
     int updatesSinceLastMove = 0;
+    int TILE_SIZE = Game.TILE_SIZE;
 
     BoardDisplay(Board board){
         super();
@@ -47,6 +48,11 @@ public class BoardDisplay extends Display{
         initBack();
         initTiles();
         initGrid();
+    }
+
+    public void resize(double x){
+        super.resize(x);
+        this.TILE_SIZE = (int) (TILE_SIZE * x);
     }
 
     public void update(){
@@ -67,7 +73,7 @@ public class BoardDisplay extends Display{
     }
 
     public void updateToolTips() {
-    	Tile currTile = getCurrentTile(mouseX,mouseY);
+    	Tile currTile = getTileAt(mouseX,mouseY);
     	
     	if (mouseX == lastMouseX && mouseY == lastMouseY && currTile != null) {
     		updatesSinceLastMove++;
@@ -90,19 +96,8 @@ public class BoardDisplay extends Display{
     	
     }
     
-    public Tile getCurrentTile(int x, int y) {
-    	if(outOfBounds(x,y)) return null;
-    	return board.getTiles()[y/TILE_SIZE][x/TILE_SIZE];
-    }
-    
-    public boolean outOfBounds(int x, int y) {
-    	if(x/TILE_SIZE < 0 || x/TILE_SIZE >cols-1) return true;
-    	if(y/TILE_SIZE < 0 || y/TILE_SIZE >rows-1) return true;
-    	return false;
-    }
-    
     public GImage getCurrentImage(int x, int y) {
-    	if(outOfBounds(x,y)) return null;
+    	if(!isInBoard(x,y)) return null;
     	return imgs[y/TILE_SIZE][x/TILE_SIZE];
     }
     

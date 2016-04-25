@@ -4,11 +4,12 @@ public abstract class Display extends GCompound {
 
     ArrayList<Updatable> updatables;
 
-    double x_adj = 0, y_adj = 0;
-    boolean moved = true;
-
-    Display(){
+    Display() {
         this.updatables = new ArrayList<Updatable>();
+    }
+
+    public void resize(double x) {
+        scale(x);
     }
 
     public void addObject(GObject x){
