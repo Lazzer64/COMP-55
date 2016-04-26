@@ -21,10 +21,10 @@ public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 private Game game;
 private Instructions instructions;
 private MainMenu mainmenu;
-	public Pause(Main app) {
+	public Pause(Main app, Game game) {
 		// TODO Auto-generated constructor stub
 		program = app;
-		game = new Game(app);
+		this.game = game;
 		instructions  = new Instructions(program);
 		mainmenu = new MainMenu(program);
 		
@@ -73,5 +73,18 @@ private MainMenu mainmenu;
 		program.remove(instructionspic);
 		program.remove(mainmenupic);
 	}
+    public void mousePressed(MouseEvent e) {
+        // TODO implement
+    	if(program.getElementAt(e.getX(), e.getY()) == backtogamepic){
+            program.switchToScreen(game);
+        }
+        	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
+        	program.switchToScreen(instructions);
+        	}
+        else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
+            program.switchToScreen(mainmenu);
+        }
+        
+    }
 
 }
