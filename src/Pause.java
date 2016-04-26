@@ -68,7 +68,10 @@ private MainMenu mainmenu;
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-
+		program.remove(pausepic);
+		program.remove(backtogamepic);
+		program.remove(instructionspic);
+		program.remove(mainmenupic);
 	}
 
 }
