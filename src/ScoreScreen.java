@@ -19,6 +19,7 @@ private GImage returnpic;
 private GLabel scoreLabel[] = new GLabel[11];
 private GLabel nameLabel[] = new GLabel[11];
 private GImage titleIMG;
+private GImage background;
 
 
 public static final int WIDTH = 200;
@@ -34,9 +35,8 @@ HighscoreList show = new HighscoreList();
 	
 	public ScoreScreen(Main app) {
 		program = app;
-		rect = new GRect(0, 0, Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT);
-		rect.setFilled(true);
-		rect.setColor(Color.PINK);
+		
+		
 
 		returnpic = new GImage("SpriteSheets/returnpic.png");
         returnpic.setSize(WIDTH, HEIGHT);
@@ -51,6 +51,12 @@ HighscoreList show = new HighscoreList();
 		
 	}
 	
+public void initBackground() {
+        
+        background = new GImage("SpriteSheets/background2.jpg");
+        background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
+        program.add(background);
+    }
 
 
 	public void update() {
@@ -59,7 +65,7 @@ HighscoreList show = new HighscoreList();
 	
      public void showContents() {
          // TODO implement
-    	 program.add(rect);
+    	 initBackground();
     	// program.add(titleLabel);
     	 program.add(returnpic);
     	 program.add(titleIMG);
@@ -70,8 +76,8 @@ HighscoreList show = new HighscoreList();
  		
  	
      public void hideContents() {
-    	 program.remove(rect);
-    	// program.remove(titleLabel);
+    	 program.remove(background);
+    	 program.remove(titleIMG);
     	 program.remove(returnpic);
     	 
     	 removeScoreLabels();
@@ -106,9 +112,11 @@ HighscoreList show = new HighscoreList();
   			displayScores = Integer.toString(highScoreList.get(i).getScore());
   			nameLabel[i] = new GLabel(displayName, Main.WINDOW_WIDTH/2-WIDTH/1.75, y);
  			nameLabel[i].setFont("Arial-20");
+ 			nameLabel[i].setColor(Color.WHITE);
  			
  			scoreLabel[i] = new GLabel(displayScores, Main.WINDOW_WIDTH/1-WIDTH/1.75, y);
  			scoreLabel[i].setFont("Arial-20");
+ 			scoreLabel[i].setColor(Color.WHITE);
  			
  			program.add(nameLabel[i]);
  			program.add(scoreLabel[i]);
@@ -153,6 +161,7 @@ HighscoreList show = new HighscoreList();
      public void mouseClicked(MouseEvent e) {
     	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
      		program.switchToScreen(new MainMenu(program));
+     		Sound.clicking.play();
      	}
      }
     

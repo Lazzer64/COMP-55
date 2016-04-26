@@ -3,7 +3,9 @@ import java.awt.event.MouseEvent;
 import acm.graphics.*;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent; 
+import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
+
 
 public class MainMenu extends GraphicsPane {
     private Main program;
@@ -24,11 +26,15 @@ public class MainMenu extends GraphicsPane {
     private ScoreScreen scores;
     private Instructions instructions;
 
+
     public  MainMenu(Main app) {
         program = app;
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
+        
+    	
+    	Sound.menuMusic.loop();
 
         /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
@@ -89,25 +95,36 @@ public class MainMenu extends GraphicsPane {
     public void mousePressed(MouseEvent e) {
         // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == playpic){
+    		Sound.clicking.play();
+        	Sound.menuMusic.stop();
             program.switchToScreen(game);
+        	Sound.fighting.loop();
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
+        	  	Sound.clicking.play();
         	program.switchToScreen(instructions);
+      
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
+            Sound.clicking.play();
             program.switchToScreen(scores);
+        
         }
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
+        	Sound.clicking.play();
             System.exit(0);
         }
     }
 
     public void mouseReleased(MouseEvent e) {
         // TODO implement
+    
+    	
     }
 
     public void mouseClicked(MouseEvent e) {
         // TODO implement
+    	 Toolkit.getDefaultToolkit().beep();
         
     }
 

@@ -107,6 +107,7 @@ public class Instructions extends GraphicsPane {
         // TODO implement
         if(program.getElementAt(e.getX(), e.getY()) == returnpic){
             program.switchToScreen(new MainMenu(program));
+            Sound.clicking.play();
         }
 
     }

@@ -1,60 +1,15 @@
-import javax.sound.sampled.*;
-
-
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
 
 public class Sound {
-	private Clip soundClip;
+	static URL url = MainMenu.class.getResource("Sounds/mainMenu.mid");
+	static AudioClip menuMusic = Applet.newAudioClip(url);
 	
-	public static Sound music1 = new Sound("sound/music1.mp3");
+	static URL click = MainMenu.class.getResource("Sounds/click.wav");
+	static AudioClip clicking = Applet.newAudioClip(click);
 	
-	
-	/** Default constructor to load the specific music/sound file
-	 * @param file
-	 */
-	public Sound (String file){
-		try{
-			   AudioInputStream input = AudioSystem.getAudioInputStream(Sound.class.getResource(file));
-			   soundClip = AudioSystem.getClip();
-			   soundClip.open(input);
-		}
-		catch(Exception e)
-		{
-			e.printStackTrace();
-		}
-			
-	}
-	
-	/**Play the sound files found in Sounds folder
-	 * 
-	 */
-	public void start()
-	{
-		
-		try 
-		{
-			if (soundClip != null){
-				new Thread()
-				{
-					public void run()
-					{
-						synchronized(soundClip)
-						{
-							soundClip.stop();
-							soundClip.setFramePosition(0);
-							soundClip.start();
-						}
-					}
-					}
-					.start();
-				}
-			}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}		
-		
-	}
-	
-	
+	static URL fight = MainMenu.class.getResource("Sounds/fighting.mid");
+	static AudioClip fighting = Applet.newAudioClip(fight);
 	
 }

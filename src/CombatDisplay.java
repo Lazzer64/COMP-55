@@ -137,7 +137,7 @@ public class CombatDisplay extends Display{
     	background.setLocation(0,25);
     	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
     	addObject(background);
-    }
+     }
     
     private void initAbilities() {
     	abilities = new GLabel[player.getNumAbilities()];
