@@ -1,9 +1,5 @@
 import java.awt.event.MouseEvent;
-
 import acm.graphics.*;
-
-import java.awt.Color;
-import java.awt.event.KeyEvent;
 
 public class Pause extends GraphicsPane {
 private Main program;
@@ -21,13 +17,10 @@ public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
 private Game game;
 private Instructions instructions;
-private MainMenu mainmenu;
 	public Pause(Main app, Game game) {
-		// TODO Auto-generated constructor stub
 		program = app;
 		this.game = game;
 		instructions  = new Instructions(program);
-		mainmenu = new MainMenu(program);
 		
 		titleIMG = new GImage("SpriteSheets/button (1).png");
         titleIMG.setSize(400, 75);
@@ -60,9 +53,7 @@ private MainMenu mainmenu;
 
 	@Override
 	public void showContents() {
-		// TODO Auto-generated method stub
 		initBackground();
-		//program.add(pausepic);
 		program.add(backtogamepic);
 		program.add(instructionspic);
 		program.add(mainmenupic);
@@ -72,8 +63,6 @@ private MainMenu mainmenu;
 
 	@Override
 	public void hideContents() {
-		// TODO Auto-generated method stub
-		//program.remove(pausepic);
 		program.remove(backtogamepic);
 		program.remove(instructionspic);
 		program.remove(mainmenupic);
@@ -81,7 +70,6 @@ private MainMenu mainmenu;
 		program.remove(background);
 	}
     public void mousePressed(MouseEvent e) {
-        // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == backtogamepic){
     		Sound.clicking.play();
             program.switchToScreen(game);
@@ -94,7 +82,7 @@ private MainMenu mainmenu;
         else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
         	Sound.clicking.play();
         	Sound.fighting.stop();
-            program.switchToScreen(mainmenu);
+            program.switchToScreen(new MainMenu(program));
             Sound.menuMusic.play();
         }
         
