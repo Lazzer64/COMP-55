@@ -4,16 +4,8 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent; 
 import acm.graphics.*; 
 import java.awt.Color;
-
-public class Instructions extends GraphicsPane {
-
+public class InstructionsPause extends GraphicsPane {
     private Main program;
-
-    public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
-    public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
-    public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/Pumping Power.png");
-    public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/instructionsBack.png");
-
 
    // private GLabel instructions;
     private GImage background;
@@ -27,14 +19,14 @@ public class Instructions extends GraphicsPane {
     public static final int HEIGHT = 50;
     public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
     public static final int OFFSET = 75;
-
+    
+    private Pause pause;
     Tile start;
     boolean canMove = true;
     
-    
-    public Instructions(Main app){
-    	program = app;
-
+	public InstructionsPause(Main app, Pause pause) {
+	  	program = app;
+	  	this.pause = pause;
         GLabel tryMe = new GLabel("Try Me!");
         tryMe.setColor(Color.WHITE);
         boardDisplay.add(tryMe);
@@ -42,42 +34,46 @@ public class Instructions extends GraphicsPane {
         boardDisplay.resize(.3);
         boardDisplay.update();
 
-		returnpic = RETURN_IMAGE;
+		returnpic = new GImage("SpriteSheets/returnpic.png");
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6.9);
         
-        titleIMG = TITLE_IMAGE;
+        titleIMG = new GImage("SpriteSheets/button (1).png");
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
         
-        instructions = INSTRUCTION_IMAGE;
+        instructions = new GImage("SpriteSheets/Pumping Power.png");
         instructions.setSize(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-80);
         instructions.setLocation(Main.WINDOW_WIDTH/2-WIDTH,0);
-    }
+	}
     public void initBackground() {
         
-        background = BACKGROUND_IMAGE;
+        background = new GImage("SpriteSheets/instructionsBack.png");
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
     }
-    public void showContents() {
-    	initBackground();
+	@Override
+	public void showContents() {
+		initBackground();
+//    	program.add(instructions);
     	program.add(returnpic);
+    	//program.add(titleIMG);
     	program.add(instructions);
         program.add(boardDisplay);
 
-    }
-    
-    public void hideContents() {
-    	program.remove(instructions);
+	}
+
+	@Override
+	public void hideContents() {
+		program.remove(instructions);
     	program.remove(returnpic);
     	program.remove(background);
     	program.remove(titleIMG);
     	program.remove(boardDisplay);
 
-    }
 
-    public void mousePressed(MouseEvent e) {
+	}
+	public void mousePressed(MouseEvent e) {
         start = boardDisplay.getTileAt(e.getX(), e.getY());
     }
 
@@ -106,8 +102,9 @@ public class Instructions extends GraphicsPane {
     }
     
     public void mouseClicked(MouseEvent e) {
+        // TODO implement
         if(program.getElementAt(e.getX(), e.getY()) == returnpic){
-            program.switchToScreen(new MainMenu(program));
+            program.switchToScreen(pause);
             Sound.clicking.play();
         }
 

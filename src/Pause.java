@@ -11,43 +11,55 @@ private GImage instructionspic;
 private GImage mainmenupic;
 private GImage titleIMG;
 
+public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+public static final GImage BACK_IMAGE = new GImage("SpriteSheets/backtogamepic.png");
+public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/instructionspic.png");
+public static final GImage MENU_IMAGE = new GImage("SpriteSheets/mainmenupic.png");
+public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background2.jpg");
+
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
 public static final int OFFSET = 75;
 public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
 private Game game;
-private Instructions instructions;
+
+private InstructionsPause instructionspause;
+private MainMenu mainmenu;
+
 	public Pause(Main app, Game game) {
 		program = app;
 		this.game = game;
-		instructions  = new Instructions(program);
+
+		instructionspause  = new InstructionsPause(program, this);
+		mainmenu = new MainMenu(program);
+
 		
-		titleIMG = new GImage("SpriteSheets/button (1).png");
+		titleIMG = TITLE_IMAGE;
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,20);
 		//pausepic = new GImage("SpriteSheets/pausepic.png");
 		//pausepic.setLocation(25,50);
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
-        backtogamepic = new GImage("SpriteSheets/backtogamepic.png");
+        backtogamepic = BACK_IMAGE;
         backtogamepic.setSize(WIDTH, HEIGHT);
         backtogamepic.setLocation(xPos, y);
         y += OFFSET;
 
 
-        instructionspic = new GImage("SpriteSheets/instructionspic.png");
+        instructionspic = INSTRUCTION_IMAGE;
         instructionspic.setSize(WIDTH, HEIGHT);
         instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
-        mainmenupic = new GImage("SpriteSheets/mainmenupic.png");
+        mainmenupic = MENU_IMAGE;
         mainmenupic.setSize(WIDTH, HEIGHT);
         mainmenupic.setLocation(xPos, y);
 		
 	}
 	  public void initBackground() {
 	        //initialize the main menu background and set size
-	        background = new GImage("SpriteSheets/background2.jpg");
+	        background = BACKGROUND_IMAGE;
 	        background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
 	        program.add(background);
 	    }
@@ -77,7 +89,7 @@ private Instructions instructions;
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	Sound.clicking.play();
-        	program.switchToScreen(instructions);
+        	program.switchToScreen(instructionspause);
         	
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
