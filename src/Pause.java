@@ -35,7 +35,7 @@ private MainMenu mainmenu;
 		//pausepic = new GImage("SpriteSheets/pausepic.png");
 		//pausepic.setLocation(25,50);
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
-        backtogamepic = new GImage("SpriteSheets/playpic.png");
+        backtogamepic = new GImage("SpriteSheets/backtogamepic.png");
         backtogamepic.setSize(WIDTH, HEIGHT);
         backtogamepic.setLocation(xPos, y);
         y += OFFSET;
@@ -46,7 +46,7 @@ private MainMenu mainmenu;
         instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
-        mainmenupic = new GImage("SpriteSheets/quitpic.png");
+        mainmenupic = new GImage("SpriteSheets/mainmenupic.png");
         mainmenupic.setSize(WIDTH, HEIGHT);
         mainmenupic.setLocation(xPos, y);
 		
