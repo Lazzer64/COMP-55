@@ -5,9 +5,7 @@ import acm.graphics.*;
 import java.awt.Color;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
-import java.applet.Applet;
-import java.applet.AudioClip;
-import java.net.URL;
+
 
 public class MainMenu extends GraphicsPane {
     private Main program;
@@ -28,12 +26,7 @@ public class MainMenu extends GraphicsPane {
     private ScoreScreen scores;
     private Instructions instructions;
 
-    URL url = MainMenu.class.getResource("Sounds/mainMenu.mid");
-	AudioClip menuMusic = Applet.newAudioClip(url);
-	
-	URL click = MainMenu.class.getResource("Sounds/click.wav");
-	AudioClip clicking = Applet.newAudioClip(click);
-	
+
     public  MainMenu(Main app) {
         program = app;
         game = new Game(app);
@@ -41,7 +34,7 @@ public class MainMenu extends GraphicsPane {
         instructions = new Instructions(program);
         
     	
-    	menuMusic.loop();
+    	Sound.menuMusic.loop();
 
         /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
@@ -103,19 +96,19 @@ public class MainMenu extends GraphicsPane {
         // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == playpic){
             program.switchToScreen(game);
-        	clicking.play();
+        	Sound.clicking.play();
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	program.switchToScreen(instructions);
         	
-        	clicking.play();
+        	Sound.clicking.play();
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
             program.switchToScreen(scores);
-            clicking.play();
+            Sound.clicking.play();
         }
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
-        	clicking.play();
+        	Sound.clicking.play();
             System.exit(0);
         }
     }

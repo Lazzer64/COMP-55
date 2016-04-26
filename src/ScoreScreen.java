@@ -153,6 +153,7 @@ HighscoreList show = new HighscoreList();
      public void mouseClicked(MouseEvent e) {
     	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
      		program.switchToScreen(new MainMenu(program));
+     		Sound.clicking.play();
      	}
      }
     
