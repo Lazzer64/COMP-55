@@ -23,6 +23,28 @@ private Instructions instructions;
 private MainMenu mainmenu;
 	public Pause(Main app) {
 		// TODO Auto-generated constructor stub
+		program = app;
+		game = new Game(app);
+		instructions  = new Instructions(program);
+		mainmenu = new MainMenu(program);
+		
+		//pausepic = new GImage("SpriteSheets/pausepic.png");
+		//pausepic.setLocation(25,50);
+		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
+        backtogamepic = new GImage("SpriteSheets/backtogamepic.png");
+        backtogamepic.setSize(WIDTH, HEIGHT);
+        backtogamepic.setLocation(xPos, y);
+        y += OFFSET;
+
+
+        instructionspic = new GImage("SpriteSheets/instructionspic.png");
+        instructionspic.setSize(WIDTH, HEIGHT);
+        instructionspic.setLocation(xPos, y);
+        y += OFFSET;
+
+        mainmenupic = new GImage("SpriteSheets/mainmenupic.png");
+        mainmenupic.setSize(WIDTH, HEIGHT);
+        mainmenupic.setLocation(xPos, y);
 		
 	}
 
