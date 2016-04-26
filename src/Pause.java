@@ -31,7 +31,7 @@ private MainMenu mainmenu;
 		
 		titleIMG = new GImage("SpriteSheets/button (1).png");
         titleIMG.setSize(400, 75);
-        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,20);
 		//pausepic = new GImage("SpriteSheets/pausepic.png");
 		//pausepic.setLocation(25,50);
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
@@ -62,7 +62,7 @@ private MainMenu mainmenu;
 	public void showContents() {
 		// TODO Auto-generated method stub
 		initBackground();
-		program.add(pausepic);
+		//program.add(pausepic);
 		program.add(backtogamepic);
 		program.add(instructionspic);
 		program.add(mainmenupic);
@@ -73,11 +73,12 @@ private MainMenu mainmenu;
 	@Override
 	public void hideContents() {
 		// TODO Auto-generated method stub
-		program.remove(pausepic);
+		//program.remove(pausepic);
 		program.remove(backtogamepic);
 		program.remove(instructionspic);
 		program.remove(mainmenupic);
 		program.remove(titleIMG);
+		program.remove(background);
 	}
     public void mousePressed(MouseEvent e) {
         // TODO implement
