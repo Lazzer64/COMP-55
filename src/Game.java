@@ -110,8 +110,10 @@ public class Game extends GraphicsPane{
             start = boardDisplay.getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
         } else {
-        	if(combatDisplay.useAbility(e.getX(),e.getY())) {
-        		System.out.println("Ability used");
+        	String abilityUse = combatDisplay.useAbility(e.getX(),e.getY());
+        	if(abilityUse != null) {
+        		System.out.println(abilityUse);
+        		boardStep();
         	}
         }
     }
