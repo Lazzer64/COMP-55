@@ -77,7 +77,7 @@ public void initBackground() {
  	
      public void hideContents() {
     	 program.remove(background);
-    	// program.remove(titleLabel);
+    	 program.remove(titleIMG);
     	 program.remove(returnpic);
     	 
     	 removeScoreLabels();

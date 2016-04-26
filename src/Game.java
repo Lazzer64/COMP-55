@@ -151,11 +151,12 @@ public class Game extends GraphicsPane{
         public void keyReleased(KeyEvent ke) 
         {
      
-    
             if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
             {
                 //code to execute if escape is pressed
             	program.switchToScreen(new Pause(program, this));
+            	Sound.menuMusic.stop();
+            	
             }
         }
     private void boardStep() {
