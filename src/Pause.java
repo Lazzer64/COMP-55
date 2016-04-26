@@ -1,4 +1,5 @@
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 import acm.graphics.*;
 
 public class Pause extends GraphicsPane {
@@ -86,6 +87,17 @@ private Instructions instructions;
             Sound.menuMusic.play();
         }
         
+    }
+    @Override
+    public void keyReleased(KeyEvent ke) 
+    {
+ 
+
+        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            //code to execute if escape is pressed
+        	program.switchToScreen(game);
+        }
     }
 
 }
