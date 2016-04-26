@@ -72,7 +72,7 @@ public class BoardDisplay extends Display{
         return board.getTiles()[row][col];
     }
 
-    public void updateToolTips() {
+    private void updateToolTips() {
     	Tile currTile = getTileAt(mouseX,mouseY);
     	
     	if (mouseX == lastMouseX && mouseY == lastMouseY && currTile != null) {
@@ -96,25 +96,25 @@ public class BoardDisplay extends Display{
     	
     }
     
-    public GImage getCurrentImage(int x, int y) {
+    private GImage getCurrentImage(int x, int y) {
     	if(!isInBoard(x,y)) return null;
     	return imgs[y/TILE_SIZE][x/TILE_SIZE];
     }
     
-    public void setCurrentMousePosition(int x, int y) {
+    private void setCurrentMousePosition(int x, int y) {
     	setMouseX(x);
     	setMouseY(y);
     }
     
-    public void setMouseX(int x) {
+    private void setMouseX(int x) {
     	mouseX = x;
     }
     
-    public void setMouseY(int y) {
+    private void setMouseY(int y) {
     	mouseY = y;
     }
     
-    public void updateMultipliers() {
+    private void updateMultipliers() {
     	for(GLabel l : multiLabels) {
     		if(l.getColor().equals(Color.BLACK) || l.getColor().equals(THIRD)) {
     			l.setColor(FIRST);
@@ -146,7 +146,7 @@ public class BoardDisplay extends Display{
     	return l;
     }
     
-    public void updateTiles() {
+    private void updateTiles() {
         for (int y = 0; y < rows; y++) {
             for (int x = 0; x < cols; x++) {
 
@@ -169,16 +169,6 @@ public class BoardDisplay extends Display{
                 image.setSize(TILE_SIZE, TILE_SIZE);
             }
         }
-    }
-
-    public void displayBoard(){
-        int rows = board.getTiles().length;
-        int cols = board.getTiles()[0].length;
-        init(board, rows, cols);
-    }
-
-    private void init(Board board, int rows, int cols){
-        initTiles();
     }
 
     private void initBack(){

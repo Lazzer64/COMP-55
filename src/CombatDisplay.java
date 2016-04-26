@@ -132,14 +132,14 @@ public class CombatDisplay extends Display{
         super.update();
     }
 
-    public void initBackground() {
+    private void initBackground() {
     	GImage background = new GImage("SpriteSheets/background.gif");
     	background.setLocation(0,25);
     	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
     	addObject(background);
      }
     
-    public void initAbilities() {
+    private void initAbilities() {
     	abilities = new GLabel[player.getNumAbilities()];
     	for(int i = 0; i < abilities.length;i++) {
     		abilities[i] = new GLabel("Ability " + (i+1),ABILITY_X+i*ABILITY_X_OFFSET,ABILITY_Y);
@@ -150,7 +150,7 @@ public class CombatDisplay extends Display{
     	}
     }
     
-    public GLabel initName(double x, double y, Unit unit){
+    private GLabel initName(double x, double y, Unit unit){
         GLabel l = new GLabel(unit.getName());
         l.setLocation(x-l.getWidth()/2,y);
         l.setColor(Color.ORANGE);
@@ -165,7 +165,7 @@ public class CombatDisplay extends Display{
     	return false;
     }
 
-    public void updateAnimation(Unit unit){
+    private void updateAnimation(Unit unit){
         Animation anim = unitInfo.get(unit).animation;
         anim.update();
         if(!anim.equals(unit.getAnimation())) {
@@ -174,7 +174,7 @@ public class CombatDisplay extends Display{
 
     }
 
-    public void updateHp(Unit unit){
+    private void updateHp(Unit unit){
         GRect bar = unitInfo.get(unit).hpBar;
         int unitHp = unit.getHp();
         int unitMaxHp = unit.getMaxHp();
@@ -182,7 +182,7 @@ public class CombatDisplay extends Display{
         bar.setSize(HP_BAR_WIDTH*percentHp,HP_BAR_HEIGHT);
     }
 
-    public GRect initHp(double x, double y, Unit unit){
+    private GRect initHp(double x, double y, Unit unit){
 
         x -= HP_BAR_WIDTH/2;
 
@@ -206,7 +206,7 @@ public class CombatDisplay extends Display{
         return hp;
     }
     
-    public void updateEnergy(Player unit){
+    private void updateEnergy(Player unit){
         GRect bar = unitInfo.get(unit).energyBar;
         int unitEnergy = unit.getEnergy();
         int unitMaxEnergy = unit.getMaxEnergy();
@@ -214,7 +214,7 @@ public class CombatDisplay extends Display{
         bar.setSize(HP_BAR_WIDTH*percentEnergy,HP_BAR_HEIGHT);
     }
     
-    public GRect initEnergy(double x, double y, Player unit){
+    private GRect initEnergy(double x, double y, Player unit){
 
         x -= HP_BAR_WIDTH/2;
 
@@ -238,7 +238,7 @@ public class CombatDisplay extends Display{
         return energy;
     }
 
-    public Animation initAnimation(double x, double y, Unit unit){
+    private Animation initAnimation(double x, double y, Unit unit){
         Animation anim = new Animation(unit.getAnimation(),20);
         anim.setLocation(x-anim.getWidth()/2,y-anim.getHeight()/2);
         addUpdatable(anim);
@@ -246,7 +246,7 @@ public class CombatDisplay extends Display{
         return anim;
     }
 
-    public void initUnit(double x, double y, Unit unit) {
+    private void initUnit(double x, double y, Unit unit) {
 
         UnitInfo info = new UnitInfo();
         unitInfo.put(unit, info);
