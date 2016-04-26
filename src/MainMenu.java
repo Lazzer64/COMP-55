@@ -32,9 +32,7 @@ public class MainMenu extends GraphicsPane {
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
-        
-    	
-    	Sound.menuMusic.loop();
+        Sound.menuMusic.loop();
 
         /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);

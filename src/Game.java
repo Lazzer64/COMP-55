@@ -260,10 +260,12 @@ public class Game extends GraphicsPane{
 
         switch(m.getType()){
             case PINK: // Heal
+            	Sound.healing.play();
                 player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 break;
             case YELLOW:
+            	Sound.lightAttack.play();
             	player.increaseEnergy((int)(m.size()*currentMultiplier));
             	break;
             default: // Generic damage
