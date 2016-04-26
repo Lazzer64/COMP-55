@@ -260,15 +260,30 @@ public class Game extends GraphicsPane{
 
         switch(m.getType()){
             case PINK: // Heal
+            	Sound.healing.play();
                 player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 break;
             case YELLOW:
+            	Sound.lightAttack.play();
             	player.increaseEnergy((int)(m.size()*currentMultiplier));
             	break;
-            default: // Generic damage
-                player.setCurrentAnimation(AnimationState.ATTACK);
+            	
+            	// Generic damage
+            case BLUE:
+            	Sound.waterAttack.play();
+            	player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            case RED:
+            	Sound.fireAttack.play();
+            	player.setCurrentAnimation(AnimationState.ATTACK);
+                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            case GREEN:
+             	player.setCurrentAnimation(AnimationState.ATTACK);
+                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+                 
+               
+                
 
                 new Timer().schedule(new TimerTask(){
                     public void run(){
