@@ -12,6 +12,7 @@ private GImage background;
 private GImage backtogamepic;
 private GImage instructionspic;
 private GImage mainmenupic;
+private GImage titleIMG;
 
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
@@ -28,10 +29,13 @@ private MainMenu mainmenu;
 		instructions  = new Instructions(program);
 		mainmenu = new MainMenu(program);
 		
+		titleIMG = new GImage("SpriteSheets/button (1).png");
+        titleIMG.setSize(400, 75);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
 		//pausepic = new GImage("SpriteSheets/pausepic.png");
 		//pausepic.setLocation(25,50);
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
-        backtogamepic = new GImage("SpriteSheets/backtogamepic.png");
+        backtogamepic = new GImage("SpriteSheets/playpic.png");
         backtogamepic.setSize(WIDTH, HEIGHT);
         backtogamepic.setLocation(xPos, y);
         y += OFFSET;
@@ -42,7 +46,7 @@ private MainMenu mainmenu;
         instructionspic.setLocation(xPos, y);
         y += OFFSET;
 
-        mainmenupic = new GImage("SpriteSheets/mainmenupic.png");
+        mainmenupic = new GImage("SpriteSheets/quitpic.png");
         mainmenupic.setSize(WIDTH, HEIGHT);
         mainmenupic.setLocation(xPos, y);
 		
@@ -62,6 +66,7 @@ private MainMenu mainmenu;
 		program.add(backtogamepic);
 		program.add(instructionspic);
 		program.add(mainmenupic);
+		program.add(titleIMG);
 
 	}
 
@@ -72,6 +77,7 @@ private MainMenu mainmenu;
 		program.remove(backtogamepic);
 		program.remove(instructionspic);
 		program.remove(mainmenupic);
+		program.remove(titleIMG);
 	}
     public void mousePressed(MouseEvent e) {
         // TODO implement
