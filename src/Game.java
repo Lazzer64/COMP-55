@@ -90,7 +90,6 @@ public class Game extends GraphicsPane{
         this.moveListDisplay.setLocation(BOARD_X, BOARD_Y);
 
         animator.start();
-        animator.setSpeed(GAME_SPEED);
     }
 
     private Enemy generateEnemy(int level) {
@@ -187,7 +186,7 @@ public class Game extends GraphicsPane{
         ,TILE_MOVE_DELAY);
     }
 
-    public void endGame(){
+    private void endGame(){
         game_over = true;
         player.setCurrentAnimation(AnimationState.DEATH);
         combatDisplay.update();
@@ -212,16 +211,15 @@ public class Game extends GraphicsPane{
         program.remove(moveListDisplay);
     }
 
-    public boolean checkWinFight() {
+    private boolean checkWinFight() {
         return enemy.getHp() <= 0;
     }
 
-    public boolean checkLoseGame() {
+    private boolean checkLoseGame() {
         return player.getHp() <= 0;
     }
 
-    public void nextFight() {
-        // TODO change to actual generation
+    private void nextFight() {
     	score.setScore(score.getScore() + level*10);
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
@@ -231,13 +229,13 @@ public class Game extends GraphicsPane{
         combatDisplay.updateEnemy(enemy);
     }
 
-    public void playerScore(String name, int Score) {
+    private void playerScore(String name, int Score) {
         //Creates a new high score object, then adds it
         HighscoreList hm = new HighscoreList();
         hm.addScore(name, Score);
     }
 
-    public void saveScore(String userName, int score){
+    private void saveScore(String userName, int score){
         HighscoreList hm = new HighscoreList();
         hm.addScore(userName, score);
         System.out.println(hm.printScores());
