@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent; 
 import acm.graphics.*; 
 import java.awt.Color;
-import java.awt.event.KeyEvent;
+
 public class Instructions extends GraphicsPane {
 
     private Main program;
