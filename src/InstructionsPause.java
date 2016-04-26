@@ -20,12 +20,13 @@ public class InstructionsPause extends GraphicsPane {
     public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
     public static final int OFFSET = 75;
     
+    private Pause pause;
     Tile start;
     boolean canMove = true;
     
-	public InstructionsPause(Main app) {
+	public InstructionsPause(Main app, Pause pause) {
 	  	program = app;
-
+	  	this.pause = pause;
         GLabel tryMe = new GLabel("Try Me!");
         tryMe.setColor(Color.WHITE);
         boardDisplay.add(tryMe);
@@ -103,7 +104,7 @@ public class InstructionsPause extends GraphicsPane {
     public void mouseClicked(MouseEvent e) {
         // TODO implement
         if(program.getElementAt(e.getX(), e.getY()) == returnpic){
-            program.switchToScreen(new MainMenu(program));
+            program.switchToScreen(pause);
             Sound.clicking.play();
         }
 

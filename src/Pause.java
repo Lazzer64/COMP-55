@@ -27,7 +27,7 @@ private MainMenu mainmenu;
 		// TODO Auto-generated constructor stub
 		program = app;
 		this.game = game;
-		instructionspause  = new InstructionsPause(program);
+		instructionspause  = new InstructionsPause(program, this);
 		mainmenu = new MainMenu(program);
 		
 		titleIMG = new GImage("SpriteSheets/button (1).png");
