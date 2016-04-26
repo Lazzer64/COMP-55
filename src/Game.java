@@ -144,7 +144,7 @@ public class Game extends GraphicsPane{
     }
 
     public void mouseMoved(MouseEvent e) {
-    	boardDisplay.setCurrentMousePosition(e.getX(), e.getY()-BOARD_Y);
+    	// boardDisplay.setCurrentMousePosition(e.getX(), e.getY()-BOARD_Y);
     }
     
     private void boardStep() {

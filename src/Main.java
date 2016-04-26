@@ -13,6 +13,7 @@ public class Main extends GraphicsApplication{
             GLabel label = new GLabel("Loading...",WINDOW_WIDTH/2,WINDOW_HEIGHT/2);
             public void showContents(){add(label);}
             public void hideContents(){remove(label);}
+
         });
 
         GraphicsPane p = new MainMenu(this);
