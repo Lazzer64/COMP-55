@@ -1,7 +1,6 @@
 //Alex and Tom's Territory
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.event.KeyEvent;
 import java.util.*;
 import acm.io.IODialog;
 import acm.util.Animator;
@@ -147,17 +146,7 @@ public class Game extends GraphicsPane{
     public void mouseMoved(MouseEvent e) {
     	boardDisplay.setCurrentMousePosition(e.getX(), e.getY()-BOARD_Y);
     }
-    @Override
-    public void keyReleased(KeyEvent ke) 
-    {
- 
-
-        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
-        {
-            //code to execute if escape is pressed
-        	program.switchToScreen(new Pause(program, this));
-        }
-    }
+    
     private void boardStep() {
         new Timer().schedule(
                 new TimerTask(){
@@ -186,7 +175,8 @@ public class Game extends GraphicsPane{
                                         enemy.setCurrentAnimation(AnimationState.IDLE);
                                         combatDisplay.addEffect(enemy,player, Color.WHITE);
 
-                                        if(checkLoseGame() && !game_over) endGame();
+                                        if(checkLoseGame() && !game_over) 
+                                        	endGame();
                                     }}, combatDisplay.getTimeToDisplayProjectile(-3));
 
                             } else nextFight();

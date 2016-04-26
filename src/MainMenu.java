@@ -95,17 +95,20 @@ public class MainMenu extends GraphicsPane {
     public void mousePressed(MouseEvent e) {
         // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == playpic){
+    		Sound.clicking.play();
+        	Sound.menuMusic.stop();
             program.switchToScreen(game);
-        	Sound.clicking.play();
+        	Sound.fighting.loop();
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
+        	  	Sound.clicking.play();
         	program.switchToScreen(instructions);
-        	
-        	Sound.clicking.play();
+      
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == highscorespic){
-            program.switchToScreen(scores);
             Sound.clicking.play();
+            program.switchToScreen(scores);
+        
         }
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
         	Sound.clicking.play();

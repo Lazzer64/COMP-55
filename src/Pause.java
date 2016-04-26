@@ -83,13 +83,19 @@ private MainMenu mainmenu;
     public void mousePressed(MouseEvent e) {
         // TODO implement
     	if(program.getElementAt(e.getX(), e.getY()) == backtogamepic){
+    		Sound.clicking.play();
             program.switchToScreen(game);
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
+        	Sound.clicking.play();
         	program.switchToScreen(instructions);
+        	
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
+        	Sound.clicking.play();
+        	Sound.fighting.stop();
             program.switchToScreen(mainmenu);
+            Sound.menuMusic.play();
         }
         
     }

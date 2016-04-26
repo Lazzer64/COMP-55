@@ -9,4 +9,7 @@ public class Sound {
 	static URL click = MainMenu.class.getResource("Sounds/click.wav");
 	static AudioClip clicking = Applet.newAudioClip(click);
 	
+	static URL fight = MainMenu.class.getResource("Sounds/fighting.mid");
+	static AudioClip fighting = Applet.newAudioClip(fight);
+	
 }
