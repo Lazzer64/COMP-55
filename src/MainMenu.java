@@ -3,7 +3,10 @@ import java.awt.event.MouseEvent;
 import acm.graphics.*;
 
 import java.awt.Color;
-import java.awt.event.KeyEvent; 
+import java.awt.event.KeyEvent;
+import java.applet.Applet;
+import java.applet.AudioClip;
+import java.net.URL;
 
 public class MainMenu extends GraphicsPane {
     private Main program;
@@ -23,12 +26,17 @@ public class MainMenu extends GraphicsPane {
     private Game game;
     private ScoreScreen scores;
     private Instructions instructions;
-
+    
+   
     public  MainMenu(Main app) {
         program = app;
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
+        
+    	URL url = MainMenu.class.getResource("Sounds/menuMusic.mid");
+    	AudioClip menuMusic = Applet.newAudioClip(url);
+    	menuMusic.loop();
 
         /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
@@ -104,6 +112,8 @@ public class MainMenu extends GraphicsPane {
 
     public void mouseReleased(MouseEvent e) {
         // TODO implement
+    
+    	
     }
 
     public void mouseClicked(MouseEvent e) {
