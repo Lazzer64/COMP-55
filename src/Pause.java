@@ -1,4 +1,5 @@
 import java.awt.event.MouseEvent;
+import java.awt.event.KeyEvent;
 
 import acm.graphics.*;
 
@@ -98,6 +99,17 @@ private MainMenu mainmenu;
             Sound.menuMusic.play();
         }
         
+    }
+    @Override
+    public void keyReleased(KeyEvent ke) 
+    {
+ 
+
+        if(ke.getKeyCode() == KeyEvent.VK_ESCAPE)
+        {
+            //code to execute if escape is pressed
+        	program.switchToScreen(game);
+        }
     }
 
 }
