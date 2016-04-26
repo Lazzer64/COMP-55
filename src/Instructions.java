@@ -9,6 +9,12 @@ public class Instructions extends GraphicsPane {
 
     private Main program;
 
+    public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
+    public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+    public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/Pumping Power.png");
+    public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/instructionsBack.png");
+
+
    // private GLabel instructions;
     private GImage background;
     private GImage returnpic;
@@ -36,37 +42,33 @@ public class Instructions extends GraphicsPane {
         boardDisplay.resize(.3);
         boardDisplay.update();
 
-		returnpic = new GImage("SpriteSheets/returnpic.png");
+		returnpic = RETURN_IMAGE;
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6.9);
         
-        titleIMG = new GImage("SpriteSheets/button (1).png");
+        titleIMG = TITLE_IMAGE;
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
         
-        instructions = new GImage("SpriteSheets/Pumping Power.png");
+        instructions = INSTRUCTION_IMAGE;
         instructions.setSize(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-80);
         instructions.setLocation(Main.WINDOW_WIDTH/2-WIDTH,0);
     }
     public void initBackground() {
         
-        background = new GImage("SpriteSheets/instructionsBack.png");
+        background = BACKGROUND_IMAGE;
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
     }
     public void showContents() {
-        // TODO implement
     	initBackground();
-//    	program.add(instructions);
     	program.add(returnpic);
-    	//program.add(titleIMG);
     	program.add(instructions);
         program.add(boardDisplay);
 
     }
     
     public void hideContents() {
-        // TODO implement
     	program.remove(instructions);
     	program.remove(returnpic);
     	program.remove(background);
@@ -104,29 +106,11 @@ public class Instructions extends GraphicsPane {
     }
     
     public void mouseClicked(MouseEvent e) {
-        // TODO implement
         if(program.getElementAt(e.getX(), e.getY()) == returnpic){
             program.switchToScreen(new MainMenu(program));
             Sound.clicking.play();
         }
 
     }
-    
-    public void mouseMoved() {
-        // TODO implement
-    }
-    
-    public void keyPressed(KeyEvent e) {
-        // TODO implement
-    }
-    
-    public void keyReleased(KeyEvent e) {
-        // TODO implement
-    }
-    
-    public void keyTyped(KeyEvent e) {
-        // TODO implement
-    }
-    
 
 }

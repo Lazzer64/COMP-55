@@ -29,6 +29,8 @@ public class CombatDisplay extends Display{
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
     public static final Font HP_FONT = new Font("Times New Roman",Font.BOLD,12);
 
+    public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background.gif");
+
     private GLabel[] abilities;
     
     Player player;
@@ -133,7 +135,7 @@ public class CombatDisplay extends Display{
     }
 
     private void initBackground() {
-    	GImage background = new GImage("SpriteSheets/background.gif");
+    	GImage background = BACKGROUND_IMAGE;
     	background.setLocation(0,25);
     	background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT/3);
     	addObject(background);
