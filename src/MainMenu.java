@@ -40,7 +40,6 @@ public class MainMenu extends GraphicsPane {
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
-        Sound.menuMusic.loop();
 
         /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
         pumpingpower.setColor(Color.WHITE);
@@ -76,6 +75,7 @@ public class MainMenu extends GraphicsPane {
         background = new GImage("SpriteSheets/background2.jpg");
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
+        Sound.menuMusic.loop();
     }
 
     public void showContents() {
@@ -101,7 +101,7 @@ public class MainMenu extends GraphicsPane {
     		Sound.clicking.play();
         	Sound.menuMusic.stop();
             program.switchToScreen(game);
-        	Sound.fighting.loop();
+        	//Sound.fighting.loop();
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	  	Sound.clicking.play();

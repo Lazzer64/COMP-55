@@ -268,9 +268,22 @@ public class Game extends GraphicsPane{
             	Sound.lightAttack.play();
             	player.increaseEnergy((int)(m.size()*currentMultiplier));
             	break;
-            default: // Generic damage
-                player.setCurrentAnimation(AnimationState.ATTACK);
+            	
+            	// Generic damage
+            case BLUE:
+            	Sound.waterAttack.play();
+            	player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            case RED:
+            	Sound.fireAttack.play();
+            	player.setCurrentAnimation(AnimationState.ATTACK);
+                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            case GREEN:
+             	player.setCurrentAnimation(AnimationState.ATTACK);
+                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+                 
+               
+                
 
                 new Timer().schedule(new TimerTask(){
                     public void run(){
