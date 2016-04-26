@@ -57,6 +57,11 @@ private MainMenu mainmenu;
 	@Override
 	public void showContents() {
 		// TODO Auto-generated method stub
+		initBackground();
+		program.add(pausepic);
+		program.add(backtogamepic);
+		program.add(instructionspic);
+		program.add(mainmenupic);
 
 	}
 
