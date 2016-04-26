@@ -4,7 +4,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent; 
 import acm.graphics.*; 
 import java.awt.Color;
-public class InstrutionsPause extends GraphicsPane {
+public class InstructionsPause extends GraphicsPane {
     private Main program;
 
    // private GLabel instructions;
@@ -23,7 +23,7 @@ public class InstrutionsPause extends GraphicsPane {
     Tile start;
     boolean canMove = true;
     
-	public InstrutionsPause(Main app) {
+	public InstructionsPause(Main app) {
 	  	program = app;
 
         GLabel tryMe = new GLabel("Try Me!");

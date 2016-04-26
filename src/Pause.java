@@ -21,13 +21,13 @@ public static final int OFFSET = 75;
 public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
 private Game game;
-private Instructions instructions;
+private InstructionsPause instructionspause;
 private MainMenu mainmenu;
 	public Pause(Main app, Game game) {
 		// TODO Auto-generated constructor stub
 		program = app;
 		this.game = game;
-		instructions  = new Instructions(program);
+		instructionspause  = new InstructionsPause(program);
 		mainmenu = new MainMenu(program);
 		
 		titleIMG = new GImage("SpriteSheets/button (1).png");
@@ -89,7 +89,7 @@ private MainMenu mainmenu;
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	Sound.clicking.play();
-        	program.switchToScreen(instructions);
+        	program.switchToScreen(instructionspause);
         	
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
