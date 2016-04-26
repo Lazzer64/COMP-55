@@ -21,6 +21,9 @@ private GLabel nameLabel[] = new GLabel[11];
 private GImage titleIMG;
 private GImage background;
 
+public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
+public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background2.jpg");
 
 public static final int WIDTH = 200;
 public static final int HEIGHT = 50;
@@ -38,12 +41,12 @@ HighscoreList show = new HighscoreList();
 		
 		
 
-		returnpic = new GImage("SpriteSheets/returnpic.png");
+		returnpic = RETURN_IMAGE;
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
 		//backLabel.move(0,back.getHeight());
 		
-		titleIMG = new GImage("SpriteSheets/button (1).png");
+		titleIMG = TITLE_IMAGE;
         titleIMG.setSize(400, 75);
         titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
         
@@ -53,7 +56,7 @@ HighscoreList show = new HighscoreList();
 	
 public void initBackground() {
         
-        background = new GImage("SpriteSheets/background2.jpg");
+        background = BACKGROUND_IMAGE;
         background.setSize(Main.WINDOW_WIDTH,Main.WINDOW_HEIGHT);
         program.add(background);
     }
@@ -64,7 +67,6 @@ public void initBackground() {
 	}
 	
      public void showContents() {
-         // TODO implement
     	 initBackground();
     	// program.add(titleLabel);
     	 program.add(returnpic);
@@ -146,17 +148,7 @@ public void initBackground() {
      		 program.remove(nameLabel[i]);
      		 
      	 }
-     	 
-     	 
       }
-    
-     public void mousePressed(MouseEvent e) {
-         // TODO implement
-     }
-
-     public void mouseReleased(MouseEvent e) {
-         // TODO implement
-     }
     
      public void mouseClicked(MouseEvent e) {
     	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
@@ -164,27 +156,5 @@ public void initBackground() {
      		Sound.clicking.play();
      	}
      }
-    
-     public void mouseMoved() {
-         // TODO implement
-     }
-    
-     public void mouseDragged() {
-         // TODO implement
-     }
-    
-     public void keyPressed(KeyEvent e) {
-         // TODO implement
-     }
-    
-     public void keyReleased(KeyEvent e) {
-         // TODO implement
-     }
-    
-     public void keyTyped(KeyEvent e) {
-         // TODO implement
-     }
-    
-
- }
+}
 
