@@ -212,6 +212,7 @@ public class Game extends GraphicsPane{
         String name = "";
         while(name.equals("")) name = dialog.readLine("\tGame Over!\nEnter your name.");
         saveScore(name, score.getScore());
+        Sound.fighting.stop();
         program.switchToScreen(new ScoreScreen(program));
     }
 
