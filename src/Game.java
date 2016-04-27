@@ -279,11 +279,10 @@ public class Game extends GraphicsPane{
             	player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
             case GREEN:
+            	Sound.rockAttack.play();
              	player.setCurrentAnimation(AnimationState.ATTACK);
                 combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
-                 
                
-                
 
                 new Timer().schedule(new TimerTask(){
                     public void run(){
