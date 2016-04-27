@@ -70,6 +70,7 @@ public class Game extends GraphicsPane{
     Stack<RowCol> moveList = new Stack<RowCol>();
     int level = 1;
     boolean game_over = false;
+    boolean abilityUsed = false;
 
     public Game(Main program){
         this.program = program;
@@ -109,9 +110,10 @@ public class Game extends GraphicsPane{
         if(boardDisplay.isInBoard(e.getX(), e.getY()) && moveList.isEmpty() && canMove){ 
             start = boardDisplay.getTileAt(e.getX(),e.getY()).getPosition();
             moveList.push(start);
-        } else {
+        } else if (canMove){
         	String abilityUse = combatDisplay.useAbility(e.getX(),e.getY());
         	if(abilityUse != null) {
+        		this.abilityUsed = true;
         		System.out.println(abilityUse);
         		boardStep();
         	}
@@ -174,7 +176,7 @@ public class Game extends GraphicsPane{
                         } else {
                         	boardDisplay.removeMultipliers();
                         	currentMultiplier = 1;
-                            if(!checkWinFight()) {
+                            if(!checkWinFight() && !abilityUsed) {
 
                                 combatDisplay.addProjectile(enemy,-3, Color.WHITE);
                                 enemy.setCurrentAnimation(AnimationState.ATTACK);
@@ -192,9 +194,10 @@ public class Game extends GraphicsPane{
                                         	endGame();
                                     }}, combatDisplay.getTimeToDisplayProjectile(-3));
 
-                            } else nextFight();
+                            } else if(checkWinFight()) nextFight();
                             canMove = true;
                             player.changeAnimationAfter(150,AnimationState.IDLE);
+                        	abilityUsed = false;
                         }
                     }
                 }
@@ -268,7 +271,7 @@ public class Game extends GraphicsPane{
                 break;
             case YELLOW:
             	Sound.lightAttack.play();
-            	player.increaseEnergy((int)(m.size()*currentMultiplier));
+            	player.increaseEnergy((int)(m.size()*currentMultiplier*1.5));
             	break;
             	
             	// Generic damage
