@@ -5,13 +5,22 @@ public class Player extends Unit{
 
 	private int energy;
 	private int maxEnergy;
+	private Ability[] abilities;
 	
     public Player(int hp, int attack, int defense, int energy){
     	super("Player", hp, attack, defense);
     	this.energy = 1;
-    	maxEnergy = energy;
+    	this.maxEnergy = energy;
+    	setupAbilities();
     }
 
+    public void setupAbilities() {
+    	this.abilities = new Ability[3];
+    	this.abilities[0] = new DamageAbility("Nuke", 25, 75);
+    	this.abilities[1] = new HealAbility("Heal 50hp", 50, 50);
+    	this.abilities[2] = new RaiseStatsAbility("Buff Up", 75, 25, 5);
+    }
+    
     public BufferedImage[] getAnimation() {
         switch(state){
             case IDLE:
@@ -25,9 +34,21 @@ public class Player extends Unit{
         }
     }
 
+    public Ability getAbility(String name) {
+    	for(Ability a:abilities) {
+    		if(a.getName().equals(name)) {
+    			return a;
+    		}
+    	}
+    	return null;
+    }
+    
+    public Ability[] getAbilities() {
+    	return abilities;
+    }
+    
     public int getNumAbilities() {
-    	//TODO
-    	return 3;
+    	return abilities.length;
     }
     
     public BufferedImage[] getAttackAnimation(Color color){

@@ -31,7 +31,7 @@ public class CombatDisplay extends Display{
 
     public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background.gif");
 
-    private GLabel[] abilities;
+    private GLabel[] abilityLabels;
     
     Player player;
     Enemy enemy;
@@ -142,13 +142,14 @@ public class CombatDisplay extends Display{
      }
     
     private void initAbilities() {
-    	abilities = new GLabel[player.getNumAbilities()];
-    	for(int i = 0; i < abilities.length;i++) {
-    		abilities[i] = new GLabel("Ability " + (i+1),ABILITY_X+i*ABILITY_X_OFFSET,ABILITY_Y);
-    		abilities[i].setFont("Arial-18");
-    		abilities[i].move(0, abilities[i].getHeight());
-    		if(i > 0) abilities[i].move(abilities[i-1].getWidth()*i, 0);
-    		addObject(abilities[i]);
+    	abilityLabels = new GLabel[player.getNumAbilities()];
+    	Ability[] abilities = player.getAbilities();
+    	for(int i = 0; i < abilityLabels.length;i++) {
+    		abilityLabels[i] = new GLabel(abilities[i].getName(),ABILITY_X+i*ABILITY_X_OFFSET,ABILITY_Y);
+    		abilityLabels[i].setFont("Arial-18");
+    		abilityLabels[i].move(0, abilityLabels[i].getHeight());
+    		if(i > 0) abilityLabels[i].move(abilityLabels[i-1].getWidth()*i, 0);
+    		addObject(abilityLabels[i]);
     	}
     }
     
@@ -160,11 +161,13 @@ public class CombatDisplay extends Display{
         return l;
     }
     
-    public boolean useAbility(int x, int y) {
-    	for(GLabel ability : abilities) {
-    		if(ability.contains(x,y)) return true;
+    public String useAbility(int x, int y) {
+    	for(GLabel ability : abilityLabels) {
+    		if(ability.contains(x,y)) {
+    			return player.getAbility(ability.getLabel()).use(player, enemy);
+    		}
     	}
-    	return false;
+    	return null;
     }
 
     private void updateAnimation(Unit unit){
