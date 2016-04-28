@@ -35,10 +35,8 @@ private InstructionsPause instructionspause;
 
 		
 		titleIMG = TITLE_IMAGE;
-        titleIMG.setSize(400, 75);
-        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,20);
-		//pausepic = new GImage("SpriteSheets/pausepic.png");
-		//pausepic.setLocation(25,50);
+        titleIMG.setLocation(100,50);
+	
 		int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
         backtogamepic = BACK_IMAGE;
         backtogamepic.setSize(WIDTH, HEIGHT);

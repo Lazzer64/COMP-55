@@ -8,8 +8,8 @@ public class DamageAbility extends Ability{
 
 	@Override
 	public String use(Player player, Enemy enemy) {
-		if(canUse(player)) {
-			player.decreaseEnergy(getEnergyCost());
+        if(canUse(player)) {
+            player.decreaseEnergy(getEnergyCost());
 			player.attack(enemy, damageAmount);
 			return "Dealt " + damageAmount + " damage";
 		} else return null;

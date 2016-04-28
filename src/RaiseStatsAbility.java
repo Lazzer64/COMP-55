@@ -9,9 +9,9 @@ public class RaiseStatsAbility extends Ability{
 	}
 	@Override
 	public String use(Player player, Enemy enemy) {
-		if(canUse(player)) {
-			player.decreaseEnergy(getEnergyCost());
-			String result = "";
+        if(canUse(player)) {
+            player.decreaseEnergy(getEnergyCost());
+            String result = "";
 			increaseHp(player);
 			result += "New Hp: " + player.getHp() + "/" + player.getMaxHp() + ";";
 			increaseDefense(player);
