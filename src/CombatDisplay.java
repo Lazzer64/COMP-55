@@ -221,6 +221,9 @@ public class CombatDisplay extends Display{
         int unitMaxEnergy = unit.getMaxEnergy();
         double percentEnergy = 1.0*unitEnergy/unitMaxEnergy;
         bar.setSize(HP_BAR_WIDTH*percentEnergy,HP_BAR_HEIGHT);
+        
+        GLabel energy = unitInfo.get(unit).energyAmount;
+        energy.setLabel("" + unitEnergy + "/" + unitMaxEnergy);
     }
     
     private GRect initEnergy(double x, double y, Player unit){
@@ -263,6 +266,15 @@ public class CombatDisplay extends Display{
         addObject(hpValue);
         return hpValue;
     }
+    
+    private GLabel initEnergyAmount(double x, double y, Unit unit) {
+    	GLabel energyValue = new GLabel("0/100");
+        energyValue.setLocation(x - energyValue.getWidth()/2,y);
+        energyValue.setFont(HP_FONT);
+        energyValue.setColor(Color.RED);
+        addObject(energyValue);
+        return energyValue;
+    }
 
     private void initUnit(double x, double y, Unit unit) {
 
@@ -272,7 +284,10 @@ public class CombatDisplay extends Display{
         info.animation = initAnimation(x,y,unit);
         info.hpBar = initHp(x,y+info.animation.getHeight()/2,unit);
         info.hpAmount = initHpAmount(x,y+info.animation.getHeight()/2+info.hpBar.getHeight(),unit);
-        if(unit.equals(player)) info.energyBar = initEnergy(x,y+info.animation.getHeight()/2+info.hpBar.getHeight() + 5,player);
+        if(unit.equals(player)) {
+        	info.energyBar = initEnergy(x,y+info.animation.getHeight()/2+info.hpBar.getHeight() + 5,player);
+        	info.energyAmount = initEnergyAmount(x,y+info.animation.getHeight()/2+(2*info.hpBar.getHeight()) + 5,player);
+        }
         info.name = initName(x,y-info.animation.getHeight()/2,unit);
         
     }
