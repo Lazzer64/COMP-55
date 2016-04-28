@@ -10,7 +10,7 @@ public class MainMenu extends GraphicsPane {
     public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/instructionspic.png");
     public static final GImage HIGHSCORE_IMAGE = new GImage("SpriteSheets/highscorespic.png");
     public static final GImage QUIT_IMAGE = new GImage("SpriteSheets/quitpic.png");
-    public static final GImage CREDITS_IMAGE = new GImage("SpriteSheets/quitpic.png");
+    public static final GImage CREDITS_IMAGE = new GImage("SpriteSheets/creditpic.png");
     private Main program;
     private GImage pumpingpower;
     private GImage background;
@@ -69,15 +69,17 @@ public class MainMenu extends GraphicsPane {
         
         y += OFFSET;
 
+        creditpic = CREDITS_IMAGE;
+        creditpic.setSize(WIDTH, HEIGHT);
+        creditpic.setLocation(xPos, y);
+        
+        
+        y += OFFSET;
+        
         quitpic = QUIT_IMAGE;
         quitpic.setSize(WIDTH, HEIGHT);
         quitpic.setLocation(xPos, y);
         
-        y += OFFSET;
-
-        creditpic = CREDITS_IMAGE;
-        creditpic.setSize(WIDTH, HEIGHT);
-        creditpic.setLocation(xPos, y);
         
         
     }

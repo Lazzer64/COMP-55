@@ -4,7 +4,7 @@ import acm.graphics.*;
 public class Credits extends GraphicsPane {
 	private Main program;
 	public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
-	public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/instructionsBack.png");
+	public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/creditBack.jpg");
 
 	protected GImage returnpic;
 	protected GImage background;
