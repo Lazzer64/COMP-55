@@ -42,6 +42,7 @@ public class MainMenu extends GraphicsPane {
         //Sounds
         Sound.menuMusic.loop();
         Sound.ending.stop(); //if return to main menu from high scores list at end game
+        Sound.creditMusic.stop();
         
         copyright = new GLabel("© 2k16. Some rights reserved. Created by: Alex P, Tom V, Mark B, Michael M.", 7, 580);
         copyright.setColor(Color.WHITE);
@@ -134,9 +135,11 @@ public class MainMenu extends GraphicsPane {
         	Sound.clicking.play();
             System.exit(0);
         }
-            else if(program.getElementAt(e.getX(), e.getY()) == creditpic){
-                Sound.clicking.play();
-                program.switchToScreen(credits);
+        else if(program.getElementAt(e.getX(), e.getY()) == creditpic){
+             Sound.clicking.play();
+             Sound.menuMusic.stop();
+             Sound.creditMusic.loop();
+             program.switchToScreen(credits);
         }
     }
 
