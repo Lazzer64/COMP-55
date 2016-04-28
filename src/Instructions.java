@@ -72,7 +72,7 @@ public class Instructions extends GraphicsPane {
     	program.remove(instructions);
     	program.remove(returnpic);
     	program.remove(background);
-    	program.remove(titleIMG);
+    	// program.remove(titleIMG);
     	program.remove(boardDisplay);
 
     }

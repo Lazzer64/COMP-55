@@ -4,14 +4,13 @@ import acm.graphics.*;
 
 public class Pause extends GraphicsPane {
 private Main program;
-private GImage pausepic;
 private GImage background;
 private GImage backtogamepic;
 private GImage instructionspic;
 private GImage mainmenupic;
 private GImage titleIMG;
 
-public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/pausepic.png");
 public static final GImage BACK_IMAGE = new GImage("SpriteSheets/backtogamepic.png");
 public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/instructionspic.png");
 public static final GImage MENU_IMAGE = new GImage("SpriteSheets/mainmenupic.png");

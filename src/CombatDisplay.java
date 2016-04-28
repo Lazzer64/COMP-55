@@ -29,7 +29,7 @@ public class CombatDisplay extends Display{
     public static final int ABILITY_X = 0;
     public static final int ABILITY_X_OFFSET = 25;
     public static final int DISTANCE = Main.WINDOW_WIDTH/4;
-    public static final Font HP_FONT = new Font("Times New Roman",Font.BOLD,12);
+    public static final Font HP_FONT = new Font("Arial",Font.BOLD,12);
 
     public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background.gif");
 
@@ -98,8 +98,6 @@ public class CombatDisplay extends Display{
     public static int getTimeToDisplayProjectile(int speed) {
     	int delay = 0;
     	delay += ((DISTANCE)/Math.abs(speed))*Game.FRAME_TIME;
-    	//TODO add delay for effects time
-        // System.out.println(delay);
     	return delay;
     }
     
