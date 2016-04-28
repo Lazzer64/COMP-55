@@ -1,7 +1,7 @@
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent; 
-import java.awt.event.KeyEvent; 
+
 import acm.graphics.*; 
 import java.awt.Color;
 
@@ -16,12 +16,12 @@ public class Instructions extends GraphicsPane {
 
 
    // private GLabel instructions;
-    private GImage background;
-    private GImage returnpic;
-    private GImage titleIMG;
-    private GImage instructions;
-    private Board board = new Board(4,4);
-    private BoardDisplay boardDisplay = new BoardDisplay(board); 
+    protected GImage background;
+    protected GImage returnpic;
+    protected GImage titleIMG;
+    protected GImage instructions;
+    protected Board board = new Board(4,4);
+    protected BoardDisplay boardDisplay = new BoardDisplay(board); 
     
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
