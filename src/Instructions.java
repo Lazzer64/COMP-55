@@ -1,7 +1,6 @@
 import java.util.Timer;
 import java.util.TimerTask;
 import java.awt.event.MouseEvent; 
-
 import acm.graphics.*; 
 import java.awt.Color;
 
