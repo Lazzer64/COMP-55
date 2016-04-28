@@ -19,7 +19,7 @@ public class Game extends GraphicsPane{
     public static final int NUM_ALLOWED_MOVES = 5;
     public static final int COMBAT_Y = 0;
     public static final int COMBAT_X = 0;
-    public static final double GAME_SPEED = 0.82; // Value from 0.0 to 1.0
+    public static final int PROJECTILE_SPEED = 3;
 
     public static final int HEALTH_SCALE = 3;
     public static final int ATTACK_SCALE = 1;
@@ -93,6 +93,7 @@ public class Game extends GraphicsPane{
         this.moveListDisplay.setLocation(BOARD_X, BOARD_Y);
 
         animator.start();
+
     }
 
     private Enemy generateEnemy(int level) {
@@ -179,7 +180,7 @@ public class Game extends GraphicsPane{
                         	currentMultiplier = 1;
                             if(!checkWinFight() && !abilityUsed) {
 
-                                combatDisplay.addProjectile(enemy,-3, Color.WHITE);
+                                combatDisplay.addProjectile(enemy,-PROJECTILE_SPEED, Color.WHITE);
                                 enemy.setCurrentAnimation(AnimationState.ATTACK);
 
                                 new Timer().schedule( new TimerTask(){
@@ -193,10 +194,16 @@ public class Game extends GraphicsPane{
 
                                         if(checkLoseGame() && !game_over) 
                                         	endGame();
-                                    }}, CombatDisplay.getTimeToDisplayProjectile(-3));
+                                    }}, CombatDisplay.getTimeToDisplayProjectile(-PROJECTILE_SPEED));
 
                             }
                             canMove = true;
+
+                            new Timer().schedule(new TimerTask(){
+                                public void run(){
+                                    if(checkWinFight()) nextFight();
+                                }}, CombatDisplay.getTimeToDisplayProjectile(PROJECTILE_SPEED));
+
                             player.changeAnimationAfter(150,AnimationState.IDLE);
                         	abilityUsed = false;
                         }
@@ -302,12 +309,11 @@ public class Game extends GraphicsPane{
 
     private void attackAnimations(Match m) {
     	player.setCurrentAnimation(AnimationState.ATTACK);
-        combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+        combatDisplay.addProjectile(player,PROJECTILE_SPEED, TileType.getColor(m.getType()));
         new Timer().schedule(new TimerTask(){
             public void run(){
                 player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
                 combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
-                if(checkWinFight()) nextFight();
-            }}, CombatDisplay.getTimeToDisplayProjectile(3));
+            }}, CombatDisplay.getTimeToDisplayProjectile(PROJECTILE_SPEED));
     }
 }
