@@ -5,7 +5,6 @@ import java.awt.event.KeyEvent;
 import java.util.*;
 import acm.io.IODialog;
 import acm.util.Animator;
-import acm.graphics.*;
 
 public class Game extends GraphicsPane{
 

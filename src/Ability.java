@@ -9,6 +9,10 @@ public abstract class Ability {
 	}
 
 	public abstract String use(Player player,Enemy enemy);
+
+    public boolean canUse(Player p){
+        return (p.getEnergy() >= getEnergyCost());
+    }
 	
 	public String getName() {
 		return name;

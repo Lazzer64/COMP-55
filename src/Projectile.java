@@ -1,5 +1,3 @@
-import acm.graphics.*;
-
 public class Projectile implements Updatable {
 
 	private Animation display;
@@ -15,7 +13,7 @@ public class Projectile implements Updatable {
     }
 
     public void update(){
-        if(travelled >= distance) display.setVisible(false); // TODO change to a real solution
+        if(travelled >= distance) display.setVisible(false); 
         display.update();
         display.move(speed,0);
         travelled += Math.abs(speed);

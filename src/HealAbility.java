@@ -8,7 +8,7 @@ public class HealAbility extends Ability{
 
 	@Override
 	public String use(Player player, Enemy enemy) {
-		if(player.getEnergy() > getEnergyCost()) {
+        if(canUse(player)) {
 			player.decreaseEnergy(getEnergyCost());
 			player.heal(healAmount);
 			return "Healed for " + healAmount;
