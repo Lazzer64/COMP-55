@@ -25,14 +25,14 @@ public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 private Game game;
 
 private InstructionsPause instructionspause;
-private MainMenu mainmenu;
+
 
 	public Pause(Main app, Game game) {
 		program = app;
 		this.game = game;
 
 		instructionspause  = new InstructionsPause(program, this);
-		mainmenu = new MainMenu(program);
+		
 
 		
 		titleIMG = TITLE_IMAGE;
