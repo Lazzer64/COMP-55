@@ -3,18 +3,13 @@ import java.util.ArrayList;
 
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
-import acm.graphics.GRect;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.event.KeyEvent; 
 
-
-//Program WIDTH = 400, HEIGHT = 600;
 
 public class ScoreScreen extends GraphicsPane {
 private Main program;
-private GRect rect;
 private GImage returnpic;
 private GLabel scoreLabel[] = new GLabel[11];
 private GLabel nameLabel[] = new GLabel[11];
@@ -38,20 +33,14 @@ HighscoreList show = new HighscoreList();
 	
 	public ScoreScreen(Main app) {
 		program = app;
-		
-		
-
+	
 		returnpic = RETURN_IMAGE;
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
-		//backLabel.move(0,back.getHeight());
-		
+        
 		scorepic = SCORE_IMAGE;
 		scorepic.setLocation(100, 50);
-		
-        
-        
-		
+
 	}
 	
 public void initBackground() {
@@ -62,17 +51,12 @@ public void initBackground() {
     }
 
 
-	public void update() {
-
-	}
-	
      public void showContents() {
     	 initBackground();
-    	// program.add(titleLabel);
     	 program.add(returnpic);
     	 program.add(scorepic);
     	 
-    	 printScoreLabels(175);
+    	 printScoreLabels(145);
      }
     
  		
@@ -108,9 +92,7 @@ public void initBackground() {
  		for (int i = 0; i < j; i++)
   		{
   		
-  			//offsetLength = Integer.toString(highScoreList.get(i).getName().length());
-  			//spaces = "......";
-  			displayName = (i + 1) + ".\t" + highScoreList.get(i).getName(); //+ spaces-(offsetLength) + highScoreList.get(i).getScore() + "\n";
+  			displayName = (i + 1) + ".\t" + highScoreList.get(i).getName(); 
   			displayScores = Integer.toString(highScoreList.get(i).getScore());
   			nameLabel[i] = new GLabel(displayName, Main.WINDOW_WIDTH/2-WIDTH/1.75, y);
  			nameLabel[i].setFont("Arial-20");
