@@ -48,6 +48,7 @@ public class MainMenu extends GraphicsPane {
         pumpingpower = TITLE_IMAGE;
         pumpingpower.setLocation(25, 50);
         
+        
         int y = Main.WINDOW_HEIGHT/4-HEIGHT/2;
         playpic = PLAY_IMAGE;
         playpic.setSize(WIDTH, HEIGHT);

@@ -10,7 +10,7 @@ public class Instructions extends GraphicsPane {
     private Main program;
 
     public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
-    public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+    //public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
     public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/Pumping Power.png");
     public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/instructionsBack.png");
 
@@ -46,9 +46,9 @@ public class Instructions extends GraphicsPane {
         returnpic.setSize(WIDTH, HEIGHT);
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6.9);
         
-        titleIMG = TITLE_IMAGE;
+        /*titleIMG = TITLE_IMAGE;
         titleIMG.setSize(400, 75);
-        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
+        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);*/
         
         instructions = INSTRUCTION_IMAGE;
         instructions.setSize(Main.WINDOW_WIDTH, Main.WINDOW_HEIGHT-80);

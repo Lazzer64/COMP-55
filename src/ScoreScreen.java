@@ -18,11 +18,11 @@ private GRect rect;
 private GImage returnpic;
 private GLabel scoreLabel[] = new GLabel[11];
 private GLabel nameLabel[] = new GLabel[11];
-private GImage titleIMG;
+private GImage scorepic;
 private GImage background;
 
 public static final GImage RETURN_IMAGE = new GImage("SpriteSheets/returnpic.png");
-public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/button (1).png");
+public static final GImage SCORE_IMAGE = new GImage("SpriteSheets/highscorelistpic.png");
 public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background2.jpg");
 
 public static final int WIDTH = 200;
@@ -46,9 +46,9 @@ HighscoreList show = new HighscoreList();
         returnpic.setLocation(Main.WINDOW_WIDTH/2-WIDTH/2, OFFSET*6);
 		//backLabel.move(0,back.getHeight());
 		
-		titleIMG = TITLE_IMAGE;
-        titleIMG.setSize(400, 75);
-        titleIMG.setLocation(Main.WINDOW_WIDTH/2-WIDTH,70);
+		scorepic = SCORE_IMAGE;
+		scorepic.setLocation(100, 50);
+		
         
         
 		
@@ -70,7 +70,7 @@ public void initBackground() {
     	 initBackground();
     	// program.add(titleLabel);
     	 program.add(returnpic);
-    	 program.add(titleIMG);
+    	 program.add(scorepic);
     	 
     	 printScoreLabels(175);
      }
@@ -79,7 +79,7 @@ public void initBackground() {
  	
      public void hideContents() {
     	 program.remove(background);
-    	 program.remove(titleIMG);
+    	 program.remove(scorepic);
     	 program.remove(returnpic);
     	 
     	 removeScoreLabels();
