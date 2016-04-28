@@ -193,9 +193,9 @@ public class Game extends GraphicsPane{
 
                                         if(checkLoseGame() && !game_over) 
                                         	endGame();
-                                    }}, combatDisplay.getTimeToDisplayProjectile(-3));
+                                    }}, CombatDisplay.getTimeToDisplayProjectile(-3));
 
-                            } else if(checkWinFight()) nextFight();
+                            }
                             canMove = true;
                             player.changeAnimationAfter(150,AnimationState.IDLE);
                         	abilityUsed = false;
@@ -306,6 +306,7 @@ public class Game extends GraphicsPane{
             public void run(){
                 player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
                 combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
-            }}, combatDisplay.getTimeToDisplayProjectile(3));
+                if(checkWinFight()) nextFight();
+            }}, CombatDisplay.getTimeToDisplayProjectile(3));
     }
 }
