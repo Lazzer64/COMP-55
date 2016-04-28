@@ -223,7 +223,7 @@ public class CombatDisplay extends Display{
         bar.setSize(HP_BAR_WIDTH*percentEnergy,HP_BAR_HEIGHT);
         
         GLabel energy = unitInfo.get(unit).energyAmount;
-        energy.setLabel("" + unitEnergy + "/" + unitMaxEnergy);
+        energy.setLabel("" + unitEnergy + "e/" + unitMaxEnergy + "e");
     }
     
     private GRect initEnergy(double x, double y, Player unit){
@@ -268,7 +268,7 @@ public class CombatDisplay extends Display{
     }
     
     private GLabel initEnergyAmount(double x, double y, Unit unit) {
-    	GLabel energyValue = new GLabel("0/100");
+    	GLabel energyValue = new GLabel("0e/100e");
         energyValue.setLocation(x - energyValue.getWidth()/2,y);
         energyValue.setFont(HP_FONT);
         energyValue.setColor(Color.RED);
