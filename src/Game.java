@@ -278,30 +278,33 @@ public class Game extends GraphicsPane{
             	// Generic damage
             case BLUE:
             	Sound.waterAttack.play();
-            	player.setCurrentAnimation(AnimationState.ATTACK);
-                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            	attackAnimations(m);
+            	break;
             case RED:
             	Sound.fireAttack.play();
-            	player.setCurrentAnimation(AnimationState.ATTACK);
-                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+            	attackAnimations(m);
+            	break;
             case GREEN:
             	Sound.rockAttack.play();
-             	player.setCurrentAnimation(AnimationState.ATTACK);
-                combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
-               
+            	attackAnimations(m);
+            	break;
+            //default:
 
-                new Timer().schedule(new TimerTask(){
-                    public void run(){
-                        player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
-                        combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
-                    }}, combatDisplay.getTimeToDisplayProjectile(3));
-
-                score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
+                
         }
-
+        score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
         System.out.println(m.getType()+" size: "+m.size() + " multiplier: x" + currentMultiplier);
         boardDisplay.addMultiLabel(m,currentMultiplier);
         currentMultiplier += 0.5;
     }
 
+    private void attackAnimations(Match m) {
+    	player.setCurrentAnimation(AnimationState.ATTACK);
+        combatDisplay.addProjectile(player,3, TileType.getColor(m.getType()));
+        new Timer().schedule(new TimerTask(){
+            public void run(){
+                player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
+                combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
+            }}, combatDisplay.getTimeToDisplayProjectile(3));
+    }
 }
