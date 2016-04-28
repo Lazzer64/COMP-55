@@ -31,4 +31,10 @@ public class Sound {
 	
 	static URL rock = MainMenu.class.getResource("Sounds/Attacks/rockAttack.wav");
 	static AudioClip rockAttack = Applet.newAudioClip(rock);
+	
+	static URL powerUp = MainMenu.class.getResource("Sounds/Attacks/powerAbility.wav");
+	static AudioClip poweringAbility = Applet.newAudioClip(powerUp);
+	
+	static URL nuke = MainMenu.class.getResource("Sounds/Attacks/nukeAbility.wav");
+	static AudioClip nukeAbility = Applet.newAudioClip(nuke);
 }

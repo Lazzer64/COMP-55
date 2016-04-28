@@ -9,6 +9,7 @@ public class DamageAbility extends Ability{
 	@Override
 	public String use(Player player, Enemy enemy) {
         if(canUse(player)) {
+        	Sound.nukeAbility.play();
             player.decreaseEnergy(getEnergyCost());
 			player.attack(enemy, damageAmount);
 			return "Dealt " + damageAmount + " damage";
