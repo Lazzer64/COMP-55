@@ -9,7 +9,7 @@ public class Credits extends GraphicsPane {
 	public static final GRect rectangle = new GRect(160, 180, 100, 100);
 	protected GImage returnpic;
 	protected GImage background;
-	
+	protected GLabel dontdoit;
 	  public static final int WIDTH = 200;
 	    public static final int HEIGHT = 50;
 	    public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
@@ -26,6 +26,9 @@ public class Credits extends GraphicsPane {
         rectangle.setFilled(false);
         rectangle.setVisible(false);
         
+        dontdoit = new GLabel("(Don't click the head)", 150, 580);
+        dontdoit.setColor(Color.WHITE);
+        dontdoit.setFont("Arial-11");
         
 	}
 	 public void initBackground() {
@@ -39,6 +42,7 @@ public class Credits extends GraphicsPane {
 		initBackground();
     	program.add(returnpic);
     	program.add(rectangle);
+    	program.add(dontdoit);
 
 	}
 
@@ -47,6 +51,7 @@ public class Credits extends GraphicsPane {
 		program.remove(returnpic);
     	program.remove(background);
     	program.remove(rectangle);
+    	program.remove(dontdoit);
 
 	}
 	 public void mousePressed(MouseEvent e) {
@@ -55,7 +60,7 @@ public class Credits extends GraphicsPane {
 	            Sound.clicking.play();
 	        }
 	        else if(program.getElementAt(e.getX(), e.getY()) == rectangle){
-	        	
+	        	//rectangle.setVisible(true);
 	        }
 
 	    }
