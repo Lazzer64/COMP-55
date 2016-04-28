@@ -36,7 +36,7 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_ATTACK = 2;
     public static final int PLAYER_DEFENSE = 3;
     public static final int PLAYER_ENERGY = 100;
-    public static final int HEAL_MOD = 1;
+    public static final int HEAL_MOD = 2;
  
 
     Main program;
@@ -48,6 +48,9 @@ public class Game extends GraphicsPane{
     CombatDisplay combatDisplay;
     ScoreDisplay scoreDisplay;
     IODialog dialog;
+    
+
+    boolean canMove = true;
 
     Animator animator = new Animator(){
         public void run(){
@@ -66,7 +69,6 @@ public class Game extends GraphicsPane{
     Score score;
     double currentMultiplier = 1;
     Board board = new Board(NUM_ROWS, NUM_COLS);
-    boolean canMove = true;
     Stack<RowCol> moveList = new Stack<RowCol>();
     int level = 1;
     boolean game_over = false;
