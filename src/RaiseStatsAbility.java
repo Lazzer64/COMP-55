@@ -10,6 +10,7 @@ public class RaiseStatsAbility extends Ability{
 	@Override
 	public String use(Player player, Enemy enemy) {
         if(canUse(player)) {
+        	Sound.poweringAbility.play();
             player.decreaseEnergy(getEnergyCost());
             String result = "";
 			increaseHp(player);
