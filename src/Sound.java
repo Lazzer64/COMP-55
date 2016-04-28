@@ -14,6 +14,9 @@ public class Sound {
 	static URL fight = MainMenu.class.getResource("Sounds/fighting.mid");
 	static AudioClip fighting = Applet.newAudioClip(fight);
 	
+	static URL end = MainMenu.class.getResource("Sounds/ending.mid");
+	static AudioClip ending = Applet.newAudioClip(end);
+	
 	static URL water = MainMenu.class.getResource("Sounds/Attacks/waterAttack.wav");
 	static AudioClip waterAttack = Applet.newAudioClip(water);
 

@@ -35,7 +35,10 @@ public class MainMenu extends GraphicsPane {
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
+        
+        //Sounds
         Sound.menuMusic.loop();
+        Sound.ending.stop(); //if return to main menu from high scores list at end game
         
         copyright = new GLabel("© 2k16. Some rights reserved. Created by: Alex P, Tom V, Mark B, Michael M.", 7, 580);
         copyright.setColor(Color.WHITE);
