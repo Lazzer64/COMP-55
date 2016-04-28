@@ -24,6 +24,7 @@ public class MainMenu extends GraphicsPane {
     private GImage instructionspic;
     private GImage highscorespic;
     private GImage quitpic;
+    private GLabel copyright;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -41,9 +42,10 @@ public class MainMenu extends GraphicsPane {
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
         Sound.menuMusic.loop();
-        /*pumpingpower = new GLabel("PUMPING POWER", xPos, 100);
-        pumpingpower.setColor(Color.WHITE);
-        pumpingpower.setFont("Arial-30");*/
+        
+        copyright = new GLabel("© 2k16. Some rights reserved. Created by: Alex P, Tom V, Mark B, Michael M.", 7, 580);
+        copyright.setColor(Color.WHITE);
+        copyright.setFont("Arial-11");
         
         pumpingpower = TITLE_IMAGE;
         pumpingpower.setLocation(25, 50);
@@ -81,6 +83,7 @@ public class MainMenu extends GraphicsPane {
     public void showContents() {
         initBackground();
         program.add(pumpingpower);
+        program.add(copyright);
         program.add(playpic);
         program.add(instructionspic);
         program.add(highscorespic);
@@ -94,6 +97,7 @@ public class MainMenu extends GraphicsPane {
         program.remove(highscorespic);
         program.remove(quitpic);
         program.remove(background);
+        program.remove(copyright);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -117,12 +121,6 @@ public class MainMenu extends GraphicsPane {
         	Sound.clicking.play();
             System.exit(0);
         }
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        // TODO implement
-    	 Toolkit.getDefaultToolkit().beep();
-        
     }
 
 }
