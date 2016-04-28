@@ -129,11 +129,22 @@ public class CombatDisplay extends Display{
         for(Unit u: unitInfo.keySet()){
             updateAnimation(u);
             updateHp(u);
-            if(u.equals(player)) updateEnergy(player);
+            if(u.equals(player)) {
+            	updateEnergy(player);
+            	updateAbilities(player);
+            }
         }
         super.update();
     }
 
+    public void updateAbilities(Player p) {
+    	for(GLabel a : abilityLabels) {
+    		if(player.getAbility(a.getLabel()).getEnergyCost() > player.getEnergy()) {
+    			a.setColor(Color.GRAY);
+    		} else a.setColor(Color.GREEN);
+    	}
+    }
+    
     private void initBackground() {
     	GImage background = BACKGROUND_IMAGE;
     	background.setLocation(0,25);
