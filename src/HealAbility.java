@@ -1,17 +1,15 @@
 
 public class HealAbility extends Ability{
-	private int healAmount;
-	public HealAbility(String name, int energyCost, int healAmount) {
+	public HealAbility(String name, int energyCost) {
 		super(name, energyCost);
-		this.healAmount = healAmount;
 	}
 
 	@Override
 	public String use(Player player, Enemy enemy) {
-		if(player.getEnergy() > getEnergyCost()) {
+		if(player.getEnergy() >= getEnergyCost()) {
 			player.decreaseEnergy(getEnergyCost());
-			player.heal(healAmount);
-			return "Healed for " + healAmount;
+			player.heal(player.getMaxHp());
+			return "Healed to full";
 		} else return null;
 	}
 	
