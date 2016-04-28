@@ -110,8 +110,10 @@ public class CombatDisplay extends Display{
     
     public void updateEnemy(Enemy x){
 
-        UnitInfo info = unitInfo.get(enemy);
-        unitInfo.remove(enemy);
+        HashMap<Unit, UnitInfo> uInfos = (HashMap<Unit, UnitInfo>) unitInfo.clone();
+
+        UnitInfo info = uInfos.get(enemy);
+        uInfos.remove(enemy);
 
         info.animation.playAnimation(x.getAnimation(),20); 
         info.name.setLabel(x.getName());
@@ -120,9 +122,10 @@ public class CombatDisplay extends Display{
         double nameY = info.name.getY();
         info.name.setLocation(nameX,nameY);
 
-        unitInfo.put(x, info);
+        uInfos.put(x, info);
 
         enemy = x;
+        unitInfo = uInfos;
     }
 
     public void update(){
