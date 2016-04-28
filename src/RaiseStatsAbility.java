@@ -1,11 +1,11 @@
 
 public class RaiseStatsAbility extends Ability{
 	private int hpIncrease;
-	private int defenseIncrease;
-	RaiseStatsAbility(String name, int energyCost, int hpIncrease, int defenseIncrease) {
+	private int statIncrease;
+	RaiseStatsAbility(String name, int energyCost, int hpIncrease, int statIncrease) {
 		super(name, energyCost);
 		this.hpIncrease = hpIncrease;
-		this.defenseIncrease = defenseIncrease;
+		this.statIncrease = statIncrease;
 	}
 	@Override
 	public String use(Player player, Enemy enemy) {
@@ -17,6 +17,8 @@ public class RaiseStatsAbility extends Ability{
 			result += "New Hp: " + player.getHp() + "/" + player.getMaxHp() + ";";
 			increaseDefense(player);
 			result += "New Defense: " + player.getDefense();
+			increaseAttack(player);
+			result += "New Attack: " + player.getAttack();
 			return result;
 		} else return null;
 	}
@@ -27,6 +29,10 @@ public class RaiseStatsAbility extends Ability{
 	}
 	
 	public void increaseDefense(Player player) {
-		player.setDefense(player.getDefense()+defenseIncrease);
+		player.setDefense(player.getDefense()+statIncrease);
+	}
+	
+	public void increaseAttack(Player player) {
+		player.setAttack(player.getAttack()+(int)(statIncrease/4));
 	}
 }
