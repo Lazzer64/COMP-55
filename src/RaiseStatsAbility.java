@@ -33,6 +33,6 @@ public class RaiseStatsAbility extends Ability{
 	}
 	
 	public void increaseAttack(Player player) {
-		player.setAttack(player.getAttack()+(int)(statIncrease/2));
+		player.setAttack(player.getAttack()+(int)(statIncrease/4));
 	}
 }
