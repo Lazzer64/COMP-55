@@ -10,15 +10,17 @@ public class MainMenu extends GraphicsPane {
     public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/instructionspic.png");
     public static final GImage HIGHSCORE_IMAGE = new GImage("SpriteSheets/highscorespic.png");
     public static final GImage QUIT_IMAGE = new GImage("SpriteSheets/quitpic.png");
-
+    public static final GImage CREDITS_IMAGE = new GImage("SpriteSheets/quitpic.png");
     private Main program;
     private GImage pumpingpower;
     private GImage background;
+    
     private GImage playpic;
     private GImage instructionspic;
     private GImage highscorespic;
     private GImage quitpic;
     private GLabel copyright;
+    private GImage creditpic;
 
     public static final int WIDTH = 200;
     public static final int HEIGHT = 50;
@@ -28,13 +30,14 @@ public class MainMenu extends GraphicsPane {
     private Game game;
     private ScoreScreen scores;
     private Instructions instructions;
-
+    private Credits credits;
 
     public  MainMenu(Main app) {
         program = app;
         game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
+        credits = new Credits(program);
         
         //Sounds
         Sound.menuMusic.loop();
@@ -69,6 +72,14 @@ public class MainMenu extends GraphicsPane {
         quitpic = QUIT_IMAGE;
         quitpic.setSize(WIDTH, HEIGHT);
         quitpic.setLocation(xPos, y);
+        
+        y += OFFSET;
+
+        creditpic = CREDITS_IMAGE;
+        creditpic.setSize(WIDTH, HEIGHT);
+        creditpic.setLocation(xPos, y);
+        
+        
     }
     public void initBackground() {
         //initialize the main menu background and set size
@@ -86,6 +97,7 @@ public class MainMenu extends GraphicsPane {
         program.add(instructionspic);
         program.add(highscorespic);
         program.add(quitpic);
+        program.add(creditpic);
     }
 
     public void hideContents() {
@@ -96,6 +108,7 @@ public class MainMenu extends GraphicsPane {
         program.remove(quitpic);
         program.remove(background);
         program.remove(copyright);
+        program.remove(creditpic);
     }
 
     public void mousePressed(MouseEvent e) {
@@ -118,6 +131,10 @@ public class MainMenu extends GraphicsPane {
         else if(program.getElementAt(e.getX(), e.getY()) == quitpic){
         	Sound.clicking.play();
             System.exit(0);
+        }
+            else if(program.getElementAt(e.getX(), e.getY()) == creditpic){
+                Sound.clicking.play();
+                program.switchToScreen(credits);
         }
     }
 
