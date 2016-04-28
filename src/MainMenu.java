@@ -1,11 +1,6 @@
 import java.awt.event.MouseEvent;
-
 import acm.graphics.*;
-
 import java.awt.Color;
-import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-
 
 public class MainMenu extends GraphicsPane {
 
@@ -17,7 +12,6 @@ public class MainMenu extends GraphicsPane {
     public static final GImage QUIT_IMAGE = new GImage("SpriteSheets/quitpic.png");
 
     private Main program;
-    //private GLabel pumpingpower;
     private GImage pumpingpower;
     private GImage background;
     private GImage playpic;
