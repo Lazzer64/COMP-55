@@ -73,7 +73,11 @@ public class Instructions extends GraphicsPane {
     }
 
     public void mousePressed(MouseEvent e) {
-        start = boardDisplay.getTileAt(e.getX(), e.getY());
+        start = boardDisplay.getTileAt(e.getX(), e.getY()); 
+        if(program.getElementAt(e.getX(), e.getY()) == returnpic){
+            program.switchToScreen(new MainMenu(program));
+            Sound.clicking.play();
+        }
     }
 
     public void mouseReleased(MouseEvent e) {
@@ -101,10 +105,7 @@ public class Instructions extends GraphicsPane {
     }
     
     public void mouseClicked(MouseEvent e) {
-        if(program.getElementAt(e.getX(), e.getY()) == returnpic){
-            program.switchToScreen(new MainMenu(program));
-            Sound.clicking.play();
-        }
+       
 
     }
 

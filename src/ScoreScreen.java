@@ -132,7 +132,7 @@ public void initBackground() {
      	 }
       }
     
-     public void mouseClicked(MouseEvent e) {
+     public void mousePressed(MouseEvent e) {
     	 if(program.getElementAt(e.getX(), e.getY()) == returnpic ){
      		program.switchToScreen(new MainMenu(program));
      		Sound.clicking.play();

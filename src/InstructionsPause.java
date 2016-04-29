@@ -10,7 +10,7 @@ public class InstructionsPause extends Instructions {
         this.pause = pause;
 	}
 
-    public void mouseClicked(MouseEvent e) {
+    public void mousePressed(MouseEvent e) {
         if(program.getElementAt(e.getX(), e.getY()) == returnpic){
             program.switchToScreen(pause);
             Sound.clicking.play();
