@@ -23,14 +23,13 @@ public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
 private Game game;
 
-private InstructionsPause instructionspause;
 
 
 	public Pause(Main app, Game game) {
 		program = app;
 		this.game = game;
 
-		instructionspause  = new InstructionsPause(program, this);
+		
 		
 
 		
@@ -86,12 +85,14 @@ private InstructionsPause instructionspause;
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
         	Sound.clicking.play();
-        	program.switchToScreen(instructionspause);
+        	program.switchToScreen(new InstructionsPause(program, this));
         	
         	}
         else if(program.getElementAt(e.getX(), e.getY()) == mainmenupic){
         	Sound.clicking.play();
         	Sound.fighting.stop();
+        	this.game.combatDisplay.removeAbilities();
+        	this.game.game_over = true;
             program.switchToScreen(new MainMenu(program));
             Sound.menuMusic.play();
         }

@@ -29,7 +29,7 @@ public class Enemy extends Unit{
         if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedAttack;
         else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueAttack;
         else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenAttack;
-        return Animation.playerRedAttack;
+        return Animation.enemy1Projectile;
     }
 
     public BufferedImage[] getAttackExplosionAnimation(Color color) {
@@ -37,7 +37,7 @@ public class Enemy extends Unit{
         if(color.equals(TileType.getColor(TileType.RED))) return Animation.playerRedExplosion;
         else if(color.equals(TileType.getColor(TileType.BLUE))) return Animation.playerBlueExplosion;
         else if(color.equals(TileType.getColor(TileType.GREEN))) return Animation.playerGreenExplosion;
-        return Animation.playerRedExplosion;
+        return Animation.enemy1Explosion;
     }
     
     public void generateAttack(int min, int max){

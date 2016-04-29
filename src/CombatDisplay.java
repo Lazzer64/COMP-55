@@ -125,6 +125,16 @@ public class CombatDisplay extends Display{
     	return delay;
     }
     
+    public void removeAbilities() {
+    	abilityButtons = new HashMap<GImage, String>();
+    	removeObject(NUKE_BUTTON_ACTIVE);
+    	removeObject(NUKE_BUTTON_INACTIVE);
+    	removeObject(FULLHEAL_BUTTON_ACTIVE);
+    	removeObject(FULLHEAL_BUTTON_INACTIVE);
+    	removeObject(LEVELUP_BUTTON_ACTIVE);
+    	removeObject(LEVELUP_BUTTON_INACTIVE);
+    }
+    
     public void updateEnemy(Enemy x){
 
         HashMap<Unit, UnitInfo> uInfos = (HashMap<Unit, UnitInfo>) unitInfo.clone();

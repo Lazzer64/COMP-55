@@ -204,11 +204,11 @@ public class Game extends GraphicsPane{
                                     }}, CombatDisplay.getTimeToDisplayProjectile(-PROJECTILE_SPEED));
 
                             }
-                            canMove = true;
 
                             new Timer().schedule(new TimerTask(){
                                 public void run(){
                                     if(checkWinFight()) nextFight();
+                                    canMove = true;
                                 }}, CombatDisplay.getTimeToDisplayProjectile(PROJECTILE_SPEED));
 
                             player.changeAnimationAfter(150,AnimationState.IDLE);
@@ -257,6 +257,9 @@ public class Game extends GraphicsPane{
     }
 
     private void nextFight() {
+    	if(level%5==0) {
+        	player.setDefense(player.getDefense() + level/5);
+    	}
     	score.setScore(score.getScore() + level*10);
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
@@ -285,7 +288,7 @@ public class Game extends GraphicsPane{
         switch(m.getType()){
             case PINK: // Heal
             	Sound.healing.play();
-                player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
+                player.heal((int)(player.getMaxHp()*((m.size()*HEAL_MOD*currentMultiplier)/100)));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 break;
             case YELLOW:
