@@ -69,7 +69,7 @@ public abstract class Unit {
     
     public void attack(Unit target, int damage){
         int damageMitigation = target.defense;
-        int totalDamage = (int)(damage*(1-(damageMitigation/(10+damageMitigation))));
+        int totalDamage = (int)(damage*(1-(damageMitigation/(10+damageMitigation)))-damageMitigation/2);
         if(totalDamage > 0){
             target.hp -= totalDamage;
         }
