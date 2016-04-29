@@ -257,7 +257,9 @@ public class Game extends GraphicsPane{
     }
 
     private void nextFight() {
-    	score.setScore(score.getScore() + level*10);
+    	int scr = level*10;
+    	if(level%5==0) scr += level*5;
+    	score.setScore(score.getScore() + scr);
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
         System.out.println("NEXT FIGHT!");
