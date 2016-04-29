@@ -11,6 +11,9 @@ public class Sound {
 	static URL credits = MainMenu.class.getResource("Sounds/credits.wav");
 	static AudioClip creditMusic = Applet.newAudioClip(credits);
 	
+	static URL john = MainMenu.class.getResource("Sounds/johncena.wav");
+	static AudioClip cena = Applet.newAudioClip(john);
+	
 	static URL click = MainMenu.class.getResource("Sounds/click.wav");
 	static AudioClip clicking = Applet.newAudioClip(click);
 	
