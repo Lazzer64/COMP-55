@@ -47,7 +47,6 @@ public class CombatDisplay extends Display{
     public static final GImage LEVELUP_BUTTON_ACTIVE = new GImage("Spritesheets/levelupactive.png");
     public static final GImage LEVELUP_BUTTON_INACTIVE = new GImage("Spritesheets/levelupinactive.png");
     
-
     HashMap<GImage, String> abilityButtons = new HashMap<GImage, String>();
     
     Player player;
@@ -64,6 +63,9 @@ public class CombatDisplay extends Display{
         initUnit(UNIT_X, UNIT_Y, player); 
         initUnit(UNIT_X+DISTANCE, UNIT_Y, enemy);
         initAbilities();
+        
+        
+        
     }
     
     /**

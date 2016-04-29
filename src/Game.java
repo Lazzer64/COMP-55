@@ -3,6 +3,8 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.awt.event.KeyEvent;
 import java.util.*;
+
+import acm.graphics.GLabel;
 import acm.io.IODialog;
 import acm.util.Animator;
 
@@ -36,7 +38,8 @@ public class Game extends GraphicsPane{
     public static final int PLAYER_DEFENSE = 3;
     public static final int PLAYER_ENERGY = 100;
     public static final int HEAL_MOD = 2;
- 
+  
+    private GLabel pause;
 
     Main program;
     Player player;
@@ -93,6 +96,10 @@ public class Game extends GraphicsPane{
         this.moveListDisplay.setLocation(BOARD_X, BOARD_Y);
 
         animator.start();
+        
+        pause = new GLabel("ESC:Pause", 310, 20);
+        pause.setColor(Color.BLACK);
+        pause.setFont("Arial-15");
 
     }
 
@@ -230,6 +237,7 @@ public class Game extends GraphicsPane{
         program.add(combatDisplay);
         program.add(scoreDisplay);
         program.add(moveListDisplay);
+        program.add(pause);
     }
 
     public void hideContents(){
@@ -237,6 +245,7 @@ public class Game extends GraphicsPane{
         program.remove(combatDisplay);
         program.remove(scoreDisplay);
         program.remove(moveListDisplay);
+        program.remove(pause);
     }
 
     private boolean checkWinFight() {
