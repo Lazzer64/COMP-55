@@ -289,7 +289,7 @@ public class Game extends GraphicsPane{
         switch(m.getType()){
             case PINK: // Heal
             	Sound.healing.play();
-                player.heal((int)(m.size()*HEAL_MOD*currentMultiplier));
+                player.heal((int)(player.getMaxHp()*((m.size()*HEAL_MOD*currentMultiplier)/100)));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 break;
             case YELLOW:
