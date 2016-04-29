@@ -70,7 +70,7 @@ public class Credits extends GraphicsPane {
 
 	}
 	 public void mousePressed(MouseEvent e) {
-	        if(program.getElementAt(e.getX(), e.getY()) == returnpic){
+	        if(returnpic.contains(e.getX(), e.getY())){
 	            program.switchToScreen(new MainMenu(program));
 	            Sound.clicking.play();
 	            Sound.cena.stop();
