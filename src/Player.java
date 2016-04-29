@@ -16,9 +16,9 @@ public class Player extends Unit{
 
     public void setupAbilities() {
     	this.abilities = new Ability[3];
-    	this.abilities[0] = new DamageAbility("Nuke - 25e", 25, 75);
-    	this.abilities[1] = new HealAbility("Full Heal - 50e", 50);
-    	this.abilities[2] = new RaiseStatsAbility("Level Up - 75e", 75, 50, 4);
+    	this.abilities[0] = new DamageAbility("Nuke", 25, 75);
+    	this.abilities[1] = new HealAbility("Full Heal", 50);
+    	this.abilities[2] = new RaiseStatsAbility("Level Up", 75, 50, 4);
     }
     
     public BufferedImage[] getAnimation() {

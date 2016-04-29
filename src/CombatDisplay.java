@@ -5,6 +5,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 import acm.graphics.*;
 import java.util.HashMap;
+import java.util.Set;
 
 class UnitInfo {
     Animation animation;
@@ -13,6 +14,8 @@ class UnitInfo {
     GRect energyBar;
     GLabel energyAmount;
     GLabel name;
+    GLabel attack;
+    GLabel defense;
 }
 
 public class CombatDisplay extends Display{
@@ -32,8 +35,20 @@ public class CombatDisplay extends Display{
     public static final Font HP_FONT = new Font("Arial",Font.BOLD,12);
 
     public static final GImage BACKGROUND_IMAGE = new GImage("SpriteSheets/background.gif");
+    public static final GImage PLAYER_ATTACK_SYMBOL = new GImage("Spritesheets/weapon_icon.png");
+    public static final GImage ENEMY_ATTACK_SYMBOL = new GImage("Spritesheets/weapon_icon.png");
+    public static final GImage PLAYER_DEFENSE_SYMBOL = new GImage("Spritesheets/armor_icon.png");
+    public static final GImage ENEMY_DEFENSE_SYMBOL = new GImage("Spritesheets/armor_icon.png");
+    
+    public static final GImage NUKE_BUTTON_ACTIVE = new GImage("Spritesheets/nukeactive.png");
+    public static final GImage NUKE_BUTTON_INACTIVE = new GImage("Spritesheets/nukeinactive.png");
+    public static final GImage FULLHEAL_BUTTON_ACTIVE = new GImage("Spritesheets/fullhealactive.png");
+    public static final GImage FULLHEAL_BUTTON_INACTIVE = new GImage("Spritesheets/fullhealinactive.png");
+    public static final GImage LEVELUP_BUTTON_ACTIVE = new GImage("Spritesheets/levelupactive.png");
+    public static final GImage LEVELUP_BUTTON_INACTIVE = new GImage("Spritesheets/levelupinactive.png");
+    
 
-    private GLabel[] abilityLabels;
+    HashMap<GImage, String> abilityButtons = new HashMap<GImage, String>();
     
     Player player;
     Enemy enemy;
@@ -132,6 +147,7 @@ public class CombatDisplay extends Display{
         for(Unit u: unitInfo.keySet()){
             updateAnimation(u);
             updateHp(u);
+            updateStats(u);
             if(u.equals(player)) {
             	updateEnergy(player);
             	updateAbilities(player);
@@ -140,11 +156,36 @@ public class CombatDisplay extends Display{
         super.update();
     }
 
+    public void updateStats(Unit u) {
+    	GLabel attack = unitInfo.get(u).attack;
+    	attack.setLabel("" + u.getAttack());
+    	GLabel defense = unitInfo.get(u).defense;
+    	defense.setLabel("" + u.getDefense());
+    }
+    
     public void updateAbilities(Player p) {
-    	for(GLabel a : abilityLabels) {
-    		if(player.getAbility(a.getLabel()).getEnergyCost() > player.getEnergy()) {
-    			a.setColor(Color.GRAY);
-    		} else a.setColor(Color.GREEN);
+    	if(player.getAbility("Nuke").getEnergyCost()<= player.getEnergy()) {
+    		NUKE_BUTTON_ACTIVE.setVisible(true);
+    		NUKE_BUTTON_INACTIVE.setVisible(false);
+    	} else {
+    		NUKE_BUTTON_ACTIVE.setVisible(false);
+    		NUKE_BUTTON_INACTIVE.setVisible(true);
+    	}
+    	
+    	if(player.getAbility("Full Heal").getEnergyCost()<= player.getEnergy()) {
+        	FULLHEAL_BUTTON_ACTIVE.setVisible(true);
+        	FULLHEAL_BUTTON_INACTIVE.setVisible(false);
+    	} else {
+    		FULLHEAL_BUTTON_ACTIVE.setVisible(false);
+    		FULLHEAL_BUTTON_INACTIVE.setVisible(true);
+    	}
+
+    	if(player.getAbility("Level Up").getEnergyCost()<= player.getEnergy()) {
+        	LEVELUP_BUTTON_ACTIVE.setVisible(true);
+        	LEVELUP_BUTTON_INACTIVE.setVisible(false);
+    	} else {
+    		LEVELUP_BUTTON_ACTIVE.setVisible(false);
+    		LEVELUP_BUTTON_INACTIVE.setVisible(true);
     	}
     }
     
@@ -156,15 +197,29 @@ public class CombatDisplay extends Display{
      }
     
     private void initAbilities() {
-    	abilityLabels = new GLabel[player.getNumAbilities()];
-    	Ability[] abilities = player.getAbilities();
-    	for(int i = 0; i < abilityLabels.length;i++) {
-    		abilityLabels[i] = new GLabel(abilities[i].getName(),ABILITY_X+i*ABILITY_X_OFFSET,ABILITY_Y);
-    		abilityLabels[i].setFont("Arial-18");
-    		abilityLabels[i].move(0, abilityLabels[i].getHeight());
-    		if(i > 0) abilityLabels[i].move(abilityLabels[i-1].getWidth()*i, 0);
-    		addObject(abilityLabels[i]);
-    	}
+    	NUKE_BUTTON_ACTIVE.setLocation(ABILITY_X,ABILITY_Y);
+    	NUKE_BUTTON_INACTIVE.setLocation(ABILITY_X,ABILITY_Y);
+    	FULLHEAL_BUTTON_ACTIVE.setLocation(ABILITY_X + ABILITY_X_OFFSET+NUKE_BUTTON_ACTIVE.getWidth(),ABILITY_Y);
+    	FULLHEAL_BUTTON_INACTIVE.setLocation(ABILITY_X + ABILITY_X_OFFSET+NUKE_BUTTON_ACTIVE.getWidth(),ABILITY_Y);
+    	LEVELUP_BUTTON_ACTIVE.setLocation(ABILITY_X + 2* ABILITY_X_OFFSET+NUKE_BUTTON_ACTIVE.getWidth()+LEVELUP_BUTTON_ACTIVE.getWidth(),
+    										ABILITY_Y);
+    	LEVELUP_BUTTON_INACTIVE.setLocation(ABILITY_X + 2* ABILITY_X_OFFSET+NUKE_BUTTON_ACTIVE.getWidth()+LEVELUP_BUTTON_ACTIVE.getWidth(),
+    										ABILITY_Y);
+    	
+    	NUKE_BUTTON_ACTIVE.setVisible(false);
+    	FULLHEAL_BUTTON_ACTIVE.setVisible(false);
+    	LEVELUP_BUTTON_ACTIVE.setVisible(false);
+    	
+    	abilityButtons.put(NUKE_BUTTON_ACTIVE, "Nuke");
+    	abilityButtons.put(FULLHEAL_BUTTON_ACTIVE, "Full Heal");
+    	abilityButtons.put(LEVELUP_BUTTON_ACTIVE, "Level Up");
+    	
+    	addObject(NUKE_BUTTON_INACTIVE);
+    	addObject(FULLHEAL_BUTTON_INACTIVE);
+    	addObject(LEVELUP_BUTTON_INACTIVE);
+    	addObject(NUKE_BUTTON_ACTIVE);
+    	addObject(FULLHEAL_BUTTON_ACTIVE);
+    	addObject(LEVELUP_BUTTON_ACTIVE);
     }
     
     private GLabel initName(double x, double y, Unit unit){
@@ -176,9 +231,10 @@ public class CombatDisplay extends Display{
     }
     
     public String useAbility(int x, int y) {
-    	for(GLabel ability : abilityLabels) {
+    	Set<GImage> abilities = abilityButtons.keySet();
+    	for(GImage ability : abilities) {
     		if(ability.contains(x,y)) {
-    			return player.getAbility(ability.getLabel()).use(player, enemy);
+    			return player.getAbility(abilityButtons.get(ability)).use(player, enemy);
     		}
     	}
     	return null;
@@ -299,8 +355,50 @@ public class CombatDisplay extends Display{
         if(unit.equals(player)) {
         	info.energyBar = initEnergy(x,y+info.animation.getHeight()/2+info.hpBar.getHeight() + 5,player);
         	info.energyAmount = initEnergyAmount(x,y+info.animation.getHeight()/2+(2*info.hpBar.getHeight()) + 5,player);
+            info.attack = initAttack(x-info.animation.getWidth(),y-info.animation.getHeight()/3,unit);
+            info.defense = initDefense(x-info.animation.getWidth(),y-info.animation.getHeight()/3+info.attack.getHeight(),unit);
+        } else {
+            info.attack = initAttack(x+info.animation.getWidth(),y-info.animation.getHeight()/3,unit);
+            info.defense = initDefense(x+info.animation.getWidth(),y-info.animation.getHeight()/3+info.attack.getHeight(),unit);
         }
         info.name = initName(x,y-info.animation.getHeight()/2,unit);
-        
+    }
+    
+    private GLabel initAttack(double x, double y, Unit unit) {
+    	GLabel attack = new GLabel("" + unit.getAttack());
+    	attack.setLocation(x,y);
+    	attack.setFont(HP_FONT);
+    	attack.setColor(Color.WHITE);
+    	
+    	if(unit.getName().equals("Player")) {
+    		PLAYER_ATTACK_SYMBOL.setLocation(x+attack.getWidth(),y-attack.getHeight());
+        	addObject(PLAYER_ATTACK_SYMBOL);
+    	}
+    	else {
+    		ENEMY_ATTACK_SYMBOL.setLocation(x-ENEMY_ATTACK_SYMBOL.getWidth(),y-attack.getHeight());
+        	addObject(ENEMY_ATTACK_SYMBOL);
+    	}
+    	
+    	addObject(attack);
+    	return attack;
+    }
+    
+    private GLabel initDefense(double x, double y, Unit unit) {
+    	GLabel defense = new GLabel("" + unit.getDefense());
+    	defense.setLocation(x,y);
+    	defense.setFont(HP_FONT);
+    	defense.setColor(Color.WHITE);
+    	
+    	if(unit.getName().equals("Player")) {
+    		PLAYER_DEFENSE_SYMBOL.setLocation(x+defense.getWidth(),y-defense.getHeight());
+        	addObject(PLAYER_DEFENSE_SYMBOL);
+    	}
+    	else {
+    		ENEMY_DEFENSE_SYMBOL.setLocation(x-ENEMY_DEFENSE_SYMBOL.getWidth(),y-defense.getHeight());
+        	addObject(ENEMY_DEFENSE_SYMBOL);
+    	}
+    	
+    	addObject(defense);
+    	return defense;
     }
 }
