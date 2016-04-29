@@ -204,11 +204,11 @@ public class Game extends GraphicsPane{
                                     }}, CombatDisplay.getTimeToDisplayProjectile(-PROJECTILE_SPEED));
 
                             }
-                            canMove = true;
 
                             new Timer().schedule(new TimerTask(){
                                 public void run(){
                                     if(checkWinFight()) nextFight();
+                                    canMove = true;
                                 }}, CombatDisplay.getTimeToDisplayProjectile(PROJECTILE_SPEED));
 
                             player.changeAnimationAfter(150,AnimationState.IDLE);
