@@ -261,7 +261,6 @@ public class Game extends GraphicsPane{
         	player.setDefense(player.getDefense() + level/5);
     	}
     	score.setScore(score.getScore() + level*10);
-    	player.setDefense(player.getDefense() + level/5);
         enemy.setCurrentAnimation(AnimationState.DEATH);
         program.pause(800);
         System.out.println("NEXT FIGHT!");
