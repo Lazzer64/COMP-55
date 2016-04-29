@@ -23,6 +23,9 @@ public class Animation extends GObject implements Updatable {
 	final public static BufferedImage[] enemy1Idle = getFrames("enemy1SpriteSheet" ,0,0,2, 50,80);
 	final public static BufferedImage[] enemy1Attack = getFrames("enemy1SpriteSheet" ,0,1,2, 50,80);
 	final public static BufferedImage[] enemy1Die = getFrames("enemy1SpriteSheet" ,0,2,2, 50,80);
+	
+	final public static BufferedImage[] enemy1Projectile = getFrames("enemyAttack" , 0,0,4,20,20);
+	final public static BufferedImage[] enemy1Explosion = getFrames("enemyAttackExplosions", 0,0,4,25,25);
 
     final public static BufferedImage[] boss1Idle = getFrames("boss1SpriteSheet" ,0,0,2, 50,80);
     final public static BufferedImage[] boss1Attack = getFrames("boss1SpriteSheet" ,0,1,2, 50,80);
