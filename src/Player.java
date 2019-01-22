@@ -14,6 +14,23 @@ public class Player extends Unit{
     	setupAbilities();
     }
 
+    /* FUNCTION getMultiplier:
+     * -----------------------
+     * Calculate a multiplier from a combo number
+     * return the combo scaled by a set multiplier 
+     */
+
+    /* FUNCTION attack:
+     * ----------------
+     * Calculate a magnitude of the attack from the match size and current combo
+     * If the match was a *pink* match:
+     *     Heal for the magnitude
+     * Else If the match was a *yellow* match:
+     *     Gain energy equal to the magnitude
+     * Else:
+     *     Damage the target equal to the magnitude
+     */
+
     public void setupAbilities() {
     	this.abilities = new Ability[3];
     	this.abilities[0] = new DamageAbility("Nuke", 25, 75);
