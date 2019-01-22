@@ -41,13 +41,13 @@ public class Player extends Unit{
     public BufferedImage[] getAnimation() {
         switch(state){
             case IDLE:
-                return Animation.playerIdle;
+                return Animation.OrangePlayerIdle;
             case ATTACK:
-                return Animation.playerAttack;
+                return Animation.OrangePlayerAttack;
             case DEATH:
-                return Animation.playerDie;
+                return Animation.OrangePlayerDie;
             default:
-                return Animation.playerIdle;
+                return Animation.OrangePlayerIdle;
         }
     }
 

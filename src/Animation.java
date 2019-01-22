@@ -8,9 +8,21 @@ import acm.graphics.*;
 import acm.graphics.GRectangle;
 
 public class Animation extends GObject implements Updatable {
-	final public static BufferedImage[] playerIdle = getFrames("WizardSpriteSheet" ,0,0,2, 50,80);
-	final public static BufferedImage[] playerAttack = getFrames("WizardSpriteSheet" ,0,1,2, 50,80);
-	final public static BufferedImage[] playerDie = getFrames("WizardSpriteSheet" ,0,2,2, 50,80);
+	final public static BufferedImage[] OrangePlayerIdle = getFrames("WizardSpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] OrangePlayerAttack = getFrames("WizardSpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] OrangePlayerDie = getFrames("WizardSpriteSheet" ,0,2,2, 50,80);
+
+	final public static BufferedImage[] GreenPlayerIdle = getFrames("GreenWizardSpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] GreenPlayerAttack = getFrames("GreenWizardSpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] GreenPlayerDie = getFrames("GreenWizardSpriteSheet" ,0,2,2, 50,80);
+
+	final public static BufferedImage[] YellowPlayerIdle = getFrames("YellowWizardSpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] YellowPlayerAttack = getFrames("YellowWizardSpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] YellowPlayerDie = getFrames("YellowWizardSpriteSheet" ,0,2,2, 50,80);
+
+	final public static BufferedImage[] BluePlayerIdle = getFrames("BlueWizardSpriteSheet" ,0,0,2, 50,80);
+	final public static BufferedImage[] BluePlayerAttack = getFrames("BlueWizardSpriteSheet" ,0,1,2, 50,80);
+	final public static BufferedImage[] BluePlayerDie = getFrames("BlueWizardSpriteSheet" ,0,2,2, 50,80);
 
 	final public static BufferedImage[] playerRedAttack = getFrames("playerAttack", 0,0,4, 20,20);
 	final public static BufferedImage[] playerRedExplosion = getFrames("playerAttackExplosions", 0,0,4,25,25);
