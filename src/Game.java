@@ -32,12 +32,6 @@ public class Game extends GraphicsPane{
     public static final int BASE_HP  = 15;
     public static final int BASE_ATK = 5;
     public static final int BASE_DEF = 0;
-
-    public static final int PLAYER_HEALTH = 100;
-    public static final int PLAYER_ATTACK = 2;
-    public static final int PLAYER_DEFENSE = 3;
-    public static final int PLAYER_ENERGY = 100;
-    public static final int HEAL_MOD = 2;
   
     private GLabel pause;
 
@@ -69,17 +63,17 @@ public class Game extends GraphicsPane{
 
 
     Score score;
-    double currentMultiplier = 1;
+    int currentCombo = 0;
     Board board = new Board(NUM_ROWS, NUM_COLS);
     Stack<RowCol> moveList = new Stack<RowCol>();
     int level = 1;
     boolean game_over = false;
     boolean abilityUsed = false;
 
-    public Game(Main program){
+    public Game(Main program, Player player){
         this.program = program;
         this.score = new Score("",0);
-        this.player = new Player(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE, PLAYER_ENERGY);
+        this.player = player;
         this.enemy = generateEnemy(level);
         this.dialog = new IODialog(program);
 
@@ -184,7 +178,7 @@ public class Game extends GraphicsPane{
 
                         } else {
                         	boardDisplay.removeMultipliers();
-                        	currentMultiplier = 1;
+                        	currentCombo = 0;
                             if(!checkWinFight() && !abilityUsed) {
 
                                 combatDisplay.addProjectile(enemy,-PROJECTILE_SPEED, Color.WHITE);
@@ -288,35 +282,27 @@ public class Game extends GraphicsPane{
         switch(m.getType()){
             case PINK: // Heal
             	Sound.healing.play();
-                player.heal((int)(player.getMaxHp()*((m.size()*HEAL_MOD*currentMultiplier)/100)));
                 combatDisplay.addEffect(player, player, TileType.getColor(m.getType()));
                 break;
             case YELLOW:
             	Sound.lightAttack.play();
-            	player.increaseEnergy((int)(m.size()*currentMultiplier*1.5));
             	break;
-            	
-            	// Generic damage
             case BLUE:
             	Sound.waterAttack.play();
-            	attackAnimations(m);
             	break;
             case RED:
             	Sound.fireAttack.play();
-            	attackAnimations(m);
             	break;
             case GREEN:
             	Sound.rockAttack.play();
-            	attackAnimations(m);
             	break;
-            //default:
-
-                
         }
-        score.setScore(score.getScore() + (int)(m.size()*currentMultiplier));
-        System.out.println(m.getType()+" size: "+m.size() + " multiplier: x" + currentMultiplier);
-        boardDisplay.addMultiLabel(m,currentMultiplier);
-        currentMultiplier += 0.5;
+        attackAnimations(m);
+
+        score.setScore(score.getScore() + (int)(m.size()*player.getMultiplier(currentCombo)));
+        System.out.println(m.getType()+" size: "+m.size() + " multiplier: x" + player.getMultiplier(currentCombo));
+        boardDisplay.addMultiLabel(m, player.getMultiplier(currentCombo));
+        currentCombo++;
     }
 
     private void attackAnimations(Match m) {
@@ -324,7 +310,7 @@ public class Game extends GraphicsPane{
         combatDisplay.addProjectile(player,PROJECTILE_SPEED, TileType.getColor(m.getType()));
         new Timer().schedule(new TimerTask(){
             public void run(){
-                player.attack(enemy, (int)(m.size() * player.getAttack() * currentMultiplier));
+                player.attack(enemy, m, currentCombo);
                 combatDisplay.addEffect(player,enemy, TileType.getColor(m.getType()));
             }}, CombatDisplay.getTimeToDisplayProjectile(PROJECTILE_SPEED));
     }

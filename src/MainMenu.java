@@ -4,7 +4,6 @@ import java.awt.Color;
 
 public class MainMenu extends GraphicsPane {
 
-
     public static final GImage TITLE_IMAGE = new GImage("SpriteSheets/pumpingpowertitle.png");
     public static final GImage PLAY_IMAGE = new GImage("SpriteSheets/playpic.png");
     public static final GImage INSTRUCTION_IMAGE = new GImage("SpriteSheets/instructionspic.png");
@@ -27,14 +26,12 @@ public class MainMenu extends GraphicsPane {
     public static final int OFFSET = 75;
     public static final int xPos = Main.WINDOW_WIDTH/2-WIDTH/2;
 
-    private Game game;
     private ScoreScreen scores;
     private Instructions instructions;
     private Credits credits;
 
     public  MainMenu(Main app) {
         program = app;
-        game = new Game(app);
         scores = new ScoreScreen(program);
         instructions = new Instructions(program);
         credits = new Credits(program);
@@ -118,7 +115,7 @@ public class MainMenu extends GraphicsPane {
     	if(program.getElementAt(e.getX(), e.getY()) == playpic){
     		Sound.clicking.play();
         	Sound.menuMusic.stop();
-            program.switchToScreen(game);
+            program.switchToScreen(new CharacterSelect(program));
         	Sound.fighting.loop();
         }
         	else if(program.getElementAt(e.getX(), e.getY()) == instructionspic){
