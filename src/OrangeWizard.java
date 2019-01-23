@@ -1,8 +1,21 @@
-/*
-CLASS OrangeWizard:
--------------------
-Stores information and subroutinues
-associated with the Orange Wizard
+import java.awt.image.BufferedImage;
 
-The orange Wizard will not use any additional logic
- */
+public class OrangeWizard extends Player {
+
+    public OrangeWizard(int hp, int attack, int defense, int energy) {
+        super(hp, attack, defense, energy);
+    }
+
+    public BufferedImage[] getAnimation() {
+        switch(state) {
+            case IDLE:
+                return Animation.OrangePlayerIdle;
+            case ATTACK:
+                return Animation.OrangePlayerAttack;
+            case DEATH:
+                return Animation.OrangePlayerDie;
+            default:
+                return Animation.OrangePlayerIdle;
+        }
+    }
+}

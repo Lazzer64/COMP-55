@@ -1,54 +1,44 @@
 import java.awt.image.BufferedImage;
 import java.awt.Color;
 //mark's territory
-public class Player extends Unit{
+abstract public class Player extends Unit {
 
-	private int energy;
-	private int maxEnergy;
-	private Ability[] abilities;
+	protected int energy;
+	protected int maxEnergy;
+	protected Ability[] abilities;
+
+    abstract public BufferedImage[] getAnimation();
 	
-    public Player(int hp, int attack, int defense, int energy){
+    public Player(int hp, int attack, int defense, int energy) {
     	super("Player", hp, attack, defense);
     	this.energy = 1;
     	this.maxEnergy = energy;
     	setupAbilities();
     }
 
-    /* FUNCTION getMultiplier:
-     * -----------------------
-     * Calculate a multiplier from a combo number
-     * return the combo scaled by a set multiplier 
-     */
+    public double getMultiplier(int combo) {
+        return 1 + combo * 0.5;
+    }
 
-    /* FUNCTION attack:
-     * ----------------
-     * Calculate a magnitude of the attack from the match size and current combo
-     * If the match was a *pink* match:
-     *     Heal for the magnitude
-     * Else If the match was a *yellow* match:
-     *     Gain energy equal to the magnitude
-     * Else:
-     *     Damage the target equal to the magnitude
-     */
+    public void attack(Unit target, Match match, int combo) {
+        int damage = (int) (match.size() * this.getMultiplier(combo));
+
+        if (match.getType() == TileType.PINK) {
+            this.heal(this.getMaxHp() * 2 * damage);
+        }
+        else if (match.getType() == TileType.YELLOW) {
+            this.increaseEnergy(damage);
+        }
+        else {
+            this.attack(target, damage);
+        }
+    }
 
     public void setupAbilities() {
     	this.abilities = new Ability[3];
     	this.abilities[0] = new DamageAbility("Nuke", 25, 75);
     	this.abilities[1] = new HealAbility("Full Heal", 50);
     	this.abilities[2] = new RaiseStatsAbility("Level Up", 75, 20, 3);
-    }
-    
-    public BufferedImage[] getAnimation() {
-        switch(state){
-            case IDLE:
-                return Animation.OrangePlayerIdle;
-            case ATTACK:
-                return Animation.OrangePlayerAttack;
-            case DEATH:
-                return Animation.OrangePlayerDie;
-            default:
-                return Animation.OrangePlayerIdle;
-        }
     }
 
     public Ability getAbility(String name) {
