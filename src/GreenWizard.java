@@ -1,23 +1,33 @@
-/*
-CLASS GreenWizard:
--------------------
-Stores information and subroutinues
-associated with the Green Wizard
+import java.awt.image.BufferedImage;
 
-The Green Wizard will only do damage after combo 2
+public class GreenWizard extends Player {
 
-FUNCTION getMultiplier:
------------------------
-If the combo is less than 2:
-    do nothing
-Else:
-    return a multiplier that is higher than normal players
+    public GreenWizard(int hp, int attack, int defense, int energy) {
+        super(hp, attack, defense, energy);
+    }
 
+    @Override
+    public void attack(Unit target, Match match, int combo) {
+        if (combo < 2) return;
+        super.attack(target, match, combo);
+    }
 
-FUNCTION attack:
-----------------
-If the combo is less than 2:
-    do nothing
-Else:
-    follow normal player behavior
- */
+    @Override
+    public double getMultiplier(int combo) {
+        if (combo < 2) return 0;
+        return 1 + combo;
+    }
+
+    public BufferedImage[] getAnimation() {
+        switch(state) {
+            case IDLE:
+                return Animation.GreenPlayerIdle;
+            case ATTACK:
+                return Animation.GreenPlayerAttack;
+            case DEATH:
+                return Animation.GreenPlayerDie;
+            default:
+                return Animation.GreenPlayerIdle;
+        }
+    }
+}
