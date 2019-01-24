@@ -4,6 +4,9 @@ import acm.graphics.*;
 
 public class CharacterSelect extends GraphicsPane {
 
+    // CharacterSelect is a interactable, graphical menu
+    // That allows the user to select one of four wizard types.
+
     public static final int PLAYER_HEALTH = 100;
     public static final int PLAYER_ATTACK = 2;
     public static final int PLAYER_DEFENSE = 3;
@@ -23,8 +26,11 @@ public class CharacterSelect extends GraphicsPane {
     public CharacterSelect(Main app) {
         program = app;
 
+        // Initialize the instruction text
         selectText.setLocation(program.WINDOW_WIDTH/2 - 50, 80);
         selectText.setColor(Color.WHITE);
+
+        // Initialize the selectable characters
         for (int i = 0; i < selectors.length; i++) {
             selectors[i].setLocation(25 + i * 100, 100);
         }
@@ -36,18 +42,26 @@ public class CharacterSelect extends GraphicsPane {
     }
 
     public void showContents() {
+        // Show the background of the Character Select
         initBackground();
 
+        // Show the selectable characters
         for (GImage selector : selectors) {
             program.add(selector);
         }
+
+        // Show the instruction text
         program.add(selectText);
     }
 
     public void hideContents() {
+        // Hide the background of the Character Select
         program.remove(background);
+
+        // Hide the instruction text
         program.remove(selectText);
 
+        // Hide the selectable characters
         for (GImage selector : selectors) {
             program.remove(selector);
         }
@@ -68,6 +82,8 @@ public class CharacterSelect extends GraphicsPane {
         else if (program.getElementAt(e.getX(), e.getY()) == yellowWizard) {
             selection = new YellowWizard(PLAYER_HEALTH, PLAYER_ATTACK, PLAYER_DEFENSE, PLAYER_ENERGY);
         }
+
+        // Start a new game with the selected character if the player clicked a character
 
         if (selection != null) {
             program.switchToScreen(new Game(program, selection));

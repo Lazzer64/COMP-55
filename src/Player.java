@@ -17,19 +17,24 @@ abstract public class Player extends Unit {
     }
 
     public double getMultiplier(int combo) {
+        // return the combo scaled by a set multiplier
         return 1 + combo * 0.5;
     }
 
     public void attack(Unit target, Match match, int combo) {
+        // Calculate a magnitude of the attack from the match size and current combo
         int damage = (int) (match.size() * this.getMultiplier(combo));
 
         if (match.getType() == TileType.PINK) {
+            // Heal for the magnitude
             this.heal(this.getMaxHp() * 2 * damage);
         }
         else if (match.getType() == TileType.YELLOW) {
+            // Gain energy equal to the magnitude
             this.increaseEnergy(damage);
         }
         else {
+            // Damage the target equal to the magnitude
             this.attack(target, damage);
         }
     }

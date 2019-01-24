@@ -2,6 +2,8 @@ import java.awt.image.BufferedImage;
 
 public class OrangeWizard extends Player {
 
+    // The orange Wizard will not use any additional logic
+
     public OrangeWizard(int hp, int attack, int defense, int energy) {
         super(hp, attack, defense, energy);
     }
